@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>GDP</title>
+    <!-- 引入 echarts.js -->
+    <script src="js/echarts.js"></script>
+</head>
+<body>
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div id="main" style="width: 600px;height:400px;"></div>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+
+    // 指定图表的配置项和数据
+    var option = {
+        title: {
+            text: 'ECharts 入门示例'
+        },
+        tooltip: {},
+        legend: {
+            data:['GDP']
+        },
+        xAxis: {
+            data: ["2007","2008","2009","2010","2011","2012", "2013", "2014", "2015", "2016", "2017"]
+
+        },
+        yAxis: {},
+        series: [{
+            name: 'GDP',
+            type: 'bar',
+            data: [265810.3, 314045.4, 340902.8, 401202.0, 484123.5, 534123.0, 588018.8, 643974.0, 689052.1, 743585.5, 827122.0]
+        }]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+</body>
+</html>
