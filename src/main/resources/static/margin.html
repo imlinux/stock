@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>融资融券</title>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="js/echarts.js"></script>
+    <script type="text/javascript" src="js/jquery.js"></script>
+</head>
+<body>
+    <div id="main" style="width: 100%;height:800px;"></div>
+    <script type="text/javascript">
+        var myChart = echarts.init(document.getElementById('main'));
+
+        var option = {
+            title: {
+                text: '融资占gdp百分比'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            dataZoom: [
+                {
+                    show: true,
+                    realtime: true
+                }
+            ],
+            xAxis: {
+                type:'category'
+            },
+            yAxis: {
+                name:'融资融券余额占gdp百分比',
+                type:'value'
+            },
+            series: [{
+                name: '融资占gdp百分比',
+                type: 'line',
+
+                markPoint: {
+                    data: [
+                        {type: 'max', name: '最大值'},
+                        {type: 'min', name: '最小值'}
+                    ]
+                },
+                markLine: {
+                    data: [
+                        {type: 'average', name: '平均值'}
+                    ]
+                }
+            }]
+        };
+        myChart.setOption(option);
+        
+        $.get("/rzrq/get_all", function (data) {
+            var tradeDate = [];
+            var tradeVal = [];
+            var tradeValGdp = [];
+
+            for(var i = 0; i < data.length; i++) {
+                tradeDate.push(data[i].tradeDate);
+                tradeVal.push(data[i].tradeVal);
+                tradeValGdp.push(data[i].tradeValGdp)
+            }
+
+            myChart.setOption({
+                xAxis: {
+                    data: tradeDate
+                },
+                series: [{
+                    name:'融资占gdp百分比',
+                    data: tradeValGdp
+                }]
+            });
+        })
+    </script>
+</body>
+</html>

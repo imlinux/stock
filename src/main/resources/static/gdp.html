@@ -9,7 +9,7 @@
     <script src="js/jquery.js"></script>
 </head>
 <body>
-<div id="main" style="width: 600px;height:400px;"></div>
+<div id="main" style="width: 100%;height:800px;"></div>
 <script type="text/javascript">
 
     var myChart = echarts.init(document.getElementById('main'));
@@ -20,7 +20,7 @@
         },
         tooltip: {},
         legend: {
-            data:['GDP', '人均GDP']
+            data:['GDP', '人均GDP', '第一产业', '第二产业', '第三产业']
         },
         xAxis: {
             type:'category'
@@ -33,6 +33,15 @@
         }, {
             name: '人均GDP',
             type: 'line'
+        }, {
+            name: '第一产业',
+            type: 'line'
+        }, {
+            name: '第二产业',
+            type: 'line'
+        }, {
+            name: '第三产业',
+            type: 'line'
         }]
     };
 
@@ -43,10 +52,16 @@
         var year = [];
         var gdp = [];
         var pcGdp = [];
+        var pi = [];
+        var si = [];
+        var ti = [];
         for(var i = 0; i < data.length; i++) {
             year.push(data[i].year);
             gdp.push(data[i].gdp);
             pcGdp.push(data[i].pcGdp);
+            pi.push(data[i].pi);
+            si.push(data[i].si);
+            ti.push(data[i].ti);
         }
 
         myChart.setOption({
@@ -59,6 +74,15 @@
             }, {
                 name:'人均GDP',
                 data: pcGdp
+            }, {
+                name:'第一产业',
+                data: pi
+            }, {
+                name:'第二产业',
+                data: si
+            }, {
+                name:'第三产业',
+                data: ti
             }
             ]
         });

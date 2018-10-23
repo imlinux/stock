@@ -1,26 +1,23 @@
 package dsy.dao;
 
-import dsy.entity.GdpYear;
+import dsy.entity.MoneySupply;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import java.util.List;
 
 /**
  * @author dong
- * @since 18-10-22
+ * @since 18-10-23
  */
 @Repository
-public class GdpYearDao {
+public class MoneySupplyDao {
+
     @PersistenceContext
     EntityManager em;
 
-    public List<GdpYear> findAll() {
-
-        Query query = em.createQuery("from GdpYear order by year");
-
-        return query.getResultList();
+    public List<MoneySupply> getAll() {
+        return em.createQuery("select t from MoneySupply t where t.month > '2006.8' order by t.month", MoneySupply.class).getResultList();
     }
 }

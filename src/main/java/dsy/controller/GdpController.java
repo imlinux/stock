@@ -1,7 +1,7 @@
 package dsy.controller;
 
-import dsy.entity.GdpYear;
-import dsy.service.GdpYearService;
+import dsy.entity.Gdp;
+import dsy.service.GdpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,13 +16,17 @@ import java.util.List;
 @Controller
 @RequestMapping("/gdp/")
 @ResponseBody
-public class GdpYearController {
+public class GdpController {
 
     @Autowired
-    private GdpYearService gdpYearService;
+    private GdpService gdpService;
 
     @RequestMapping("/year")
-    public List<GdpYear> getGdpYear() {
-        return gdpYearService.getGdpYear();
+    public List<Gdp> getGdpYear() {
+        return gdpService.getGdpYear();
+    }
+
+    public Gdp getLatestGdp() {
+        return gdpService.getLatest();
     }
 }

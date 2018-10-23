@@ -8,7 +8,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "gdp_year")
-public class GdpYear {
+public class Gdp {
     @Id
     @GeneratedValue
     private int id;
@@ -22,6 +22,18 @@ public class GdpYear {
     //人均gdp
     @Column(name = "pc_gdp")
     private double pcGdp;
+
+    //第一产业
+    @Column(name = "pi")
+    private double pi;
+
+    //第二产业
+    @Column(name = "si")
+    private double si;
+
+    //第三产业
+    @Column(name = "ti")
+    private double ti;
 
 
     public int getId() {
@@ -54,5 +66,29 @@ public class GdpYear {
 
     public void setPcGdp(double pcGdp) {
         this.pcGdp = pcGdp;
+    }
+
+    public double getPi() {
+        return pi;
+    }
+
+    public void setPi(double pi) {
+        this.pi = pi;
+    }
+
+    public double getSi() {
+        return si;
+    }
+
+    public void setSi(double si) {
+        this.si = si;
+    }
+
+    public double getTi() {
+        return ti;
+    }
+
+    public void setTi(double ti) {
+        this.ti = ti;
     }
 }

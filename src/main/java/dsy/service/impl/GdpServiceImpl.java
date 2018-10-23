@@ -1,8 +1,8 @@
 package dsy.service.impl;
 
-import dsy.dao.GdpYearDao;
-import dsy.entity.GdpYear;
-import dsy.service.GdpYearService;
+import dsy.dao.GdpDao;
+import dsy.entity.Gdp;
+import dsy.service.GdpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,13 +15,18 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class GdpYearServiceImpl implements GdpYearService {
+public class GdpServiceImpl implements GdpService {
 
     @Autowired
-    GdpYearDao gdpYearDao;
+    GdpDao gdpDao;
 
     @Override
-    public List<GdpYear> getGdpYear() {
-        return gdpYearDao.findAll();
+    public List<Gdp> getGdpYear() {
+        return gdpDao.findAll();
+    }
+
+    @Override
+    public Gdp getLatest() {
+        return gdpDao.getLatestGdp();
     }
 }
