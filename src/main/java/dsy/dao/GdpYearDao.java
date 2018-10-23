@@ -19,7 +19,7 @@ public class GdpYearDao {
 
     public List<GdpYear> findAll() {
 
-        Query query = em.createQuery("from GdpYear");
+        Query query = em.createQuery("from GdpYear order by year");
 
         return query.getResultList();
     }
