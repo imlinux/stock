@@ -18,6 +18,6 @@ public class MoneySupplyDao {
     EntityManager em;
 
     public List<MoneySupply> getAll() {
-        return em.createQuery("select t from MoneySupply t where t.month > '2006.8' order by t.month", MoneySupply.class).getResultList();
+        return em.createQuery("select t from MoneySupply t where t.month > '2006.8' order by t.id desc", MoneySupply.class).getResultList();
     }
 }
