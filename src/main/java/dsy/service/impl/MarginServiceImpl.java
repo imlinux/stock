@@ -28,12 +28,7 @@ public class MarginServiceImpl implements MarginService {
     @Override
     public List<HSMargin> getRzRq() {
         List<HSMargin> l = marginDao.findAll();
-        Gdp gdp = gdpDao.getLatestGdp();
 
-        for(HSMargin e: l) {
-            e.setTradeValGdp(e.getTradeVal() / gdp.getGdp() / 100000000.0 * 100);
-
-        }
         return l;
     }
 }

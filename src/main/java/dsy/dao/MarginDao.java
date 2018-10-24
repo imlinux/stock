@@ -19,7 +19,23 @@ public class MarginDao {
     EntityManager em;
 
     public List<HSMargin> findAll() {
-        List<Object[]> l = em.createQuery("select m.tradeDate, sum(m.finVal), sum(m.tradeVal) from Margin m group by m.tradeDate", Object[].class).getResultList();
+        String sql = "SELECT\n" +
+                "    tradeDate, v/gdp/100000000*100\n" +
+                "FROM\n" +
+                "    (\n" +
+                "        SELECT\n" +
+                "            tradeDate,\n" +
+                "            YEAR(tradeDate) YEAR,\n" +
+                "            SUM(tradeVal) v\n" +
+                "        FROM\n" +
+                "            fst_total_get\n" +
+                "        GROUP BY\n" +
+                "            tradeDate ) t1\n" +
+                "JOIN\n" +
+                "    gdp_year t2\n" +
+                "ON\n" +
+                "    t1.year=t2.year";
+        List<Object[]> l = em.createNativeQuery(sql).getResultList();
 
         List<HSMargin> ret = new ArrayList<>();
 
@@ -27,8 +43,7 @@ public class MarginDao {
             HSMargin rec = new HSMargin();
 
             rec.setTradeDate((String) e[0]);
-            rec.setFinVal((long) e[1]);
-            rec.setTradeVal((long) e[2]);
+            rec.setTradeValGdp((Double) e[1]);
 
             ret.add(rec);
         }
