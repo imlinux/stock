@@ -1,7 +1,7 @@
-package dsy.controller;
+package dsy.web.controller;
 
-import dsy.entity.MoneySupply;
-import dsy.service.MoneySupplyService;
+import dsy.core.entity.MoneySupply;
+import dsy.web.service.MoneySupplyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

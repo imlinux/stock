@@ -1,6 +1,6 @@
-package dsy.dao;
+package dsy.web.dao;
 
-import dsy.entity.Gdp;
+import dsy.core.entity.Gdp;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

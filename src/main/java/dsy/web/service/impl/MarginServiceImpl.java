@@ -1,10 +1,9 @@
-package dsy.service.impl;
+package dsy.web.service.impl;
 
-import dsy.dao.GdpDao;
-import dsy.dao.MarginDao;
-import dsy.dto.HSMargin;
-import dsy.entity.Gdp;
-import dsy.service.MarginService;
+import dsy.web.dao.GdpDao;
+import dsy.web.dao.MarginDao;
+import dsy.web.dto.HSMargin;
+import dsy.web.service.MarginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

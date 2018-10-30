@@ -1,8 +1,8 @@
-package dsy.service.impl;
+package dsy.web.service.impl;
 
-import dsy.dao.MoneySupplyDao;
-import dsy.entity.MoneySupply;
-import dsy.service.MoneySupplyService;
+import dsy.web.dao.MoneySupplyDao;
+import dsy.core.entity.MoneySupply;
+import dsy.web.service.MoneySupplyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

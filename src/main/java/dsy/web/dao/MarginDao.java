@@ -1,6 +1,6 @@
-package dsy.dao;
+package dsy.web.dao;
 
-import dsy.dto.HSMargin;
+import dsy.web.dto.HSMargin;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

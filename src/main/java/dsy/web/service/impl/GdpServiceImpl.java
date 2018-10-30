@@ -1,8 +1,8 @@
-package dsy.service.impl;
+package dsy.web.service.impl;
 
-import dsy.dao.GdpDao;
-import dsy.entity.Gdp;
-import dsy.service.GdpService;
+import dsy.web.dao.GdpDao;
+import dsy.core.entity.Gdp;
+import dsy.web.service.GdpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

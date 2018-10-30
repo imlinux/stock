@@ -1,4 +1,4 @@
-package dsy.dto;
+package dsy.web.dto;
 
 /**
  * @author dong

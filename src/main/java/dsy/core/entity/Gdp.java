@@ -1,4 +1,4 @@
-package dsy.entity;
+package dsy.core.entity;
 
 import javax.persistence.*;
 

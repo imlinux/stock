@@ -1,6 +1,6 @@
-package dsy.dao;
+package dsy.web.dao;
 
-import dsy.entity.MoneySupply;
+import dsy.core.entity.MoneySupply;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

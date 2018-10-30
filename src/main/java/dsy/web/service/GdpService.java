@@ -1,6 +1,6 @@
-package dsy.service;
+package dsy.web.service;
 
-import dsy.entity.Gdp;
+import dsy.core.entity.Gdp;
 
 import java.util.List;
 

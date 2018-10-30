@@ -1,7 +1,7 @@
-package dsy.controller;
+package dsy.web.controller;
 
-import dsy.dto.HSMargin;
-import dsy.service.MarginService;
+import dsy.web.dto.HSMargin;
+import dsy.web.service.MarginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

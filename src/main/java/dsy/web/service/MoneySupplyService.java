@@ -1,6 +1,6 @@
-package dsy.service;
+package dsy.web.service;
 
-import dsy.entity.MoneySupply;
+import dsy.core.entity.MoneySupply;
 
 import java.util.List;
 

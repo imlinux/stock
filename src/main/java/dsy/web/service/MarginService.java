@@ -1,6 +1,6 @@
-package dsy.service;
+package dsy.web.service;
 
-import dsy.dto.HSMargin;
+import dsy.web.dto.HSMargin;
 
 import java.util.List;
 
