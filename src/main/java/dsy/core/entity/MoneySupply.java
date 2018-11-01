@@ -9,7 +9,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "money_supply")
-public class MoneySupply {
+public class MoneySupply extends BaseEntity {
 
     @Id
     @GeneratedValue

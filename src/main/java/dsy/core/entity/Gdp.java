@@ -8,7 +8,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "gdp_year")
-public class Gdp {
+public class Gdp extends BaseEntity {
     @Id
     @GeneratedValue
     private int id;

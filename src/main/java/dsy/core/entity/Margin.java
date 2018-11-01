@@ -9,7 +9,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "fst_total_get")
-public class Margin {
+public class Margin extends BaseEntity {
 
     @Id
     @GeneratedValue

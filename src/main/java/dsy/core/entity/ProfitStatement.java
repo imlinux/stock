@@ -8,9 +8,9 @@ import javax.persistence.Table;
  * @since 18-10-30
  * 利润表
  */
-@Entity
-@Table(name = "profit_statement")
-public class ProfitStatement {
+//@Entity
+//@Table(name = "profit_statement")
+public class ProfitStatement extends BaseEntity {
 
 
     private String ticker; //股票代码

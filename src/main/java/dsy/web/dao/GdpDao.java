@@ -27,6 +27,7 @@ public class GdpDao {
 
     public Gdp getLatestGdp() {
         TypedQuery<Gdp> query = em.createQuery("select t from Gdp t where t.year='2017'", Gdp.class);
+
         return query.getSingleResult();
     }
 }
