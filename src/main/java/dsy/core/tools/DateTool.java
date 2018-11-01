@@ -11,15 +11,18 @@ import java.util.Date;
 public class DateTool {
 
 
-    public static Date getCurrentDay() {
-
+    public static Date getDay(Date date) {
         Calendar calendar = Calendar.getInstance();
 
-        calendar.setTime(new Date());
+        calendar.setTime(date);
         calendar.set(Calendar.HOUR, 0);
         calendar.set(Calendar.MINUTE , 0);
 
         return calendar.getTime();
+    }
+
+    public static Date getCurrentDay() {
+        return getDay(new Date());
     }
 
     public static long getCurrentDayTimestamp() {
@@ -28,9 +31,13 @@ public class DateTool {
 
     public static String getCurrentDayStr() {
 
-        SimpleDateFormat sm = new SimpleDateFormat("yyyy-MM-dd");
-
         Date date = getCurrentDay();
+
+        return getDayStr(date);
+    }
+
+    public static String getDayStr(Date date) {
+        SimpleDateFormat sm = new SimpleDateFormat("yyyy-MM-dd");
 
         return sm.format(date);
     }

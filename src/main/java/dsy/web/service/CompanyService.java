@@ -2,6 +2,7 @@ package dsy.web.service;
 
 import com.alibaba.fastjson.JSON;
 import dsy.core.entity.CompanyHQ;
+import dsy.core.entity.WallStreetcnCompanyHQ;
 import dsy.web.dao.CompanyDao;
 import dsy.web.dao.IndustryDao;
 import org.apache.commons.io.IOUtils;
@@ -14,11 +15,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Date;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
-import static dsy.core.tools.DateTool.getCurrentDayStr;
-import static dsy.core.tools.DateTool.getCurrentDayTimestamp;
+import static dsy.core.tools.DateTool.*;
 
 /**
  * @author dong
@@ -54,7 +56,7 @@ public class CompanyService {
                     Thread.sleep(1000);
                     for (CompanyHQ e : companyHQList) {
                         e.setId(e.getCode() + "_" + getCurrentDayStr());
-                        e.setDate(new Date(getCurrentDayTimestamp()));
+                        e.setDate(new java.sql.Date(getCurrentDayTimestamp()));
                         companyDao.merge(e);
                     }
                 } catch (Exception e) {
@@ -65,6 +67,67 @@ public class CompanyService {
             } finally {
                 response.close();
             }
+        }
+    }
+
+    public void syncCompayFromWallStreetcn() throws Exception {
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+
+        HttpGet httpGet = new HttpGet("https://api-ddc.wallstreetcn.com/market/rank?market_type=mdc&stk_type=stock&order_by=none&limit=6000&fields=prod_name,prod_en_name,prod_code,symbol,last_px,px_change,px_change_rate,open_px,high_px,low_px,week_52_high,week_52_low,price_precision,circulation_value,dyn_pe,dyn_pb_rate,turnover_value,turnover_ratio,turnover_volume,market_value,preclose_px,amplitude,trade_status,update_time&cursor=1");
+
+        CloseableHttpResponse response = httpClient.execute(httpGet);
+
+        try {
+            HttpEntity entity1 = response.getEntity();
+
+            String s = IOUtils.toString(entity1.getContent(), "UTF-8");
+
+            Map<String, Object> jsonObject = JSON.parseObject(s);
+
+            Map<String, Object> dataNode = (Map) jsonObject.get("data");
+
+            List<List> candleNode = (List) dataNode.get("candle");
+
+            for(List e: candleNode) {
+
+                WallStreetcnCompanyHQ entity = new WallStreetcnCompanyHQ();
+
+                int i = 0;
+
+                entity.setProdName((String) e.get(i ++));
+                entity.setProdEnName((String) e.get(i ++));
+                entity.setProdCode((String) e.get(i++));
+                entity.setSymbol((String) e.get(i++));
+                entity.setLastPx(Double.parseDouble(e.get(i++).toString()));
+                entity.setPxChange(Double.parseDouble(e.get(i++).toString()));
+                entity.setPxChangeRate(Double.parseDouble(e.get(i++).toString()));
+                entity.setOpenPx(Double.parseDouble(e.get(i++).toString()));
+                entity.setHighPx(Double.parseDouble(e.get(i++).toString()));
+                entity.setLowPx(Double.parseDouble(e.get(i++).toString()));
+                entity.setWeek52High(Double.parseDouble(e.get(i++).toString()));
+                entity.setWeek52Low(Double.parseDouble(e.get(i++).toString()));
+                entity.setPricePrecision((String) e.get(i++));
+                entity.setCirculationValue(Double.parseDouble(e.get(i++).toString()));
+                entity.setDynPe(Double.parseDouble(e.get(i++).toString()));
+                entity.setDynPbRate(Double.parseDouble(e.get(i++).toString()));
+                entity.setTurnoverValue(Double.parseDouble(e.get(i++).toString()));
+                entity.setTurnoverRatio(Double.parseDouble(e.get(i++).toString()));
+                entity.setTurnoverVolume(Double.parseDouble(e.get(i++).toString()));
+                entity.setMarketValue(Double.parseDouble(e.get(i++).toString()));
+                entity.setPreClosePx(Double.parseDouble(e.get(i++).toString()));
+                entity.setAmplitude(Double.parseDouble(e.get(i++).toString()));
+                entity.setTradeStatus((String) e.get(i++));
+
+                //update_time
+                long time = (int) e.get(i++) * 1000L;
+
+                entity.setDate(new java.sql.Date(time));
+                entity.setId(getDayStr(getDay(new Date(time))) + "_" + entity.getProdCode());
+                companyDao.merge(entity);
+            }
+
+        } finally {
+            response.close();
         }
     }
 }

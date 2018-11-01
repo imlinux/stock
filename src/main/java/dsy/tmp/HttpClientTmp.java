@@ -9,6 +9,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -63,10 +64,18 @@ public class HttpClientTmp {
         }
     }
 
+    /**
+     * 华尔街见闻行情
+     * @throws Exception
+     */
+    public static void wallstreetcn() throws Exception {
+        HttpGet httpGet = new HttpGet("https://api-ddc.wallstreetcn.com/market/rank?market_type=mdc&stk_type=stock&order_by=none&sort_field=px_change_rate&limit=5000&fields=prod_name,prod_en_name,prod_code,symbol,last_px,px_change,px_change_rate,high_px,low_px,week_52_high,week_52_low,price_precision,update_time&cursor=1");
+
+    }
 
 
 
     public static void main(String[] args) throws Exception {
-        sina_sw();
+         System.out.println(Double.parseDouble("7.516339869281046"));
     }
 }
