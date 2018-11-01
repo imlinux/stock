@@ -1,6 +1,6 @@
 package dsy.data;
 
-import dsy.core.entity.BasicHQ;
+import dsy.core.entity.CompanyHQ;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import java.util.List;
 public class MarketCenter {
 
 
-    public static List<BasicHQ> getAllHqData() {
+    public static List<CompanyHQ> getAllHqData() {
 
         return null;
     }

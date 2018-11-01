@@ -1,62 +1,83 @@
 package dsy.core.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.sql.Date;
 
 /**
  * @author dong
  * @since 18-10-30
  */
 
-//@Entity
-//@Table(name = "basic_hq")
-public class BasicHQ extends BaseEntity{
+@Entity
+@Table(name = "company_hq")
+public class CompanyHQ extends BaseEntity {
 
     @Id
-    private long id;
+    private String id;
 
+    @Column(name = "symbol")
     private String symbol;
 
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "date")
+    private Date date;
+
+    @Column(name = "code")
     private String code;
 
-    private float changepercent;
+    @Column(name = "change_percent")
+    private float changePercent;
 
-
+    @Column(name = "nmc")
     private float nmc; //流通市值
 
+    @Column(name = "mktcap")
     private float mktcap; //市值
 
-    private float pricechange;
+    @Column(name = "price_change")
+    private float priceChange;
 
+    @Column(name = "amount")
     private float amount;//成交额
 
+    @Column(name = "volume")
     private float volume;//成交量
 
+    @Column(name = "settlement")
     private float settlement; //昨日收盘价
 
+    @Column(name = "open")
     private float open;
 
+    @Column(name = "sell")
     private float sell; //最新价
 
+    @Column(name = "buy")
     private float buy;
 
+    @Column(name = "high")
     private float high;
 
+    @Column(name = "low")
     private float low;
 
-    private float turnoverratio;//换手率
+    @Column(name = "turnover_ratio")
+    private float turnoverRatio;//换手率
 
+    @Column(name = "pb")
     private float pb;
 
+    @Column(name = "pe")
     private float per;
 
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -68,6 +89,15 @@ public class BasicHQ extends BaseEntity{
         this.symbol = symbol;
     }
 
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     public String getCode() {
         return code;
     }
@@ -76,12 +106,12 @@ public class BasicHQ extends BaseEntity{
         this.code = code;
     }
 
-    public float getChangepercent() {
-        return changepercent;
+    public float getChangePercent() {
+        return changePercent;
     }
 
-    public void setChangepercent(float changepercent) {
-        this.changepercent = changepercent;
+    public void setChangePercent(float changePercent) {
+        this.changePercent = changePercent;
     }
 
     public float getNmc() {
@@ -100,12 +130,12 @@ public class BasicHQ extends BaseEntity{
         this.mktcap = mktcap;
     }
 
-    public float getPricechange() {
-        return pricechange;
+    public float getPriceChange() {
+        return priceChange;
     }
 
-    public void setPricechange(float pricechange) {
-        this.pricechange = pricechange;
+    public void setPriceChange(float priceChange) {
+        this.priceChange = priceChange;
     }
 
     public float getAmount() {
@@ -172,12 +202,12 @@ public class BasicHQ extends BaseEntity{
         this.low = low;
     }
 
-    public float getTurnoverratio() {
-        return turnoverratio;
+    public float getTurnoverRatio() {
+        return turnoverRatio;
     }
 
-    public void setTurnoverratio(float turnoverratio) {
-        this.turnoverratio = turnoverratio;
+    public void setTurnoverRatio(float turnoverRatio) {
+        this.turnoverRatio = turnoverRatio;
     }
 
     public float getPb() {
@@ -196,27 +226,11 @@ public class BasicHQ extends BaseEntity{
         this.per = per;
     }
 
-    @Override
-    public String toString() {
-        return "BasicHQ{" +
-                "id=" + id +
-                ", symbol='" + symbol + '\'' +
-                ", code='" + code + '\'' +
-                ", changepercent=" + changepercent +
-                ", nmc=" + nmc +
-                ", mktcap=" + mktcap +
-                ", pricechange=" + pricechange +
-                ", amount=" + amount +
-                ", volume=" + volume +
-                ", settlement=" + settlement +
-                ", open=" + open +
-                ", sell=" + sell +
-                ", buy=" + buy +
-                ", high=" + high +
-                ", low=" + low +
-                ", turnoverratio=" + turnoverratio +
-                ", pb=" + pb +
-                ", per=" + per +
-                '}';
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

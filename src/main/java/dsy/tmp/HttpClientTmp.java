@@ -1,7 +1,7 @@
 package dsy.tmp;
 
 import com.alibaba.fastjson.JSON;
-import dsy.core.entity.BasicHQ;
+import dsy.core.entity.CompanyHQ;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -30,7 +30,7 @@ public class HttpClientTmp {
 
             String s = IOUtils.toString(entity1.getContent(), "GBK");
 
-            List<BasicHQ> ret = JSON.parseArray(s, BasicHQ.class);
+            List<CompanyHQ> ret = JSON.parseArray(s, CompanyHQ.class);
 
             System.out.println(ret.get(0));
         } finally {

@@ -2,7 +2,7 @@ package dsy.web.service;
 
 import com.alibaba.fastjson.JSON;
 import dsy.core.entity.SwIndustryHQ;
-import dsy.web.dao.SwIndustryDao;
+import dsy.web.dao.IndustryDao;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -28,7 +28,7 @@ import static dsy.core.tools.DateTool.getCurrentDayTimestamp;
 public class SwIndustryService {
 
     @Autowired
-    SwIndustryDao swIndustryDao;
+    IndustryDao industryDao;
 
     public void syncFromSinaSwIndustry() throws Exception {
 
@@ -69,7 +69,7 @@ public class SwIndustryService {
                 swIndustryHQ.setVolume(Float.parseFloat(value[index ++]));
                 swIndustryHQ.setAmount(Float.parseFloat(value[index ++]));
 
-                swIndustryDao.syncDb(swIndustryHQ);
+                industryDao.merge(swIndustryHQ);
             }
         } finally {
             response.close();
