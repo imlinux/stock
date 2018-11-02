@@ -26,6 +26,13 @@ public class GdpController {
         return gdpService.getGdpYear();
     }
 
+
+    @RequestMapping("/sync_gdp")
+    public void syncGdp() throws Exception {
+
+        gdpService.syncFromSina();
+    }
+
     public Gdp getLatestGdp() {
         return gdpService.getLatest();
     }

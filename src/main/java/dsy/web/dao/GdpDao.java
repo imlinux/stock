@@ -3,8 +3,6 @@ package dsy.web.dao;
 import dsy.core.entity.Gdp;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
@@ -14,9 +12,7 @@ import java.util.List;
  * @since 18-10-22
  */
 @Repository
-public class GdpDao {
-    @PersistenceContext
-    EntityManager em;
+public class GdpDao extends GeneralDao {
 
     public List<Gdp> findAll() {
 

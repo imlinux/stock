@@ -2,13 +2,11 @@ package dsy.tmp;
 
 import com.alibaba.fastjson.JSON;
 import dsy.core.entity.CompanyHQ;
-import org.apache.http.client.methods.HttpGet;
 
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static dsy.core.tools.HttpClientTool.get;
 
@@ -76,8 +74,27 @@ public class HttpClientTmp {
     }
 
 
+    public static void gdp() throws Exception {
+
+        String url = "http://money.finance.sina.com.cn/mac/api/jsonp.php/SINAREMOTECALLCALLBACK1790363682808/MacPage_Service.get_pagedata?cate=nation&event=1&from=0&num=250&condition=&_=1790363682808";
+
+        String json = get(url, "GBK");
+
+        Pattern p = Pattern.compile("\\,count:(.*?)\\}");
+
+        Matcher m = p.matcher(json);
+
+        if(m.find()) {
+            String s = m.group(1);
+            s = s.split("data:")[1];
+            s = s.replace("null", "0");
+            System.out.println(JSON.parse(s));
+        }
+    }
+
+
 
     public static void main(String[] args) throws Exception {
-        rzrq();
+        gdp();
     }
 }

@@ -7,49 +7,47 @@ import javax.persistence.*;
  * @since 18-10-22
  */
 @Entity
-@Table(name = "gdp_year")
+@Table(name = "gdp")
 public class Gdp extends BaseEntity {
-    @Id
-    @GeneratedValue
-    private int id;
 
-    @Column(name = "year")
-    private int year;
+    @Id
+    private String quarter;
 
     @Column(name = "gdp")
     private double gdp;
 
-    //人均gdp
-    @Column(name = "pc_gdp")
-    private double pcGdp;
+    //国内生产总值同比增长(%)
+    @Column(name = "gdp_yoy")
+    private double gdpYoy;
 
     //第一产业
     @Column(name = "pi")
     private double pi;
 
+    @Column(name = "pi_yoy")
+    private double piYoy;
+
     //第二产业
     @Column(name = "si")
     private double si;
+
+    @Column(name = "si_yoy")
+    private double siYoy;
 
     //第三产业
     @Column(name = "ti")
     private double ti;
 
+    @Column(name = "ti_yoy")
+    private double tiYou;
 
-    public int getId() {
-        return id;
+
+    public String getQuarter() {
+        return quarter;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
+    public void setQuarter(String quarter) {
+        this.quarter = quarter;
     }
 
     public double getGdp() {
@@ -60,12 +58,12 @@ public class Gdp extends BaseEntity {
         this.gdp = gdp;
     }
 
-    public double getPcGdp() {
-        return pcGdp;
+    public double getGdpYoy() {
+        return gdpYoy;
     }
 
-    public void setPcGdp(double pcGdp) {
-        this.pcGdp = pcGdp;
+    public void setGdpYoy(double gdpYoy) {
+        this.gdpYoy = gdpYoy;
     }
 
     public double getPi() {
@@ -76,6 +74,14 @@ public class Gdp extends BaseEntity {
         this.pi = pi;
     }
 
+    public double getPiYoy() {
+        return piYoy;
+    }
+
+    public void setPiYoy(double piYoy) {
+        this.piYoy = piYoy;
+    }
+
     public double getSi() {
         return si;
     }
@@ -84,11 +90,27 @@ public class Gdp extends BaseEntity {
         this.si = si;
     }
 
+    public double getSiYoy() {
+        return siYoy;
+    }
+
+    public void setSiYoy(double siYoy) {
+        this.siYoy = siYoy;
+    }
+
     public double getTi() {
         return ti;
     }
 
     public void setTi(double ti) {
         this.ti = ti;
+    }
+
+    public double getTiYou() {
+        return tiYou;
+    }
+
+    public void setTiYou(double tiYou) {
+        this.tiYou = tiYou;
     }
 }
