@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import static dsy.core.tools.DateTool.*;
+import static dsy.core.tools.TradeTool.getLatestTrade;
 
 /**
  * @author dong
@@ -55,7 +56,7 @@ public class CompanyService {
                     Thread.sleep(1000);
                     for (CompanyHQ e : companyHQList) {
                         e.setId(e.getCode() + "_" + getCurrentDayStr());
-                        e.setDate(new java.sql.Date(getCurrentDayTimestamp()));
+                        e.setDate(new java.sql.Date(getLatestTrade().getTime()));
                         companyDao.merge(e);
                     }
                 } catch (Exception e) {
@@ -120,7 +121,7 @@ public class CompanyService {
                 //update_time
                 long time = (int) e.get(i++) * 1000L;
 
-                entity.setDate(new java.sql.Date(time));
+                entity.setDate(new java.sql.Date(getLatestTrade().getTime()));
                 entity.setId(getDayStr(getDay(new Date(time))) + "_" + entity.getProdCode());
                 companyDao.merge(entity);
             }

@@ -36,10 +36,13 @@ public class DateTool {
         return getDayStr(date);
     }
 
-    public static String getDayStr(Date date) {
-        SimpleDateFormat sm = new SimpleDateFormat("yyyy-MM-dd");
+    public static String getDayStr(Date date, String pattern) {
+        SimpleDateFormat sm = new SimpleDateFormat(pattern);
 
         return sm.format(date);
+    }
+    public static String getDayStr(Date date) {
+        return getDayStr(date, "yyyy-MM-dd");
     }
 
 }

@@ -18,6 +18,7 @@ import java.util.Map;
 
 import static dsy.core.tools.DateTool.getCurrentDayStr;
 import static dsy.core.tools.DateTool.getCurrentDayTimestamp;
+import static dsy.core.tools.TradeTool.getLatestTrade;
 
 /**
  * @author dong
@@ -58,7 +59,7 @@ public class SwIndustryService {
 
                 swIndustryHQ.setId(e.getKey() + "_" + getCurrentDayStr());
 
-                swIndustryHQ.setDate(new Date(getCurrentDayTimestamp()));
+                swIndustryHQ.setDate(new java.sql.Date(getLatestTrade().getTime()));
 
                 swIndustryHQ.setCode(value[index ++]);
                 swIndustryHQ.setSymbol(value[index ++]);
