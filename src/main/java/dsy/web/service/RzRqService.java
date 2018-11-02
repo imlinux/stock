@@ -101,7 +101,7 @@ public class RzRqService {
         calendar.setTime(start);
 
         while (true) {
-            if(end.getTime() < start.getTime()) return;
+            if(end.getTime() < calendar.getTimeInMillis()) return;
 
 
             syncFromEastMoneyDetialByDay(calendar.getTime());
