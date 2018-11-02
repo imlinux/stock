@@ -13,11 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Date;
 import java.util.Map;
 
 import static dsy.core.tools.DateTool.getCurrentDayStr;
-import static dsy.core.tools.DateTool.getCurrentDayTimestamp;
 import static dsy.core.tools.TradeTool.getLatestTrade;
 
 /**
@@ -39,6 +37,7 @@ public class SwIndustryService {
 
         CloseableHttpResponse response = httpClient.execute(httpGet);
 
+        java.sql.Date latestTradeDate = new java.sql.Date(getLatestTrade().getTime());
         try {
             HttpEntity entity1 = response.getEntity();
 
@@ -59,7 +58,7 @@ public class SwIndustryService {
 
                 swIndustryHQ.setId(e.getKey() + "_" + getCurrentDayStr());
 
-                swIndustryHQ.setDate(new java.sql.Date(getLatestTrade().getTime()));
+                swIndustryHQ.setDate(latestTradeDate);
 
                 swIndustryHQ.setCode(value[index ++]);
                 swIndustryHQ.setSymbol(value[index ++]);

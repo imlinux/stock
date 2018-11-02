@@ -39,6 +39,7 @@ public class CompanyService {
     public void syncCompanyFromSina() throws Exception {
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
+        java.sql.Date latestTradeDate = new java.sql.Date(getLatestTrade().getTime());
 
         for (int i = 1;true; i++) {
             HttpGet httpGet = new HttpGet("http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?num=80&sort=symbol&asc=1&node=hs_a&symbol=&_s_r_a=page&page=" + i);
@@ -56,7 +57,7 @@ public class CompanyService {
                     Thread.sleep(1000);
                     for (CompanyHQ e : companyHQList) {
                         e.setId(e.getCode() + "_" + getCurrentDayStr());
-                        e.setDate(new java.sql.Date(getLatestTrade().getTime()));
+                        e.setDate(latestTradeDate);
                         companyDao.merge(e);
                     }
                 } catch (Exception e) {
@@ -76,6 +77,8 @@ public class CompanyService {
         HttpGet httpGet = new HttpGet("https://api-ddc.wallstreetcn.com/market/rank?market_type=mdc&stk_type=stock&order_by=none&limit=6000&fields=prod_name,prod_en_name,prod_code,symbol,last_px,px_change,px_change_rate,open_px,high_px,low_px,week_52_high,week_52_low,price_precision,circulation_value,dyn_pe,dyn_pb_rate,turnover_value,turnover_ratio,turnover_volume,market_value,preclose_px,amplitude,trade_status,update_time&cursor=1");
 
         CloseableHttpResponse response = httpClient.execute(httpGet);
+
+        java.sql.Date latestTradeDate = new java.sql.Date(getLatestTrade().getTime());
 
         try {
             HttpEntity entity1 = response.getEntity();
@@ -121,7 +124,7 @@ public class CompanyService {
                 //update_time
                 long time = (int) e.get(i++) * 1000L;
 
-                entity.setDate(new java.sql.Date(getLatestTrade().getTime()));
+                entity.setDate(latestTradeDate);
                 entity.setId(getDayStr(getDay(new Date(time))) + "_" + entity.getProdCode());
                 companyDao.merge(entity);
             }
