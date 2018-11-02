@@ -60,7 +60,7 @@ public class EastMoneyRzRqDetial extends BaseEntity {
 
     private double rzmre10;
 
-    private double rzche;
+    private double rzche;//融资偿还额
 
     private double rzche3;
 
