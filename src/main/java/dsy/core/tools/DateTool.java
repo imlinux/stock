@@ -45,4 +45,11 @@ public class DateTool {
         return getDayStr(date, "yyyy-MM-dd");
     }
 
+
+    public static Date parse(String date) throws Exception {
+
+        SimpleDateFormat sm = new SimpleDateFormat("yyyy-MM-dd");
+
+        return sm.parse(date);
+    }
 }

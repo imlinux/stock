@@ -3,20 +3,16 @@ package dsy.web.dao;
 import dsy.web.dto.HSMargin;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author dong
- * @since 18-10-23
+ * @since 18-11-2
  */
 @Repository
-public class MarginDao {
+public class RzRqDao extends GeneralDao {
 
-    @PersistenceContext
-    EntityManager em;
 
     public List<HSMargin> findAll() {
         String sql = "SELECT\n" +

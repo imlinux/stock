@@ -2,13 +2,12 @@ package dsy.tmp;
 
 import com.alibaba.fastjson.JSON;
 import dsy.core.entity.CompanyHQ;
-import org.apache.commons.io.IOUtils;
-import org.apache.http.HttpEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
 
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import static dsy.core.tools.HttpClientTool.get;
@@ -62,8 +61,23 @@ public class HttpClientTmp {
     }
 
 
+    public static void rzrq() throws Exception {
+
+//        String url = "http://dcfm.eastmoney.com/em_mutisvcexpandinterface/api/js/get?type=RZRQ_DETAIL_NJ&token=70f12f2f4f091e459a279469fe49eca5&st=rzjmre&sr=-1&p=1&ps=50";
+//
+//        url += "&filter=(tdate=%272018-11-01T00:00:00%27)";
+//
+//        System.out.println(get(url, "UTF-8"));
+
+        SimpleDateFormat sm = new SimpleDateFormat("yyyy-MM-dd");
+
+        System.out.println(sm.parse("2018-11-01").getTime());
+
+    }
+
+
 
     public static void main(String[] args) throws Exception {
-        jiari();
+        rzrq();
     }
 }
