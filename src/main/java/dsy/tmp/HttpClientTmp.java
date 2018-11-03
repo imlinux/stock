@@ -64,39 +64,16 @@ public class HttpClientTmp {
 
     public static void rzrq() throws Exception {
 
-//        String url = "http://dcfm.eastmoney.com/em_mutisvcexpandinterface/api/js/get?type=RZRQ_DETAIL_NJ&token=70f12f2f4f091e459a279469fe49eca5&st=rzjmre&sr=-1&p=1&ps=50";
-//
-//        url += "&filter=(tdate=%272018-11-01T00:00:00%27)";
-//
-//        System.out.println(get(url, "UTF-8"));
+        String url = "http://emweb.securities.eastmoney.com/NewFinanceAnalysis/zcfzbAjax?companyType=4&reportDateType=0&reportType=1&endDate=&code=SH600570";
 
-        SimpleDateFormat sm = new SimpleDateFormat("yyyy-MM-dd");
+        String jsonStr = get(url, "UTF-8");
 
-        System.out.println(sm.parse("2018-11-01").getTime());
-
-    }
-
-
-    public static void gdp() throws Exception {
-
-         String url = "http://emweb.securities.eastmoney.com/NewFinanceAnalysis/lrbAjax?companyType=3&reportDateType=1&reportType=1&endDate=&code=SH601988";
-
-        String url1 = "http://emweb.securities.eastmoney.com/NewFinanceAnalysis/lrbAjax?companyType=3&reportDateType=0&reportType=1&endDate=&code=SH601988";
-        String json = get(url1, "UTF-8");
-
-
-        Lrb lrb = new Lrb();
-        BeanWrapper beanWrapper = new BeanWrapperImpl(lrb);
-        beanWrapper.setPropertyValue("OPERATEREVE", "1000");
-
-
-        System.out.println(lrb.getOPERATEREVE());
-        System.out.println(JSON.parseArray(JSON.parse(json).toString()));
+        System.out.println(JSON.parse(jsonStr));
     }
 
 
 
     public static void main(String[] args) throws Exception {
-        gdp();
+        rzrq();
     }
 }

@@ -24,4 +24,10 @@ public class FinanceController {
 
         financeAnalysisService.syncLrbFromEastMoney(code);
     }
+
+    @RequestMapping("/sync_zcfzb")
+    public void sync_zcfzb(@RequestParam String code) throws Exception {
+
+        financeAnalysisService.syncZcfzbFromEastMoney(code);
+    }
 }
