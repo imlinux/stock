@@ -2,6 +2,9 @@ package dsy.tmp;
 
 import com.alibaba.fastjson.JSON;
 import dsy.core.entity.CompanyHQ;
+import dsy.core.entity.Lrb;
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.BeanWrapperImpl;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -76,20 +79,19 @@ public class HttpClientTmp {
 
     public static void gdp() throws Exception {
 
-        String url = "http://money.finance.sina.com.cn/mac/api/jsonp.php/SINAREMOTECALLCALLBACK1790363682808/MacPage_Service.get_pagedata?cate=nation&event=1&from=0&num=250&condition=&_=1790363682808";
+         String url = "http://emweb.securities.eastmoney.com/NewFinanceAnalysis/lrbAjax?companyType=3&reportDateType=1&reportType=1&endDate=&code=SH601988";
 
-        String json = get(url, "GBK");
+        String url1 = "http://emweb.securities.eastmoney.com/NewFinanceAnalysis/lrbAjax?companyType=3&reportDateType=0&reportType=1&endDate=&code=SH601988";
+        String json = get(url1, "UTF-8");
 
-        Pattern p = Pattern.compile("\\,count:(.*?)\\}");
 
-        Matcher m = p.matcher(json);
+        Lrb lrb = new Lrb();
+        BeanWrapper beanWrapper = new BeanWrapperImpl(lrb);
+        beanWrapper.setPropertyValue("OPERATEREVE", "1000");
 
-        if(m.find()) {
-            String s = m.group(1);
-            s = s.split("data:")[1];
-            s = s.replace("null", "0");
-            System.out.println(JSON.parse(s));
-        }
+
+        System.out.println(lrb.getOPERATEREVE());
+        System.out.println(JSON.parseArray(JSON.parse(json).toString()));
     }
 
 
