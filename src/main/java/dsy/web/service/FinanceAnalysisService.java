@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -44,32 +45,38 @@ public class FinanceAnalysisService {
 
         String ctype = getCompanytype(code);
 
-        String url = "http://emweb.securities.eastmoney.com/NewFinanceAnalysis/lrbAjax?companyType=" + ctype + "&reportDateType=0&reportType=1&endDate=&code=" + code;
+        SimpleDateFormat sm = new SimpleDateFormat("yyyy/MM/dd H:mm:ss");
+        String[] urls = {
+                "http://emweb.securities.eastmoney.com/NewFinanceAnalysis/lrbAjax?companyType=" + ctype + "&reportDateType=0&reportType=1&endDate=&code=" + code, //按报告期和报告期同比
+                "http://emweb.securities.eastmoney.com/NewFinanceAnalysis/lrbAjax?companyType=" + ctype + "&reportDateType=0&reportType=2&endDate=&code=" + code//按单季度和按季度环比
+        };
 
+        for(String url: urls) {
+            String json = get(url, "UTF-8");
 
-        String json = get(url, "UTF-8");
+            json = JSON.parse(json).toString();
+            List ret = JSON.parseArray(json);
 
-        json = JSON.parse(json).toString();
-        List ret = JSON.parseArray(json);
+            LOG.info(json);
 
-        LOG.info(json);
+            for (Object o : ret) {
+                Map<String, Object> e = (Map) o;
 
-        for(Object o: ret) {
-            Map<String, Object> e = (Map) o;
-
-            for(Map.Entry<String, Object> ee: e.entrySet()) {
-                if(isEmpty(ee.getValue())) {
-                    ee.setValue("0");
+                for (Map.Entry<String, Object> ee : e.entrySet()) {
+                    if (isEmpty(ee.getValue())) {
+                        ee.setValue("0");
+                    }
                 }
+
+                Lrb lrb = new Lrb();
+                BeanWrapper beanWrapper = new BeanWrapperImpl(lrb);
+
+                beanWrapper.setPropertyValues(new MutablePropertyValues(e));
+
+                lrb.setDate(new java.sql.Date(sm.parse(lrb.getREPORTDATE()).getTime()));
+                lrb.setId(lrb.getREPORTDATE() + lrb.getSECURITYCODE());
+                financeDao.merge(lrb);
             }
-
-            Lrb lrb = new Lrb();
-            BeanWrapper beanWrapper = new BeanWrapperImpl(lrb);
-
-            beanWrapper.setPropertyValues(new MutablePropertyValues(e));
-
-            lrb.setId(lrb.getREPORTDATE() + lrb.getSECURITYCODE());
-            financeDao.merge(lrb);
         }
     }
 }

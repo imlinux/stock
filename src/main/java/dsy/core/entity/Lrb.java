@@ -3,6 +3,7 @@ package dsy.core.entity;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.sql.Date;
 
 /**
  * @author dong
@@ -15,6 +16,8 @@ public class Lrb extends BaseEntity {
 
     @Id
     private String id;
+
+    private Date date;
 
     private String SECURITYCODE;
 
@@ -1436,5 +1439,13 @@ public class Lrb extends BaseEntity {
 
     public void setFVALUEOSALABLE_YOY(double FVALUEOSALABLE_YOY) {
         this.FVALUEOSALABLE_YOY = FVALUEOSALABLE_YOY;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
