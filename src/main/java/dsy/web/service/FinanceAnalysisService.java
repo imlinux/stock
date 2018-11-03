@@ -74,7 +74,7 @@ public class FinanceAnalysisService {
                 beanWrapper.setPropertyValues(new MutablePropertyValues(e));
 
                 lrb.setDate(new java.sql.Date(sm.parse(lrb.getREPORTDATE()).getTime()));
-                lrb.setId(lrb.getREPORTDATE() + lrb.getSECURITYCODE());
+                lrb.setId(lrb.getREPORTDATE() + lrb.getSECURITYCODE() + lrb.getREPORTTYPE());
                 financeDao.merge(lrb);
             }
         }
