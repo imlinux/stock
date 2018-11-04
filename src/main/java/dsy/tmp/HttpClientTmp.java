@@ -6,6 +6,7 @@ import dsy.core.entity.Lrb;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -63,11 +64,9 @@ public class HttpClientTmp {
 
 
     public static void rzrq() throws Exception {
+        String s = "2003%2F12%2F31+0%3A00%3A00";
 
-        String url = "http://emweb.securities.eastmoney.com/NewFinanceAnalysis/xjllbAjax?companyType=4&reportDateType=0&reportType=1&endDate=&code=SH600570";
-        String jsonStr = get(url, "UTF-8");
-
-        System.out.println(JSON.parse(jsonStr));
+        System.out.println(URLDecoder.decode(s));
     }
 
 

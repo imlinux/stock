@@ -8,6 +8,7 @@ import java.sql.Date;
 /**
  * @author dong
  * @since 18-11-4
+ * 现金流量表
  */
 @Entity
 @Table(name = "xjllb")

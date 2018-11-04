@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.net.URLEncoder;
 import java.util.List;
 
 /**
@@ -23,21 +24,21 @@ public class FinanceController {
     private FinanceAnalysisService financeAnalysisService;
 
     @RequestMapping("/sync_lrb")
-    public void sync_lrb(@RequestParam String code) throws Exception {
+    public void sync_lrb(@RequestParam String code, @RequestParam(defaultValue = "") String endDate) throws Exception {
 
-        financeAnalysisService.syncLrbFromEastMoney(code);
+        financeAnalysisService.syncLrbFromEastMoney(code, URLEncoder.encode(endDate + " 0:00:00", "UTF-8"));
     }
 
     @RequestMapping("/sync_zcfzb")
-    public void sync_zcfzb(@RequestParam String code) throws Exception {
+    public void sync_zcfzb(@RequestParam String code, @RequestParam(defaultValue = "") String endDate) throws Exception {
 
-        financeAnalysisService.syncZcfzbFromEastMoney(code);
+        financeAnalysisService.syncZcfzbFromEastMoney(code, URLEncoder.encode(endDate + " 0:00:00", "UTF-8"));
     }
 
     @RequestMapping("/sync_xjllb")
-    public void sync_xjllb(@RequestParam String code) throws Exception {
+    public void sync_xjllb(@RequestParam String code, @RequestParam(defaultValue = "") String endDate) throws Exception {
 
-        financeAnalysisService.syncXjllbFromEastMoney(code);
+        financeAnalysisService.syncXjllbFromEastMoney(code, URLEncoder.encode(endDate + " 0:00:00", "UTF-8"));
     }
 
     @RequestMapping("/query_lrb")
