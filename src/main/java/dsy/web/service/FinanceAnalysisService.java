@@ -2,6 +2,7 @@ package dsy.web.service;
 
 import com.alibaba.fastjson.JSON;
 import dsy.core.entity.Lrb;
+import dsy.core.entity.Xjllb;
 import dsy.core.entity.Zcfzb;
 import dsy.web.dao.FinanceDao;
 import org.apache.commons.logging.Log;
@@ -118,5 +119,44 @@ public class FinanceAnalysisService {
             zcfzb.setId(zcfzb.getREPORTDATE() + zcfzb.getSECURITYCODE() + zcfzb.getREPORTTYPE());
             financeDao.merge(zcfzb);
         }
+    }
+
+    public void syncXjllbFromEastMoney(String code) throws Exception {
+
+        String ctype = getCompanytype(code);
+
+        String url = "http://emweb.securities.eastmoney.com/NewFinanceAnalysis/xjllbAjax?companyType=" + ctype +"&reportDateType=0&reportType=1&endDate=&code=" + code;
+
+        String json = get(url, "UTF-8");
+
+        json = JSON.parse(json).toString();
+
+        List ret = JSON.parseArray(json);
+
+        SimpleDateFormat sm = new SimpleDateFormat("yyyy/MM/dd H:mm:ss");
+
+        for (Object o : ret) {
+            Map<String, Object> e = (Map) o;
+
+            for (Map.Entry<String, Object> ee : e.entrySet()) {
+                if (isEmpty(ee.getValue())) {
+                    ee.setValue("0");
+                }
+            }
+
+            Xjllb xjllb = new Xjllb();
+
+            BeanWrapper beanWrapper = new BeanWrapperImpl(xjllb);
+            beanWrapper.setPropertyValues(new MutablePropertyValues(e));
+
+            xjllb.setDate(new java.sql.Date(sm.parse(xjllb.getREPORTDATE()).getTime()));
+            xjllb.setId(xjllb.getREPORTDATE() + xjllb.getSECURITYCODE() + xjllb.getREPORTTYPE());
+
+            financeDao.merge(xjllb);
+        }
+    }
+
+    public List<Lrb> queryLrb(String code, String reportType) {
+        return financeDao.query(code, reportType);
     }
 }

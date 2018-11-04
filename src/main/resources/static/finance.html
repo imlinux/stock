@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>财务分析</title>
+    <script type="text/javascript" src="js/echarts.js"></script>
+    <script type="text/javascript" src="js/jquery.js"></script>
+</head>
+<body>
+
+<div id="lrb" style="width: 100%;height:800px;"></div>
+</body>
+</html>
+<script type="text/javascript">
+
+    var chart = echarts.init(document.getElementById('lrb'));
+
+    chart.setOption({
+        title: {
+            text: '利润分析'
+        },
+        tooltip: {},
+        legend: {
+            data:['营业总收入', '管理费用']
+        },
+        xAxis: {
+            type:'category'
+        },
+        yAxis: {
+        },
+        series: [{
+            name: '营业总收入',
+            type: 'line'
+        }, {
+            name:'管理费用',
+            type:'line'
+        }]
+    });
+
+    $.get("/finance/query_lrb?code=600570.SH&reportType=2", function (data) {
+
+        var reportDate = [];
+        var totalOperaterve = [];
+        var manageexp = [];
+
+        console.log(data);
+        for(var i = 0; i < data.length; i++) {
+            reportDate.push(data[i].reportdate);
+            totalOperaterve.push(data[i].totaloperatereve);
+            manageexp.push(data[i].manageexp)
+        }
+        chart.setOption({
+            xAxis:{
+                data: reportDate
+            },
+            series:[
+                {
+                    name:'营业总收入',
+                    data:totalOperaterve
+                },
+                {
+                    name:'管理费用',
+                    data:manageexp
+                }
+            ]
+        })
+    })
+</script>

@@ -64,8 +64,7 @@ public class HttpClientTmp {
 
     public static void rzrq() throws Exception {
 
-        String url = "http://emweb.securities.eastmoney.com/NewFinanceAnalysis/zcfzbAjax?companyType=4&reportDateType=0&reportType=1&endDate=&code=SH600570";
-
+        String url = "http://emweb.securities.eastmoney.com/NewFinanceAnalysis/xjllbAjax?companyType=4&reportDateType=0&reportType=1&endDate=&code=SH600570";
         String jsonStr = get(url, "UTF-8");
 
         System.out.println(JSON.parse(jsonStr));
