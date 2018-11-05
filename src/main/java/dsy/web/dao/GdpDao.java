@@ -16,7 +16,7 @@ public class GdpDao extends GeneralDao {
 
     public List<Gdp> findAll() {
 
-        Query query = em.createQuery("select g from Gdp g order by g.year");
+        Query query = em.createQuery("select g from Gdp g where g.quarter like '%.4' order by g.quarter");
 
         return query.getResultList();
     }
