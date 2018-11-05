@@ -3,21 +3,29 @@
 <head>
     <title>Title</title>
     <meta charset="UTF-8" />
-    <script type="text/javascript" src="js/vue.js"></script>
+
+    <script type="text/javascript" src="js/handsontable.js"></script>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <link rel="stylesheet" href="css/handsontable.css" />
 </head>
 <body>
-    <div id="app">
-        <span v-if="seen">
-            hello hello
-        </span>
-    </div>
+    <div id="lrb"></div>
 </body>
 </html>
 <script type="text/javascript">
-    app = new Vue({
-        el:'#app',
-        data: {
-            seen:false
-        }
-    })
+
+    var container = document.getElementById('lrb');
+    $.get("/finance/query_lrb?code=600570.SH&reportType=2", function (data) {
+
+        var hot = new Handsontable(container, {
+            data: data,
+            rowHeaders: true,
+            colHeaders: true,
+            filters: true,
+            dropdownMenu: true,
+            dropdownMenu: true,
+            filters: true
+        });
+
+    });
 </script>

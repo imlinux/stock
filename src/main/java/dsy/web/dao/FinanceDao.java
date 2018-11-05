@@ -14,7 +14,7 @@ import java.util.List;
 public class FinanceDao extends GeneralDao {
 
     public List<Lrb> query(String code, String reportType) {
-        TypedQuery query = em.createQuery("select l from Lrb l where l.SECURITYCODE=:code and l.REPORTTYPE=:reportType", Lrb.class);
+        TypedQuery query = em.createQuery("select l from Lrb l where l.SECURITYCODE=:code and l.REPORTTYPE=:reportType order by l.date", Lrb.class);
         query.setParameter("code", code);
         query.setParameter("reportType", reportType);
         return  query.getResultList();
