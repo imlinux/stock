@@ -2,12 +2,17 @@ package dsy.web.service;
 
 import com.alibaba.fastjson.JSON;
 import dsy.core.entity.EastMoneyRzRqDetial;
+import dsy.core.entity.EastMoneyRzrq;
 import dsy.web.dao.RzRqDao;
 import dsy.web.dto.HSMargin;
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.BeanWrapperImpl;
+import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -15,6 +20,7 @@ import java.util.Map;
 
 import static dsy.core.tools.DateTool.getDayStr;
 import static dsy.core.tools.HttpClientTool.get;
+import static dsy.core.tools.StringTool.isEmpty;
 import static dsy.core.tools.TradeTool.getLatestTrade;
 
 /**
@@ -121,6 +127,38 @@ public class RzRqService {
 
 
         syncFromEastMoneyDetialByDay(calendar.getTime());
+    }
+
+    public void syncRzrqFromEastMoney() throws Exception {
+
+        SimpleDateFormat sm = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        String url = "http://dcfm.eastmoney.com//EM_MutiSvcExpandInterface/api/js/get?token=70f12f2f4f091e459a279469fe49eca5&st=tdate&sr=-1&type=RZRQ_LSTOTAL_NJ&mk_time=1&rt=51380452";
+
+        String json = get(url, "UTF-8");
+
+        List ret = JSON.parseArray(json);
+
+        for(Object o: ret) {
+
+            Map<String, Object> e = (Map) o;
+
+            for (Map.Entry<String, Object> ee : e.entrySet()) {
+                if (isEmpty(ee.getValue()) || ee.getValue().equals("-")) {
+                    ee.setValue("0");
+                }
+            }
+
+            EastMoneyRzrq eastMoneyRzrq = new EastMoneyRzrq();
+
+            BeanWrapper beanWrapper = new BeanWrapperImpl(eastMoneyRzrq);
+            beanWrapper.setPropertyValues(new MutablePropertyValues(e));
+
+
+            eastMoneyRzrq.setDate(new java.sql.Date(sm.parse(eastMoneyRzrq.getTdate()).getTime()));
+            eastMoneyRzrq.setId(eastMoneyRzrq.getTdate());
+
+            rzRqDao.merge(eastMoneyRzrq);
+        }
     }
 
 

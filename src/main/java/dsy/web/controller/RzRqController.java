@@ -40,4 +40,9 @@ public class RzRqController {
             rzRqService.syncFromEastMoneyDetial(parse(from), parse(to));
         }
     }
+
+    @RequestMapping("/sync_rzrq_from_easy_money")
+    public void syncRzrqFromEastMoney() throws Exception {
+        rzRqService.syncRzrqFromEastMoney();
+    }
 }

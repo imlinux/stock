@@ -8,6 +8,7 @@ import org.springframework.beans.BeanWrapperImpl;
 
 import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -64,9 +65,13 @@ public class HttpClientTmp {
 
 
     public static void rzrq() throws Exception {
-        String s = "2003%2F12%2F31+0%3A00%3A00";
+        String d = "2014-09-25T00:00:00";
 
-        System.out.println(URLDecoder.decode(s));
+        SimpleDateFormat sm = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+
+        Date de= sm.parse(d);
+
+        System.out.println(de.toLocaleString());
     }
 
 
