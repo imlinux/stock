@@ -19,11 +19,23 @@ public class RzRqTask {
     private RzRqService rzRqService;
 
     @Scheduled(fixedDelay = 10 * 60 * 1000)
-    public void syncFromEastMoney() {
+    public void syncRzrqDetialFromEastMoney() {
         try {
             LOG.info("开始同步东方财富融资融券详细信息");
             rzRqService.syncFromEastMoneyDetial();
             LOG.info("同步东方财富融资融券详细信息完成");
+        } catch (Exception e) {
+            LOG.error("", e);
+        }
+    }
+
+    @Scheduled(fixedDelay = 10 * 60 * 1000)
+    public void syncRzrqFromEastMoney() {
+
+        try {
+            LOG.info("开始同步东方财富融资融券总量信息");
+            rzRqService.syncRzrqFromEastMoney(false);
+            LOG.info("同步东方财富融资融券总量信息完成");
         } catch (Exception e) {
             LOG.error("", e);
         }

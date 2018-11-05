@@ -129,10 +129,20 @@ public class RzRqService {
         syncFromEastMoneyDetialByDay(calendar.getTime());
     }
 
-    public void syncRzrqFromEastMoney() throws Exception {
+
+    /**
+     *
+     * @param updateAll 是否同步历史数据
+     * @throws Exception
+     */
+    public void syncRzrqFromEastMoney(boolean updateAll) throws Exception {
 
         SimpleDateFormat sm = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         String url = "http://dcfm.eastmoney.com//EM_MutiSvcExpandInterface/api/js/get?token=70f12f2f4f091e459a279469fe49eca5&st=tdate&sr=-1&type=RZRQ_LSTOTAL_NJ&mk_time=1&rt=51380452";
+
+        if(updateAll) {
+            url += "&p=1&ps=6000";
+        }
 
         String json = get(url, "UTF-8");
 

@@ -42,7 +42,7 @@ public class RzRqController {
     }
 
     @RequestMapping("/sync_rzrq_from_easy_money")
-    public void syncRzrqFromEastMoney() throws Exception {
-        rzRqService.syncRzrqFromEastMoney();
+    public void syncRzrqFromEastMoney(@RequestParam(defaultValue = "false") boolean updateAll) throws Exception {
+        rzRqService.syncRzrqFromEastMoney(updateAll);
     }
 }
