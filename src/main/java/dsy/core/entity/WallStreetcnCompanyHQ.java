@@ -30,57 +30,107 @@ public class WallStreetcnCompanyHQ extends BaseEntity {
     @Column(name = "symbol")
     private String symbol;
 
+    /**
+     * 最新价
+     */
     @Column(name = "last_px")
     private double lastPx;
 
+    /**
+     * 涨跌额
+     */
     @Column(name = "px_change")
     private double pxChange;
 
+    /**
+     * 涨跌幅
+     */
     @Column(name = "px_change_rate")
     private double pxChangeRate;
 
-    @Column(name = "open_px")
-    private double openPx;
-
-    @Column(name = "high_px")
-    private double highPx;
-
-    @Column(name = "low_px")
-    private double lowPx;
-
+    /**
+     * 昨收
+     */
     @Column(name = "preclose_px")
     private double preClosePx;
 
+    /**
+     * 开盘价
+     */
+    @Column(name = "open_px")
+    private double openPx;
+
+    /**
+     * 最高价
+     */
+    @Column(name = "high_px")
+    private double highPx;
+
+    /**
+     * 最低价
+     */
+    @Column(name = "low_px")
+    private double lowPx;
+
+    /**
+     * 52周最高价
+     */
     @Column(name = "week_52_high")
     private double week52High;
 
+    /**
+     * 52周最低价
+     */
     @Column(name = "week_52_low")
     private double week52Low;
 
     @Column(name = "price_precision")
     private String pricePrecision;
 
+    /**
+     * 流通市值
+     */
     @Column(name = "circulation_value")
     private double circulationValue;
 
+    /**
+     * 总市值
+     */
+    @Column(name = "market_value")
+    private double marketValue;
+    /**
+     * 动态pe
+     */
     @Column(name = "dyn_pe")
     private double dynPe;
 
+    /**
+     * 动态pb
+     */
     @Column(name = "dyn_pb_rate")
     private double dynPbRate;
 
-    @Column(name = "turnover_value")
-    private double turnoverValue;
-
-    @Column(name = "turnover_ratio")
-    private double turnoverRatio;
-
+    /**
+     * 成交量
+     */
     @Column(name = "turnover_volume")
     private double turnoverVolume;
 
-    @Column(name = "market_value")
-    private double marketValue;
+    /**
+     * 成交额
+     */
+    @Column(name = "turnover_value")
+    private double turnoverValue;
 
+    /**
+     * 换手率
+     */
+    @Column(name = "turnover_ratio")
+    private double turnoverRatio;
+
+    /**
+     * 振幅
+     */
     @Column(name = "amplitude")
     private double amplitude;
 
