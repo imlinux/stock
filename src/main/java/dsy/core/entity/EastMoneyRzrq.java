@@ -22,40 +22,180 @@ public class EastMoneyRzrq extends BaseEntity {
 
     private String tdate;
     private double AGSZBHXS;
+
+    /**
+     * 沪深300收盘价或盘中最新价
+     */
     private double close;
+
+    /**
+     * 涨跌幅
+     */
     private double zdf;
+
+    /**
+     * 近3天涨跌幅
+     */
     private double zdf3;
+
+    /**
+     * 近5天涨跌幅
+     */
     private double zdf5;
+
+    /**
+     * 近10天涨跌幅
+     */
     private double zdf10;
+
+    /**
+     * 融资余额
+     */
     private double rzye;
+
+    /**
+     * 融资余额占流通市值比
+     */
     private double rzyezb;
+
+    /**
+     * 融资买入额
+     */
     private double rzmre;
+
+    /**
+     * 近三天融资买入额
+     */
     private double rzmre3;
+
+    /**
+     * 近5天融资买入额
+     */
     private double rzmre5;
+
+    /**
+     * 近10天融资买入额
+     */
     private double rzmre10;
+
+    /**
+     * 融资偿还
+     */
     private double rzche;
+
+    /**
+     * 近3天融资偿还
+     */
     private double rzche3;
+
+    /**
+     * 近5天融资偿还
+     */
     private double rzche5;
+
+    /**
+     * 近10天融资偿还
+     */
     private double rzche10;
+
+    /**
+     * 融资净买入额
+     */
     private double rzjmre;
+
+    /**
+     * 近3天融资净买入额
+     */
     private double rzjmre3;
+
+    /**
+     * 近5天融资净买入额
+     */
     private double rzjmre5;
+
+    /**
+     * 近10天融资净买入额
+     */
     private double rzjmre10;
+
+    /**
+     * 融券余额
+     */
     private double rqye;
+
+    /**
+     * 融券余量
+     */
     private double rqyl;
+
+    /**
+     * 融券卖出量
+     */
     private double rqmcl;
+
+    /**
+     * 近3天融券卖出量
+     */
     private double rqmcl3;
+
+    /**
+     * 近5天融券卖出量
+     */
     private double rqmcl5;
+
+    /**
+     * 近10天融券卖出量
+     */
     private double rqmcl10;
+
+    /**
+     * 融券偿还量
+     */
     private double rqchl;
+
+    /**
+     * 近3天融券偿还量
+     */
     private double rqchl3;
+
+    /**
+     * 近5天融券偿还量
+     */
     private double rqchl5;
+
+    /**
+     * 近10天融券偿还量
+     */
     private double rqchl10;
+
+    /**
+     * 融券净卖出量
+     */
     private double rqjmcl;
+
+    /**
+     * 近3天融券净卖出量
+     */
     private double rqjmcl3;
+
+    /**
+     * 近5天融券净卖出量
+     */
     private double rqjmcl5;
+
+    /**
+     * 近10天融券净卖出量
+     */
     private double rqjmcl10;
+
+    /**
+     * 融资融券余额
+     */
     private double rzrqye;
+
+    /**
+     * 融资融券余额偿还
+     */
     private double rzrqyecz;
 
 
