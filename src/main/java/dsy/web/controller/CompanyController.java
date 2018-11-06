@@ -26,6 +26,6 @@ public class CompanyController {
 
     @RequestMapping("/sync_company_from_wall_street")
     public void syncCompanyFromWallStreetcn() throws Exception {
-        companyService.syncCompayFromWallStreetcn();
+        companyService.syncCompayFromWallStreetCn();
     }
 }

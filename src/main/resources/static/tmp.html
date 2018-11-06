@@ -7,25 +7,61 @@
     <script type="text/javascript" src="js/handsontable.js"></script>
     <script type="text/javascript" src="js/jquery.js"></script>
     <link rel="stylesheet" href="css/handsontable.css" />
+    <style>
+        table {
+            width: 100%;
+            line-height: 21px;
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+        table,table tr th, table tr td { border:1px solid #D7D7D7; }
+
+        .tips-colname-Left {
+            color: #333;
+            font-weight: bold;
+            text-align: left;
+        }
+    </style>
 </head>
 <body>
-    <div id="lrb"></div>
+    <table>
+        <tbody>
+            <tr>
+                <th class="tips-colname-Left"><span>资产负债表</span></th>
+                <th><span>2018-09-30</span></th>
+                <th><span>2018-06-30</span></th>
+                <th><span>2018-03-31</span></th>
+                <th><span>2017-12-21</span></th>
+                <th><span>2017-09-30</span></th>
+            </tr>
+            <tr>
+                <td><span>流动资产</span></td>
+
+                <td><span></span></td>
+
+                <td><span></span></td>
+
+                <td><span></span></td>
+
+                <td><span></span></td>
+
+                <td><span></span></td>
+            </tr>
+            <tr>
+                <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;货币资金</span></td>
+
+                <td><span><span>23.57%</span></span></td>
+
+                <td><span><span>66.15%</span></span></td>
+
+                <td><span><span>66.03%</span></span></td>
+
+                <td><span><span>45.58%</span></span></td>
+
+                <td><span><span>144.47%</span></span></td>
+
+            </tr>
+        </tbody>
+    </table>
 </body>
 </html>
-<script type="text/javascript">
-
-    var container = document.getElementById('lrb');
-    $.get("/finance/query_lrb?code=600570.SH&reportType=2", function (data) {
-
-        var hot = new Handsontable(container, {
-            data: data,
-            rowHeaders: true,
-            colHeaders: true,
-            filters: true,
-            dropdownMenu: true,
-            dropdownMenu: true,
-            filters: true
-        });
-
-    });
-</script>

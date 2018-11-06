@@ -2,6 +2,7 @@ package dsy.core.tools;
 
 import org.junit.Test;
 
+import static dsy.core.tools.DateTool.getDayStr;
 import static org.junit.Assert.*;
 
 /**
@@ -14,6 +15,6 @@ public class TradeToolTest {
     @Test
     public void getLatestTrade() throws Exception {
 
-        System.out.println(TradeTool.getLatestTrade());
+        System.out.println(getDayStr(TradeTool.getLatestTrade()));
     }
 }

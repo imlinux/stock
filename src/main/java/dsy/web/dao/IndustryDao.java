@@ -3,6 +3,8 @@ package dsy.web.dao;
 import dsy.core.entity.SwIndustryHQ;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.TypedQuery;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -13,8 +15,10 @@ import java.util.List;
 public class IndustryDao extends GeneralDao {
 
 
-    public List<SwIndustryHQ> getAllIndustryCode() {
+    public List<SwIndustryHQ> getAllIndustryCode(Date date) {
 
-        return em.createQuery("select e from SwIndustryHQ e", SwIndustryHQ.class).getResultList();
+        TypedQuery<SwIndustryHQ> query = em.createQuery("select e from SwIndustryHQ e where e.date = :date", SwIndustryHQ.class);
+        query.setParameter("date", date);
+        return query.getResultList();
     }
 }
