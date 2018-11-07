@@ -69,7 +69,7 @@ public class WhService {
             wh.setTradeStatus((String) l.get(index ++));
 
             wh.setDate(latestTradeDate);
-            wh.setId(wh.getSymbol() + getDayStr(new Date(wh.getUpdateTime())));
+            wh.setId(wh.getSymbol() + getDayStr(new Date(wh.getUpdateTime() * 1000)));
             whDao.merge(wh);
         });
     }
