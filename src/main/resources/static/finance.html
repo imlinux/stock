@@ -1,68 +1,195 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 <head>
+    <title>Title</title>
     <meta charset="UTF-8" />
-    <title>财务分析</title>
-    <script type="text/javascript" src="js/echarts.js"></script>
+
+    <script type="text/javascript" src="js/vue.js"></script>
     <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/formatData.js"></script>
+    <style>
+        table {
+            width: 100%;
+            line-height: 21px;
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+        table,table tr th, table tr td { border:1px solid #D7D7D7; }
+
+        .tips-colname-Left {
+            color: #333;
+            font-weight: bold;
+            text-align: left;
+        }
+    </style>
 </head>
 <body>
+<table id="lrb">
+    <tbody>
+    <tr>
+        <th class="tips-colname-Left"><span>利润表</span></th>
+        <th v-for="e in REPORTDATE"><span>{{e}}</span></th>
+    </tr>
+    <tr>
+        <td><span>营业总收入</span></td>
 
-<div id="lrb" style="width: 100%;height:800px;"></div>
+        <td v-for="e in TOTALOPERATEREVE"><span>{{e}}</span></td>
+    </tr>
+    <tr>
+        <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;营业收入</span></td>
+
+        <td v-for="e in OPERATEREVE"><span><span>{{e}}</span></span></td>
+    </tr>
+    <tr>
+        <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;利息收入</span></td>
+
+        <td v-for="e in INTREVE"><span>{{e}}</span></td>
+    </tr>
+    <tr>
+        <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;已赚保费</span></td>
+
+        <td v-for="e in PREMIUMEARNED"><span>{{e}}</span></td>
+    </tr>
+    <tr>
+        <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;手续费及佣金净收入</span></td>
+
+        <td v-for="e in COMMNREVE"><span>{{e}}</span></td>
+    </tr>
+    <tr>
+        <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其他业务收入</span></td>
+
+        <td v-for="e in OTHERREVE"><span>{{e}}</span></td>
+    </tr>
+    <tr>
+        <td><span>营业总成本</span></td>
+
+        <td v-for="e in TOTALOPERATEEXP"><span>{{e}}</span></td>
+    </tr>
+    <tr>
+        <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;营业成本</span></td>
+
+        <td v-for="e in OPERATEEXP"><span>{{e}}</span></td>
+    </tr>
+    <tr>
+        <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;利息支出</span></td>
+
+        <td v-for="e in INTEXP"><span>{{e}}</span></td>
+    </tr>
+    <tr>
+        <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;手续费及佣金支出</span></td>
+
+        <td v-for="e in COMMEXP"><span>{{e}}</span></td>
+    </tr>
+    <tr>
+        <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;研发费用</span></td>
+
+        <td v-for="e in RDEXP"><span>{{e}}</span></td>
+    </tr>
+    <tr>
+        <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;退保金</span></td>
+
+        <td v-for="e in SURRENDERPREMIUM"><span>{{e}}</span></td>
+    </tr>
+    <tr>
+        <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;赔付支出净额</span></td>
+
+        <td v-for="e in NETINDEMNITYEXP"><span>{{e}}</span></td>
+    </tr>
+    <tr>
+        <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;提取保险合同准备金净额</span></td>
+
+        <td v-for="e in NETCONTACTRESERVE"><span>{{e}}</span></td>
+    </tr>
+    <tr>
+        <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;保单红利支出</span></td>
+
+        <td v-for="e in POLICYDIVIEXP"><span>{{e}}</span></td>
+    </tr>
+    <tr>
+        <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;分保费用</span></td>
+
+        <td v-for="e in RIEXP"><span>{{e}}</span></td>
+    </tr>
+    <tr>
+        <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其他业务成本</span></td>
+
+        <td v-for="e in OTHEREXP"><span>{{e}}</span></td>
+    </tr>
+    <tr>
+        <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;营业税金及附加</span></td>
+
+        <td v-for="e in OPERATETAX"><span>{{e}}</span></td>
+    </tr>
+    <tr>
+        <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;销售费用</span></td>
+
+        <td v-for="e in SALEEXP"><span>{{e}}</span></td>
+    </tr>
+    <tr>
+        <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;管理费用</span></td>
+
+        <td v-for="e in MANAGEEXP"><span>{{e}}</span></td>
+    </tr>
+    <tr>
+        <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;财务费用</span></td>
+
+        <td v-for="e in FINANCEEXP"><span>{{e}}</span></td>
+    </tr>
+    <tr>
+        <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;资产减值损失</span></td>
+
+        <td v-for="e in ASSETDEVALUELOSS"><span>{{e}}</span></td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>
+
 <script type="text/javascript">
-
-    var chart = echarts.init(document.getElementById('lrb'));
-
-    chart.setOption({
-        title: {
-            text: '利润分析'
-        },
-        tooltip: {},
-        legend: {
-            data:['营业总收入', '管理费用']
-        },
-        xAxis: {
-            type:'category'
-        },
-        yAxis: {
-        },
-        series: [{
-            name: '营业总收入',
-            type: 'line'
-        }, {
-            name:'管理费用',
-            type:'line'
-        }]
-    });
-
-    $.get("/finance/query_lrb?code=600570.SH&reportType=2", function (data) {
-
-        var reportDate = [];
-        var totalOperaterve = [];
-        var manageexp = [];
-
-        console.log(data);
-        for(var i = 0; i < data.length; i++) {
-            reportDate.push(data[i].reportdate);
-            totalOperaterve.push(data[i].totaloperatereve);
-            manageexp.push(data[i].manageexp)
+    var app = new Vue({
+        el:"#lrb",
+        data:{
+            REPORTDATE:[],
+            TOTALOPERATEREVE:[],
+            OPERATEREVE:[],
+            INTREVE:[],
+            PREMIUMEARNED:[],
+            COMMNREVE:[],
+            OTHERREVE:[],
+            TOTALOPERATEEXP:[],
+            OPERATEEXP:[],
+            INTEXP:[],
+            COMMEXP:[],
+            RDEXP:[],
+            SURRENDERPREMIUM:[],
+            NETINDEMNITYEXP:[],
+            NETCONTACTRESERVE:[],
+            POLICYDIVIEXP:[],
+            RIEXP:[],
+            OTHEREXP:[],
+            OPERATETAX:[],
+            SALEEXP:[],
+            MANAGEEXP:[],
+            FINANCEEXP:[],
+            ASSETDEVALUELOSS:[],
         }
-        chart.setOption({
-            xAxis:{
-                data: reportDate
-            },
-            series:[
-                {
-                    name:'营业总收入',
-                    data:totalOperaterve
-                },
-                {
-                    name:'管理费用',
-                    data:manageexp
+    });
+    $.get("finance/query_lrb?code=600570.SH&reportType=1", function (data) {
+
+        for(var i = 0; i < data.length; i++) {
+            var obj = data[i];
+
+            for (var k in app.$data) {
+                var v;
+
+                if(k == 'REPORTDATE') {
+                    v = formatDate(obj[k.toLowerCase()]);
+                } else {
+                    v = formatNumber(obj[k.toLowerCase()]);
                 }
-            ]
-        })
+                app[k].push(v);
+            }
+
+        }
     })
 </script>
