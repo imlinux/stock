@@ -8,185 +8,273 @@
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/formatData.js"></script>
     <style>
-        table {
+        .finance {
             width: 100%;
             line-height: 21px;
             border-collapse: collapse;
             border-spacing: 0;
         }
-        table,table tr th, table tr td { border:1px solid #D7D7D7; }
+        .finance tr th, .finance tr td { border:1px solid #D7D7D7; }
 
         .tips-colname-Left {
             color: #333;
             font-weight: bold;
             text-align: left;
         }
+        .tips-fieldname-Left {
+            color: #333;
+            font-weight: bold;
+            text-align: left;
+        }
+        .tips-data-Right {
+            color: #333;
+            font-weight: normal;
+            text-align: right;
+        }
     </style>
 </head>
 <body>
-<table id="lrb">
+<table id="lrb" class="finance">
     <tbody>
     <tr>
         <th class="tips-colname-Left"><span>利润表</span></th>
         <th v-for="e in REPORTDATE"><span>{{e}}</span></th>
     </tr>
     <tr>
-        <td><span>营业总收入</span></td>
+        <td class="tips-fieldname-Left"><span>营业总收入</span></td>
 
-        <td v-for="e in TOTALOPERATEREVE"><span>{{e}}</span></td>
+        <td class="tips-data-Right" v-for="e in TOTALOPERATEREVE"><span>{{e}}</span></td>
     </tr>
     <tr>
         <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;营业收入</span></td>
 
-        <td v-for="e in OPERATEREVE"><span><span>{{e}}</span></span></td>
+        <td class="tips-data-Right" v-for="e in OPERATEREVE"><span><span>{{e}}</span></span></td>
     </tr>
     <tr>
         <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;利息收入</span></td>
 
-        <td v-for="e in INTREVE"><span>{{e}}</span></td>
+        <td class="tips-data-Right" v-for="e in INTREVE"><span>{{e}}</span></td>
     </tr>
     <tr>
         <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;已赚保费</span></td>
 
-        <td v-for="e in PREMIUMEARNED"><span>{{e}}</span></td>
+        <td class="tips-data-Right" v-for="e in PREMIUMEARNED"><span>{{e}}</span></td>
     </tr>
     <tr>
         <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;手续费及佣金净收入</span></td>
 
-        <td v-for="e in COMMNREVE"><span>{{e}}</span></td>
+        <td class="tips-data-Right" v-for="e in COMMNREVE"><span>{{e}}</span></td>
     </tr>
     <tr>
         <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其他业务收入</span></td>
 
-        <td v-for="e in OTHERREVE"><span>{{e}}</span></td>
+        <td class="tips-data-Right" v-for="e in OTHERREVE"><span>{{e}}</span></td>
     </tr>
     <tr>
-        <td><span>营业总成本</span></td>
+        <td class="tips-fieldname-Left"><span>营业总成本</span></td>
 
-        <td v-for="e in TOTALOPERATEEXP"><span>{{e}}</span></td>
+        <td class="tips-data-Right" v-for="e in TOTALOPERATEEXP"><span>{{e}}</span></td>
     </tr>
     <tr>
         <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;营业成本</span></td>
 
-        <td v-for="e in OPERATEEXP"><span>{{e}}</span></td>
+        <td class="tips-data-Right" v-for="e in OPERATEEXP"><span>{{e}}</span></td>
     </tr>
     <tr>
         <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;利息支出</span></td>
 
-        <td v-for="e in INTEXP"><span>{{e}}</span></td>
+        <td class="tips-data-Right" v-for="e in INTEXP"><span>{{e}}</span></td>
     </tr>
     <tr>
         <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;手续费及佣金支出</span></td>
 
-        <td v-for="e in COMMEXP"><span>{{e}}</span></td>
+        <td class="tips-data-Right" v-for="e in COMMEXP"><span>{{e}}</span></td>
     </tr>
     <tr>
         <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;研发费用</span></td>
 
-        <td v-for="e in RDEXP"><span>{{e}}</span></td>
+        <td class="tips-data-Right" v-for="e in RDEXP"><span>{{e}}</span></td>
     </tr>
     <tr>
         <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;退保金</span></td>
 
-        <td v-for="e in SURRENDERPREMIUM"><span>{{e}}</span></td>
+        <td class="tips-data-Right" v-for="e in SURRENDERPREMIUM"><span>{{e}}</span></td>
     </tr>
     <tr>
         <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;赔付支出净额</span></td>
 
-        <td v-for="e in NETINDEMNITYEXP"><span>{{e}}</span></td>
+        <td class="tips-data-Right" v-for="e in NETINDEMNITYEXP"><span>{{e}}</span></td>
     </tr>
     <tr>
         <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;提取保险合同准备金净额</span></td>
 
-        <td v-for="e in NETCONTACTRESERVE"><span>{{e}}</span></td>
+        <td class="tips-data-Right" v-for="e in NETCONTACTRESERVE"><span>{{e}}</span></td>
     </tr>
     <tr>
         <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;保单红利支出</span></td>
 
-        <td v-for="e in POLICYDIVIEXP"><span>{{e}}</span></td>
+        <td class="tips-data-Right" v-for="e in POLICYDIVIEXP"><span>{{e}}</span></td>
     </tr>
     <tr>
         <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;分保费用</span></td>
 
-        <td v-for="e in RIEXP"><span>{{e}}</span></td>
+        <td class="tips-data-Right" v-for="e in RIEXP"><span>{{e}}</span></td>
     </tr>
     <tr>
         <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其他业务成本</span></td>
 
-        <td v-for="e in OTHEREXP"><span>{{e}}</span></td>
+        <td class="tips-data-Right" v-for="e in OTHEREXP"><span>{{e}}</span></td>
     </tr>
     <tr>
         <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;营业税金及附加</span></td>
 
-        <td v-for="e in OPERATETAX"><span>{{e}}</span></td>
+        <td class="tips-data-Right" v-for="e in OPERATETAX"><span>{{e}}</span></td>
     </tr>
     <tr>
         <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;销售费用</span></td>
 
-        <td v-for="e in SALEEXP"><span>{{e}}</span></td>
+        <td class="tips-data-Right" v-for="e in SALEEXP"><span>{{e}}</span></td>
     </tr>
     <tr>
         <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;管理费用</span></td>
 
-        <td v-for="e in MANAGEEXP"><span>{{e}}</span></td>
+        <td class="tips-data-Right" v-for="e in MANAGEEXP"><span>{{e}}</span></td>
     </tr>
     <tr>
         <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;财务费用</span></td>
 
-        <td v-for="e in FINANCEEXP"><span>{{e}}</span></td>
+        <td class="tips-data-Right" v-for="e in FINANCEEXP"><span>{{e}}</span></td>
     </tr>
     <tr>
         <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;资产减值损失</span></td>
 
-        <td v-for="e in ASSETDEVALUELOSS"><span>{{e}}</span></td>
+        <td class="tips-data-Right" v-for="e in ASSETDEVALUELOSS"><span>{{e}}</span></td>
     </tr>
     <tr>
-        <td><span>其他经营收益</span></td>
+        <td class="tips-fieldname-Left"><span>其他经营收益</span></td>
     </tr>
     <tr>
         <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;加:公允价值变动收益</span></td>
 
-        <td v-for="e in FVALUEINCOME"><span>{{e}}</span></td>
+        <td class="tips-data-Right" v-for="e in FVALUEINCOME"><span>{{e}}</span></td>
     </tr>
     <tr>
         <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;投资收益</span></td>
 
-        <td v-for="e in INVESTINCOME"><span>{{e}}</span></td>
+        <td class="tips-data-Right" v-for="e in INVESTINCOME"><span>{{e}}</span></td>
     </tr>
     <tr>
         <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其中:对联营企业和合营企业的投资收益</span></td>
 
-        <td v-for="e in INVESTJOINTINCOME"><span>{{e}}</span></td>
+        <td class="tips-data-Right" v-for="e in INVESTJOINTINCOME"><span>{{e}}</span></td>
     </tr>
     <tr>
         <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;汇兑收益</span></td>
 
-        <td v-for="e in EXCHANGEINCOME"><span>{{e}}</span></td>
+        <td class="tips-data-Right" v-for="e in EXCHANGEINCOME"><span>{{e}}</span></td>
     </tr>
     <tr>
-        <td><span>营业利润</span></td>
+        <td class="tips-fieldname-Left"><span>营业利润</span></td>
 
-        <td v-for="e in OPERATEPROFIT"><span>{{e}}</span></td>
+        <td class="tips-data-Right" v-for="e in OPERATEPROFIT"><span>{{e}}</span></td>
     </tr>
     <tr>
         <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;加:营业外收入</span></td>
 
-        <td v-for="e in NONOPERATEREVE"><span>{{e}}</span></td>
+        <td class="tips-data-Right" v-for="e in NONOPERATEREVE"><span>{{e}}</span></td>
     </tr>
     <tr>
         <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其中:非流动资产处置利得</span></td>
 
-        <td v-for="e in NONLASSETREVE"><span>{{e}}</span></td>
+        <td class="tips-data-Right" v-for="e in NONLASSETREVE"><span>{{e}}</span></td>
     </tr>
     <tr>
         <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;减:营业外支出</span></td>
 
-        <td v-for="e in NONOPERATEEXP"><span>{{e}}</span></td>
+        <td class="tips-data-Right" v-for="e in NONOPERATEEXP"><span>{{e}}</span></td>
     </tr>
     <tr>
         <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其中:非流动资产处置净损失</span></td>
 
-        <td v-for="e in NONLASSETNETLOSS"><span>{{e}}</span></td>
+        <td class="tips-data-Right" v-for="e in NONLASSETNETLOSS"><span>{{e}}</span></td>
+    </tr>
+    <tr>
+        <td class="tips-fieldname-Left"><span>利润总额</span></td>
+
+        <td class="tips-data-Right" v-for="e in SUMPROFIT"><span>{{e}}</span></td>
+    </tr>
+    <tr>
+        <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;减:所得税费用</span></td>
+
+        <td class="tips-data-Right" v-for="e in INCOMETAX"><span>{{e}}</span></td>
+    </tr>
+    <tr>
+        <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;被合并方在合并前实现利润</span></td>
+
+        <td class="tips-data-Right" v-for="e in COMBINEDNETPROFITB"><span>{{e}}</span></td>
+    </tr>
+    <tr>
+        <td class="tips-fieldname-Left"><span>净利润</span></td>
+
+        <td class="tips-data-Right" v-for="e in NETPROFIT"><span>{{e}}</span></td>
+    </tr>
+    <tr>
+        <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其中:归属于母公司股东的净利润</span></td>
+
+        <td class="tips-data-Right" v-for="e in PARENTNETPROFIT"><span>{{e}}</span></td>
+    </tr>
+    <tr>
+        <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;少数股东损益</span></td>
+
+        <td class="tips-data-Right" v-for="e in MINORITYINCOME"><span>{{e}}</span></td>
+    </tr>
+    <tr>
+        <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;扣除非经常性损益后的净利润</span></td>
+
+        <td class="tips-data-Right" v-for="e in KCFJCXSYJLR"><span>{{e}}</span></td>
+    </tr>
+    <tr>
+        <td class="tips-fieldname-Left"><span>每股收益</span></td>
+    </tr>
+    <tr>
+        <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;基本每股收益</span></td>
+
+        <td class="tips-data-Right" v-for="e in BASICEPS"><span>{{e}}</span></td>
+    </tr>
+    <tr>
+        <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;稀释每股收益</span></td>
+
+        <td class="tips-data-Right" v-for="e in DILUTEDEPS"><span>{{e}}</span></td>
+    </tr>
+    <tr>
+        <td class="tips-fieldname-Left"><span>其他综合收益</span></td>
+
+        <td class="tips-data-Right" v-for="e in OTHERCINCOME"><span>{{e}}</span></td>
+    </tr>
+    <tr>
+        <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;归属于母公司股东的其他综合收益</span></td>
+
+        <td class="tips-data-Right" v-for="e in PARENTOTHERCINCOME"><span>{{e}}</span></td>
+    </tr>
+    <tr>
+        <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;归属于少数股东的其他综合收益</span></td>
+
+        <td class="tips-data-Right" v-for="e in MINORITYOTHERCINCOME"><span>{{e}}</span></td>
+    </tr>
+    <tr>
+        <td class="tips-fieldname-Left"><span>综合收益总额</span></td>
+
+        <td class="tips-data-Right" v-for="e in SUMCINCOME"><span>{{e}}</span></td>
+    </tr>
+    <tr>
+        <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;归属于母公司股东的综合收益总额</span></td>
+
+        <td class="tips-data-Right" v-for="e in PARENTCINCOME"><span>{{e}}</span></td>
+    </tr>
+    <tr>
+        <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;归属于少数股东的综合收益总额</span></td>
+
+        <td class="tips-data-Right" v-for="e in MINORITYCINCOME"><span>{{e}}</span></td>
     </tr>
     </tbody>
 </table>
@@ -228,7 +316,22 @@
             NONOPERATEREVE:[],
             NONLASSETREVE:[],
             NONOPERATEEXP:[],
-            NONLASSETNETLOSS:[]
+            NONLASSETNETLOSS:[],
+            SUMPROFIT:[],
+            INCOMETAX:[],
+            COMBINEDNETPROFITB:[],
+            NETPROFIT:[],
+            PARENTNETPROFIT:[],
+            MINORITYINCOME:[],
+            KCFJCXSYJLR:[],
+            BASICEPS:[],
+            DILUTEDEPS:[],
+            OTHERCINCOME:[],
+            PARENTOTHERCINCOME:[],
+            MINORITYOTHERCINCOME:[],
+            SUMCINCOME:[],
+            PARENTCINCOME:[],
+            MINORITYCINCOME:[]
         }
     });
     $.get("finance/query_lrb?code=600570.SH&reportType=1", function (data) {
@@ -241,6 +344,8 @@
 
                 if(k == 'REPORTDATE') {
                     v = formatDate(obj[k.toLowerCase()]);
+                } else if(k == 'BASICEPS' || k == 'DILUTEDEPS') {
+                    v = obj[k.toLocaleLowerCase()];
                 } else {
                     v = formatNumber(obj[k.toLowerCase()]);
                 }
