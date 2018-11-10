@@ -306,10 +306,19 @@
                 ctype:0
             }
         },
-
+        props: {
+            code: {
+                type: String,
+                required: true
+            },
+            report_type: {
+                type: String,
+                required: true
+            }
+        },
         mounted:function () {
             const lrb = this.lrb;
-            axios.get("finance/query_lrb?code=601688.SH&reportType=1")
+            axios.get("finance/query_lrb?code=" + this.code + "&reportType=" + this.report_type)
                 .then(function (response) {
 
                     var data = response.data;
