@@ -5,6 +5,7 @@ import dsy.core.entity.CompanyHQ;
 import dsy.core.entity.WallStreetcnCompanyHQ;
 import dsy.web.dao.CompanyDao;
 import dsy.web.dao.IndustryDao;
+import dsy.web.dto.QueryCompany;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -133,4 +134,9 @@ public class CompanyService {
             response.close();
         }
     }
+
+    public List<QueryCompany> queryCompany(String codeOrName) {
+        return companyDao.queryCompany(codeOrName);
+    }
+
 }
