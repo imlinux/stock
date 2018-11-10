@@ -4,6 +4,7 @@ import dsy.core.entity.Wh;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.TypedQuery;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -13,11 +14,11 @@ import java.util.List;
 @Repository
 public class WhDao extends GeneralDao {
 
-    public List<Wh> getLates() throws Exception {
+    public List<Wh> getLates(Date date) throws Exception {
 
-        TypedQuery<Wh> query = em.createQuery("select e from Wh e where e.date = '2018-11-08'", Wh.class);
+        TypedQuery<Wh> query = em.createQuery("select e from Wh e where e.date = :date", Wh.class);
 
-        //query.setParameter("date", new java.sql.Date(parse("2018-11-08").getTime()));
+        query.setParameter("date", date);
 
         return query.getResultList();
     }

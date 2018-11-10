@@ -14,9 +14,13 @@ public class DateTool {
     public static Date getDay(Date date) {
         Calendar calendar = Calendar.getInstance();
 
-        calendar.setTime(date);
-        calendar.set(Calendar.HOUR, 0);
-        calendar.set(Calendar.MINUTE , 0);
+        String str = getDayStr(date);
+
+        try {
+            calendar.setTime(parse(str));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
         return calendar.getTime();
     }

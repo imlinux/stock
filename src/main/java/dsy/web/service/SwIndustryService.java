@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Map;
 
-import static dsy.core.tools.DateTool.getCurrentDayStr;
+import static dsy.core.tools.DateTool.getDayStr;
 import static dsy.core.tools.TradeTool.getLatestTrade;
 
 /**
@@ -57,7 +57,7 @@ public class SwIndustryService {
 
                 SwIndustryHQ swIndustryHQ = new SwIndustryHQ();
 
-                swIndustryHQ.setId(e.getKey() + "_" + getCurrentDayStr());
+                swIndustryHQ.setId(e.getKey() + "_" + getDayStr(latestTradeDate));
 
                 swIndustryHQ.setDate(latestTradeDate);
 

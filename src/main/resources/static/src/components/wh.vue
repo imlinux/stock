@@ -1,7 +1,8 @@
 <template>
     <el-table
             :data="tableData"
-            style="width: 100%">
+            style="width: 100%"
+            border>
         <el-table-column
                 prop="prodName"
                 label="资产"
@@ -17,14 +18,26 @@
                 label="涨跌幅">
         </el-table-column>
         <el-table-column
-                prop=""
                 label="日内区间">
-
+            <el-table-column
+                prop="highPx"
+                label="最高">
+            </el-table-column>
+            <el-table-column
+                    prop="lowPx"
+                    label="最低">
+            </el-table-column>
         </el-table-column>
         <el-table-column
-                prop=""
                 label="52周区间">
-
+            <el-table-column
+                    prop="week52high"
+                    label="最高">
+            </el-table-column>
+            <el-table-column
+                    prop="week52low"
+                    label="最低">
+            </el-table-column>
         </el-table-column>
     </el-table>
 </template>

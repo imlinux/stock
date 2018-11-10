@@ -20,7 +20,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import static dsy.core.tools.DateTool.*;
+import static dsy.core.tools.DateTool.getDay;
+import static dsy.core.tools.DateTool.getDayStr;
 import static dsy.core.tools.TradeTool.getLatestTrade;
 
 /**
@@ -57,7 +58,7 @@ public class CompanyService {
 
                     Thread.sleep(1000);
                     for (CompanyHQ e : companyHQList) {
-                        e.setId(e.getCode() + "_" + getCurrentDayStr());
+                        e.setId(e.getCode() + "_" + getDayStr(latestTradeDate));
                         e.setDate(latestTradeDate);
                         companyDao.merge(e);
                     }
@@ -78,8 +79,6 @@ public class CompanyService {
         HttpGet httpGet = new HttpGet("https://api-ddc.wallstreetcn.com/market/rank?market_type=mdc&stk_type=stock&order_by=none&limit=6000&fields=prod_name,prod_en_name,prod_code,symbol,last_px,px_change,px_change_rate,open_px,high_px,low_px,week_52_high,week_52_low,price_precision,circulation_value,dyn_pe,dyn_pb_rate,turnover_value,turnover_ratio,turnover_volume,market_value,preclose_px,amplitude,trade_status,update_time&cursor=1");
 
         CloseableHttpResponse response = httpClient.execute(httpGet);
-
-        java.sql.Date latestTradeDate = new java.sql.Date(getLatestTrade().getTime());
 
         try {
             HttpEntity entity1 = response.getEntity();
@@ -125,7 +124,7 @@ public class CompanyService {
                 //update_time
                 long time = (int) e.get(i++) * 1000L;
 
-                entity.setDate(latestTradeDate);
+                entity.setDate(new java.sql.Date(time));
                 entity.setId(getDayStr(getDay(new Date(time))) + "_" + entity.getProdCode());
                 companyDao.merge(entity);
             }

@@ -39,8 +39,7 @@ public class WhService {
 
         Map<String, Object> snapshot = (Map) data.get("snapshot");
 
-        java.sql.Date latestTradeDate = new java.sql.Date(getLatestTrade().getTime());
-
+        Date latestTrade = getLatestTrade();
         snapshot.forEach((k, v) -> {
 
             List l = (List) v;
@@ -68,8 +67,8 @@ public class WhService {
             wh.setMarketType((String) l.get(index ++));
             wh.setTradeStatus((String) l.get(index ++));
 
-            wh.setDate(latestTradeDate);
-            wh.setId(wh.getSymbol() + getDayStr(new Date(wh.getUpdateTime() * 1000)));
+            wh.setDate(new java.sql.Date(latestTrade.getTime()));
+            wh.setId(wh.getSymbol() + getDayStr(latestTrade));
             whDao.merge(wh);
         });
     }
@@ -84,6 +83,8 @@ public class WhService {
     }
 
     public List<Wh> getLatest() throws Exception {
-        return whDao.getLates();
+        Date date = getLatestTrade();
+
+        return whDao.getLates(new java.sql.Date(date.getTime()));
     }
 }
