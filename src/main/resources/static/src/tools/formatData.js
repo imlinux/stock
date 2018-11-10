@@ -125,3 +125,6 @@ function hideEmptyRow(tableid) {
     if (autocount <= 3)
         AutoScroll();
 }
+
+
+export {formatDate, formatNumber, formatRate};

@@ -1,4 +1,6 @@
 import App from './components/app.vue'
+import Lrb from './components/lrb'
+
 import Vue from 'vue'
 import ElementUI from 'element-ui';
 import VueRouter from 'vue-router'
@@ -19,7 +21,8 @@ var vm = new Vue({
     el:'#app',
     router:router,
     components:{
-        App
+        App,
+        Lrb
     },
     methods:{
         aa:function(event) {
