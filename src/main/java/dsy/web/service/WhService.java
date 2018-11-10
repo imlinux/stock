@@ -82,4 +82,8 @@ public class WhService {
             return 0.0;
         }
     }
+
+    public List<Wh> getLatest() throws Exception {
+        return whDao.getLates();
+    }
 }
