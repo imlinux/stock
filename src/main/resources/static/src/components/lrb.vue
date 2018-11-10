@@ -1,6 +1,6 @@
 
 <template>
-    <table class="finance-table">
+    <table class="finance-table" v-loading="loading">
         <tbody>
         <tr>
             <th class="tips-colname-Left"><span>利润表</span></th>
@@ -303,7 +303,8 @@
                     PARENTCINCOME: [],
                     MINORITYCINCOME: []
                 },
-                ctype:0
+                ctype:0,
+                loading:true
             }
         },
         props: {
@@ -317,17 +318,23 @@
             }
         },
         mounted:function () {
-            const lrb = this.lrb;
+            let that = this;
+
+            that.loading = true;
+
             axios.get("finance/query_lrb?code=" + this.code + "&reportType=" + this.report_type)
                 .then(function (response) {
 
-                    var data = response.data;
+                    const data = response.data;
 
-                    for(var i = 0; i < data.length; i++) {
-                        var obj = data[i];
+                    for(let i = 0; i < data.length; i++) {
+                        let obj = data[i];
 
-                        for (var k in lrb) {
-                            var v;
+                        let lrb = that.lrb;
+                        that.ctype = obj.type;
+
+                        for (let k in lrb) {
+                            let v;
                             if(k == 'REPORTDATE') {
                                 v = formatDate(obj[k.toLowerCase()]);
                             } else if(k == 'BASICEPS' || k == 'DILUTEDEPS') {
@@ -339,6 +346,7 @@
                         }
 
                     }
+                    that.loading = false;
                 })
         }
     }
@@ -352,17 +360,21 @@
         border-collapse: collapse;
         border-spacing: 0;
     }
-    .finance-table tr th, .finance-table tr td { border:1px solid #D7D7D7; }
+    .finance-table tr th, .finance-table tr td {
+        border:1px solid #D7D7D7;
+    }
 
     .tips-colname-Left {
         color: #333;
         font-weight: bold;
         text-align: left;
+        width: 25%;
     }
     .tips-fieldname-Left {
         color: #333;
         font-weight: bold;
         text-align: left;
+        width: 25%;
     }
     .tips-data-Right {
         color: #333;

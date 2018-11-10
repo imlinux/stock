@@ -2,6 +2,7 @@
     <el-table
             :data="tableData"
             style="width: 100%"
+            v-loading="loading"
             border>
         <el-table-column
                 prop="prodName"
@@ -49,17 +50,20 @@
 
         data: function () {
             return {
-                tableData:[]
+                tableData:[],
+                "loading": true
             }
         },
         mounted:function () {
-            const tableData = this.tableData;
+            const that = this;
+            const tableData = that.tableData;
             axios.get('/wh/get_latest').then(function (response) {
                 const data = response.data;
 
                  for(var i = 0; i < data.length; i++) {
                      tableData.push(data[i]);
                  }
+                 that.loading = false;
             })
         }
     }

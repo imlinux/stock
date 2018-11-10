@@ -4,7 +4,7 @@ import Vue from 'vue'
 
 const vm = new Vue({
     el:'#app',
-    components:{
-        App
+    render:function (h) {
+        return h(App);
     }
 });
