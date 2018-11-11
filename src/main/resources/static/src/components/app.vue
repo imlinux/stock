@@ -8,7 +8,8 @@
 					<el-menu-item index="2" v-on:click="menuClick" route="/wh">外汇</el-menu-item>
 					<el-menu-item index="3" v-on:click="menuClick">自选</el-menu-item>
 					<el-menu-item index="4" v-on:click="menuClick" route="/lrb">财务报表</el-menu-item>
-					<el-menu-item index="5" ><cc></cc></el-menu-item>
+					<el-menu-item index="5" v-on:click="menuClick" route="/gdp">中国GDP</el-menu-item>
+					<el-menu-item index="6" ><cc></cc></el-menu-item>
 				</el-menu>
 			</el-header>
 			<el-main>
@@ -27,6 +28,7 @@
 	import cc from './CompanySearch'
 	import lrb from './lrb'
 	import wh from './wh'
+	import gdp from './gdp'
 
     Vue.use(VueRouter);
     Vue.use(ElementUI);
@@ -42,6 +44,9 @@
                 code:'600570.SH',
                 report_type:'1'
 			}
+		}, {
+            path: '/gdp',
+			component: gdp
 		}]
     });
 
