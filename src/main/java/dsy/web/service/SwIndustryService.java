@@ -28,7 +28,7 @@ import static dsy.core.tools.TradeTool.getLatestTrade;
 public class SwIndustryService {
 
     @Autowired
-    IndustryDao industryDao;
+    private IndustryDao industryDao;
 
     public void syncFromSinaSwIndustry() throws Exception {
 
