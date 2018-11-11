@@ -18,7 +18,9 @@ public class TradeTool {
 
         Calendar calendar = Calendar.getInstance();
 
+        int retry = 10;
         while (true) {
+            if(retry < 0) throw new Exception("超过尝试次数");
             String currentDayStr = getDayStr(calendar.getTime(), "yyyyMMdd");
 
             String url = "http://tool.bitefu.net/jiari/?d=" + currentDayStr;
@@ -31,6 +33,7 @@ public class TradeTool {
 
             } else {
                 calendar.add(Calendar.DAY_OF_MONTH, -1);
+                retry --;
             }
         }
     }
