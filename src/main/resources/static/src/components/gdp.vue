@@ -1,5 +1,5 @@
 <template>
-    <div id="main" style="width: 100%;height:800px;"></div>
+    <div style="width: 100%;height:800px;"></div>
 </template>
 
 <script>
@@ -10,7 +10,7 @@
     export default {
 
         mounted:function () {
-            const myChart = echarts.init(document.getElementById('main'));
+            const myChart = echarts.init(this.$el);
 
             let option = {
                 title: {
@@ -18,7 +18,7 @@
                 },
                 tooltip: {},
                 legend: {
-                    data:['GDP', '人均GDP', '第一产业', '第二产业', '第三产业']
+                    data:['GDP', '第一产业', '第二产业', '第三产业']
                 },
                 xAxis: {
                     type:'category'
@@ -27,9 +27,6 @@
                 },
                 series: [{
                     name: 'GDP',
-                    type: 'line'
-                }, {
-                    name: '人均GDP',
                     type: 'line'
                 }, {
                     name: '第一产业',
@@ -47,13 +44,10 @@
 
             axios.get("/gdp/year").then( function (response) {
 
-                console.log(response);
-
                 let data = response.data;
 
                 let year = [];
                 let gdp = [];
-                let pcGdp = [];
                 let pi = [];
                 let si = [];
                 let ti = [];
@@ -62,7 +56,6 @@
                 for(let i = 0; i < data.length; i++) {
                     year.push(data[i].quarter);
                     gdp.push(data[i].gdp);
-                    pcGdp.push(data[i].pcGdp);
                     pi.push(data[i].pi);
                     si.push(data[i].si);
                     ti.push(data[i].ti);
@@ -75,10 +68,7 @@
                     series: [{
                         name:'GDP',
                         data: gdp
-                    }, {
-                        name:'人均GDP',
-                        data: pcGdp
-                    }, {
+                    },{
                         name:'第一产业',
                         data: pi
                     }, {
