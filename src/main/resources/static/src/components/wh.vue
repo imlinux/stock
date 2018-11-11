@@ -64,6 +64,10 @@
                      tableData.push(data[i]);
                  }
                  that.loading = false;
+            }).catch(function (reason) {
+                that.$message.error('服务请求异常');
+            }).then(function () {
+                that.loading = false;
             })
         }
     }

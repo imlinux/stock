@@ -57,7 +57,7 @@
                 if(event.route) {
                     this.$router.push(event.route);
                 } else {
-                    this.$message('未设置路由');
+                    this.$message.warning('未设置路由');
 				}
             }
 		},
