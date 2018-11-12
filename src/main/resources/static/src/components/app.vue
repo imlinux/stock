@@ -8,8 +8,9 @@
 					<el-menu-item index="2" v-on:click="menuClick" route="/wh">外汇</el-menu-item>
 					<el-menu-item index="3" v-on:click="menuClick">自选</el-menu-item>
 					<el-menu-item index="4" v-on:click="menuClick" route="/lrb">财务报表</el-menu-item>
-					<el-menu-item index="5" v-on:click="menuClick" route="/gdp">中国GDP</el-menu-item>
-					<el-menu-item index="6" ><cc></cc></el-menu-item>
+					<el-menu-item index="5" v-on:click="menuClick" route="/sw_industry_hq">申万行业行情</el-menu-item>
+					<el-menu-item index="6" v-on:click="menuClick" route="/gdp">中国GDP</el-menu-item>
+					<el-menu-item index="7" ><cc></cc></el-menu-item>
 				</el-menu>
 			</el-header>
 			<el-main>
@@ -29,6 +30,7 @@
 	import lrb from './lrb'
 	import wh from './wh'
 	import gdp from './gdp'
+	import sw_industry_hq from './swIndustryHq'
 
     Vue.use(VueRouter);
     Vue.use(ElementUI);
@@ -45,6 +47,9 @@
                 report_type:'1'
 			}
 		}, {
+            path:'/sw_industry_hq',
+			component: sw_industry_hq
+		}, {
             path: '/gdp',
 			component: gdp
 		}]
@@ -55,7 +60,8 @@
         components:{
 	        cc,
 			lrb,
-			wh
+			wh,
+            sw_industry_hq
 		},
 		methods: {
             menuClick:function (event) {
