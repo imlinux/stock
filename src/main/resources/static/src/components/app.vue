@@ -7,7 +7,7 @@
 					<el-menu-item index="1" v-on:click="menuClick">行情</el-menu-item>
 					<el-menu-item index="2" v-on:click="menuClick" route="/wh">外汇</el-menu-item>
 					<el-menu-item index="3" v-on:click="menuClick">自选</el-menu-item>
-					<el-menu-item index="4" v-on:click="menuClick" route="/lrb">财务报表</el-menu-item>
+					<el-menu-item index="4" v-on:click="menuClick" route="/cb">财务报表</el-menu-item>
 					<el-menu-item index="5" v-on:click="menuClick" route="/sw_industry_hq">申万行业行情</el-menu-item>
 					<el-menu-item index="6" v-on:click="menuClick" route="/gdp">中国GDP</el-menu-item>
 					<el-menu-item index="7" ><cc></cc></el-menu-item>
@@ -27,7 +27,7 @@
     import 'element-ui/lib/theme-chalk/index.css';
 
 	import cc from './CompanySearch'
-	import lrb from './lrb'
+	import cb from './cb'
 	import wh from './wh'
 	import gdp from './gdp'
 	import sw_industry_hq from './swIndustryHq'
@@ -40,8 +40,8 @@
             path: '/wh',
 			component: wh
 		}, {
-            path: '/lrb',
-			component: lrb,
+            path: '/cb',
+			component: cb,
 			props:{
                 code:'600570.SH',
                 report_type:'1'
@@ -59,7 +59,7 @@
 
         components:{
 	        cc,
-			lrb,
+			cb,
 			wh,
             sw_industry_hq
 		},
