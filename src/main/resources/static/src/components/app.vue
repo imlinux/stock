@@ -7,9 +7,9 @@
 					<el-menu-item index="1" v-on:click="menuClick">行情</el-menu-item>
 					<el-menu-item index="2" v-on:click="menuClick" route="/wh">外汇</el-menu-item>
 					<el-menu-item index="3" v-on:click="menuClick">自选</el-menu-item>
-					<el-menu-item index="4" v-on:click="menuClick" route="/cb">财务报表</el-menu-item>
-					<el-menu-item index="5" v-on:click="menuClick" route="/sw_industry_hq">申万行业行情</el-menu-item>
-					<el-menu-item index="6" v-on:click="menuClick" route="/gdp">中国GDP</el-menu-item>
+					<el-menu-item index="4" v-on:click="menuClick" route="/sw_industry_hq">申万行业行情</el-menu-item>
+					<el-menu-item index="5" v-on:click="menuClick" route="/gdp">中国GDP</el-menu-item>
+					<el-menu-item index="6"><cc v-on:select="changeStock"></cc></el-menu-item>
 				</el-menu>
 			</el-header>
 			<el-main>
@@ -39,12 +39,9 @@
             path: '/wh',
 			component: wh
 		}, {
-            path: '/cb',
+            path: '/cb/code/:code/type/:report_type',
 			component: cb,
-			props:{
-                code:'600570.SH',
-                report_type:'1'
-			}
+			props:true
 		}, {
             path:'/sw_industry_hq',
 			component: sw_industry_hq
@@ -69,6 +66,22 @@
                 } else {
                     this.$message.warning('未设置路由');
 				}
+            },
+            changeStock: function (item) {
+
+                var dotIndex = item.code.indexOf(".");
+                var codePrefix = item.code.substring(0, dotIndex);
+                var codeSuffix = item.code.substring(dotIndex);
+
+                var code = codePrefix;
+                if(codeSuffix == '.SS') {
+                    code = code + '.SH'
+                } else {
+                    code = code + '.SZ'
+                }
+
+                this.stock_code=code;
+                this.$router.push('/cb/code/' + code + '/type/1');
             }
 		},
 		router:router
