@@ -10,7 +10,6 @@
 					<el-menu-item index="4" v-on:click="menuClick" route="/cb">财务报表</el-menu-item>
 					<el-menu-item index="5" v-on:click="menuClick" route="/sw_industry_hq">申万行业行情</el-menu-item>
 					<el-menu-item index="6" v-on:click="menuClick" route="/gdp">中国GDP</el-menu-item>
-					<el-menu-item index="7" ><cc></cc></el-menu-item>
 				</el-menu>
 			</el-header>
 			<el-main>

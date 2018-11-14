@@ -4,6 +4,7 @@
             class="inline-input"
             :fetch-suggestions="querySearch"
             placeholder="请输入内容"
+            v-on:select="selectItem"
             :trigger-on-focus="false">
 
     </el-autocomplete>
@@ -17,6 +18,9 @@
                 axios.get("/company/query_company?codeOrName=" + queryString).then(function (response) {
                     cb(response.data);
                 })
+            },
+            selectItem:function (item) {
+                this.$emit('select', item)
             }
         }
     }

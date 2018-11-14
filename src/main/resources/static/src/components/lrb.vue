@@ -254,55 +254,6 @@
     export default {
         data: function () {
             return {
-                lrb: {
-                    REPORTDATE: [],
-                    TOTALOPERATEREVE: [],
-                    OPERATEREVE: [],
-                    INTREVE: [],
-                    PREMIUMEARNED: [],
-                    COMMNREVE: [],
-                    OTHERREVE: [],
-                    TOTALOPERATEEXP: [],
-                    OPERATEEXP: [],
-                    INTEXP: [],
-                    COMMEXP: [],
-                    RDEXP: [],
-                    SURRENDERPREMIUM: [],
-                    NETINDEMNITYEXP: [],
-                    NETCONTACTRESERVE: [],
-                    POLICYDIVIEXP: [],
-                    RIEXP: [],
-                    OTHEREXP: [],
-                    OPERATETAX: [],
-                    SALEEXP: [],
-                    MANAGEEXP: [],
-                    FINANCEEXP: [],
-                    ASSETDEVALUELOSS: [],
-                    FVALUEINCOME: [],
-                    INVESTINCOME: [],
-                    INVESTJOINTINCOME: [],
-                    EXCHANGEINCOME: [],
-                    OPERATEPROFIT: [],
-                    NONOPERATEREVE: [],
-                    NONLASSETREVE: [],
-                    NONOPERATEEXP: [],
-                    NONLASSETNETLOSS: [],
-                    SUMPROFIT: [],
-                    INCOMETAX: [],
-                    COMBINEDNETPROFITB: [],
-                    NETPROFIT: [],
-                    PARENTNETPROFIT: [],
-                    MINORITYINCOME: [],
-                    KCFJCXSYJLR: [],
-                    BASICEPS: [],
-                    DILUTEDEPS: [],
-                    OTHERCINCOME: [],
-                    PARENTOTHERCINCOME: [],
-                    MINORITYOTHERCINCOME: [],
-                    SUMCINCOME: [],
-                    PARENTCINCOME: [],
-                    MINORITYCINCOME: []
-                },
                 ctype:0,
                 loading:true
             }
@@ -317,37 +268,91 @@
                 required: true
             }
         },
-        mounted:function () {
-            let that = this;
+        methods: {
+        },
+        computed: {
+            lrb:function () {
 
-            that.loading = true;
+                this.loading = true;
+                let that = this;
 
-            axios.get("finance/query_lrb?code=" + this.code + "&reportType=" + this.report_type)
-                .then(function (response) {
+                let lrb = {
+                    REPORTDATE: [],
+                        TOTALOPERATEREVE: [],
+                        OPERATEREVE: [],
+                        INTREVE: [],
+                        PREMIUMEARNED: [],
+                        COMMNREVE: [],
+                        OTHERREVE: [],
+                        TOTALOPERATEEXP: [],
+                        OPERATEEXP: [],
+                        INTEXP: [],
+                        COMMEXP: [],
+                        RDEXP: [],
+                        SURRENDERPREMIUM: [],
+                        NETINDEMNITYEXP: [],
+                        NETCONTACTRESERVE: [],
+                        POLICYDIVIEXP: [],
+                        RIEXP: [],
+                        OTHEREXP: [],
+                        OPERATETAX: [],
+                        SALEEXP: [],
+                        MANAGEEXP: [],
+                        FINANCEEXP: [],
+                        ASSETDEVALUELOSS: [],
+                        FVALUEINCOME: [],
+                        INVESTINCOME: [],
+                        INVESTJOINTINCOME: [],
+                        EXCHANGEINCOME: [],
+                        OPERATEPROFIT: [],
+                        NONOPERATEREVE: [],
+                        NONLASSETREVE: [],
+                        NONOPERATEEXP: [],
+                        NONLASSETNETLOSS: [],
+                        SUMPROFIT: [],
+                        INCOMETAX: [],
+                        COMBINEDNETPROFITB: [],
+                        NETPROFIT: [],
+                        PARENTNETPROFIT: [],
+                        MINORITYINCOME: [],
+                        KCFJCXSYJLR: [],
+                        BASICEPS: [],
+                        DILUTEDEPS: [],
+                        OTHERCINCOME: [],
+                        PARENTOTHERCINCOME: [],
+                        MINORITYOTHERCINCOME: [],
+                        SUMCINCOME: [],
+                        PARENTCINCOME: [],
+                        MINORITYCINCOME: []
+                };
 
-                    const data = response.data;
+                axios.get("finance/query_lrb?code=" + this.code + "&reportType=" + this.report_type)
+                    .then(function (response) {
 
-                    for(let i = 0; i < data.length; i++) {
-                        let obj = data[i];
+                        const data = response.data;
 
-                        let lrb = that.lrb;
-                        that.ctype = obj.type;
+                        for(let i = 0; i < data.length; i++) {
+                            let obj = data[i];
 
-                        for (let k in lrb) {
-                            let v;
-                            if(k == 'REPORTDATE') {
-                                v = formatDate(obj[k.toLowerCase()]);
-                            } else if(k == 'BASICEPS' || k == 'DILUTEDEPS') {
-                                v = obj[k.toLocaleLowerCase()];
-                            } else {
-                                v = formatNumber(obj[k.toLowerCase()]);
+                            that.ctype = obj.type;
+
+                            for (let k in lrb) {
+                                let v;
+                                if(k == 'REPORTDATE') {
+                                    v = formatDate(obj[k.toLowerCase()]);
+                                } else if(k == 'BASICEPS' || k == 'DILUTEDEPS') {
+                                    v = obj[k.toLocaleLowerCase()];
+                                } else {
+                                    v = formatNumber(obj[k.toLowerCase()]);
+                                }
+                                lrb[k].push(v);
                             }
-                            lrb[k].push(v);
-                        }
 
-                    }
-                    that.loading = false;
-                })
+                        }
+                        that.loading = false;
+                    });
+                return lrb;
+            }
         }
     }
 </script>
