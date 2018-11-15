@@ -138,4 +138,10 @@ public class CompanyService {
         return companyDao.queryCompany(codeOrName);
     }
 
+
+    public List<WallStreetcnCompanyHQ> companyHQ() throws Exception {
+
+        return companyDao.companyHq();
+    }
+
 }

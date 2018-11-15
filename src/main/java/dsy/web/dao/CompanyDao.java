@@ -1,11 +1,15 @@
 package dsy.web.dao;
 
+import dsy.core.entity.WallStreetcnCompanyHQ;
 import dsy.web.dto.QueryCompany;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
+
+import static dsy.core.tools.TradeTool.getLatestTrade;
 
 /**
  * @author dong
@@ -35,5 +39,15 @@ public class CompanyDao extends GeneralDao {
 
 
         return ret;
+    }
+
+
+    public List<WallStreetcnCompanyHQ> companyHq() throws Exception {
+        TypedQuery<WallStreetcnCompanyHQ> query = em.createQuery("select e from WallStreetcnCompanyHQ e where e.date = :date order by e.turnoverVolume desc", WallStreetcnCompanyHQ.class);
+
+        query.setParameter("date", new java.sql.Date(getLatestTrade().getTime()));
+        query.setMaxResults(500);
+
+        return query.getResultList();
     }
 }

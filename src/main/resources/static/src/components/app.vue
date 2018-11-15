@@ -4,7 +4,7 @@
 		<el-container>
 			<el-header>
 				<el-menu mode="horizontal">
-					<el-menu-item index="1" v-on:click="menuClick">行情</el-menu-item>
+					<el-menu-item index="1" v-on:click="menuClick" route="/company_hq">行情</el-menu-item>
 					<el-menu-item index="2" v-on:click="menuClick" route="/wh">外汇</el-menu-item>
 					<el-menu-item index="3" v-on:click="menuClick">自选</el-menu-item>
 					<el-menu-item index="4" v-on:click="menuClick" route="/sw_industry_hq">申万行业行情</el-menu-item>
@@ -30,6 +30,7 @@
 	import wh from './wh'
 	import gdp from './gdp'
 	import sw_industry_hq from './swIndustryHq'
+	import company_hq from './company_hq'
 
     Vue.use(VueRouter);
     Vue.use(ElementUI);
@@ -48,6 +49,9 @@
 		}, {
             path: '/gdp',
 			component: gdp
+		}, {
+            path: '/company_hq',
+			component: company_hq
 		}]
     });
 
@@ -57,7 +61,8 @@
 	        cc,
 			cb,
 			wh,
-            sw_industry_hq
+            sw_industry_hq,
+            company_hq
 		},
 		methods: {
             menuClick:function (event) {

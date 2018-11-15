@@ -1,5 +1,6 @@
 package dsy.web.controller;
 
+import dsy.core.entity.WallStreetcnCompanyHQ;
 import dsy.web.dto.QueryCompany;
 import dsy.web.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +37,11 @@ public class CompanyController {
     @RequestMapping("/query_company")
     public List<QueryCompany> queryCompany(@RequestParam String codeOrName) {
         return companyService.queryCompany(codeOrName);
+    }
+
+    @RequestMapping("/company_hq")
+    public List<WallStreetcnCompanyHQ> currentTradeCompanyHq() throws Exception {
+
+        return companyService.companyHQ();
     }
 }
