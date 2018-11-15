@@ -19,7 +19,7 @@ public class FinanceDao extends GeneralDao {
         TypedQuery query = em.createQuery("select l from Lrb l where l.SECURITYCODE=:code and l.REPORTTYPE=:reportType order by l.date desc", Lrb.class);
         query.setParameter("code", code);
         query.setParameter("reportType", reportType);
-        query.setMaxResults(5);
+        query.setMaxResults(10);
         return  query.getResultList();
     }
 
@@ -27,7 +27,7 @@ public class FinanceDao extends GeneralDao {
         TypedQuery<Zcfzb> query  = em.createQuery("select l from Zcfzb l where l.SECURITYCODE=:code and l.REPORTTYPE=:reportType order by l.date desc", Zcfzb.class);
         query.setParameter("code", code);
         query.setParameter("reportType", reportType);
-        query.setMaxResults(5);
+        query.setMaxResults(10);
         return query.getResultList();
     }
 
@@ -35,7 +35,7 @@ public class FinanceDao extends GeneralDao {
         TypedQuery<Xjllb> query  = em.createQuery("select l from Xjllb l where l.SECURITYCODE=:code and l.REPORTTYPE=:reportType order by l.date desc", Xjllb.class);
         query.setParameter("code", code);
         query.setParameter("reportType", reportType);
-        query.setMaxResults(5);
+        query.setMaxResults(10);
         return query.getResultList();
     }
 }

@@ -10,41 +10,41 @@
             <td class="tips-colname-Left"><span>流动资产</span></td>
         </tr>
         <tr>
-            <td class="tips-fieldname-Left"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;货币资金</span></td>
+            <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;货币资金</span></td>
             <td class="tips-data-Right" v-for="e in zcfz.MONETARYFUND"><span>{{e}}</span></td>
         </tr>
         <tr>
-            <td class="tips-fieldname-Left"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;以公允价值计量且其变动计入当期损益的金融资产</span></td>
+            <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;以公允价值计量且其变动计入当期损益的金融资产</span></td>
             <td class="tips-data-Right" v-for="e in zcfz.FVALUEFASSET"><span>{{e}}</span></td>
         </tr>
 
         <tr>
-            <td class="tips-fieldname-Left"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;应收票据</span></td>
+            <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;应收票据</span></td>
             <td class="tips-data-Right" v-for="e in zcfz.BILLREC"><span>{{e}}</span></td>
         </tr>
         <tr>
-            <td class="tips-fieldname-Left"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;应收账款</span></td>
+            <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;应收账款</span></td>
             <td class="tips-data-Right" v-for="e in zcfz.ACCOUNTREC"><span>{{e}}</span></td>
         </tr>
         <tr>
-            <td class="tips-fieldname-Left"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;预付款项</span></td>
+            <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;预付款项</span></td>
             <td class="tips-data-Right" v-for="e in zcfz.ADVANCEPAY"><span>{{e}}</span></td>
         </tr>
         <tr>
-            <td class="tips-fieldname-Left"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;应收利息</span></td>
+            <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;应收利息</span></td>
             <td class="tips-data-Right" v-for="e in zcfz.INTERESTREC"><span>{{e}}</span></td>
         </tr>
 
         <tr>
-            <td class="tips-fieldname-Left"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其他应收款</span></td>
+            <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其他应收款</span></td>
             <td class="tips-data-Right" v-for="e in zcfz.OTHERREC"><span>{{e}}</span></td>
         </tr>
         <tr>
-            <td class="tips-fieldname-Left"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;存货</span></td>
+            <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;存货</span></td>
             <td class="tips-data-Right" v-for="e in zcfz.INVENTORY"><span>{{e}}</span></td>
         </tr>
         <tr>
-            <td class="tips-fieldname-Left"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其他流动资产</span></td>
+            <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其他流动资产</span></td>
             <td class="tips-data-Right" v-for="e in zcfz.OTHERLASSET"><span>{{e}}</span></td>
         </tr>
         <tr>
@@ -55,43 +55,43 @@
             <td class="tips-colname-Left"><span>非流动资产</span></td>
         </tr>
         <tr>
-            <td class="tips-fieldname-Left"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可供出售金融资产</span></td>
+            <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可供出售金融资产</span></td>
             <td class="tips-data-Right" v-for="e in zcfz.SALEABLEFASSET"><span>{{e}}</span></td>
         </tr>
         <tr>
-            <td class="tips-fieldname-Left"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长期股权投资</span></td>
+            <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长期股权投资</span></td>
             <td class="tips-data-Right" v-for="e in zcfz.LTEQUITYINV"><span>{{e}}</span></td>
         </tr>
         <tr>
-            <td class="tips-fieldname-Left"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;投资性房地产</span></td>
+            <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;投资性房地产</span></td>
             <td class="tips-data-Right" v-for="e in zcfz.ESTATEINVEST"><span>{{e}}</span></td>
         </tr>
         <tr>
-            <td class="tips-fieldname-Left"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;固定资产</span></td>
+            <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;固定资产</span></td>
             <td class="tips-data-Right" v-for="e in zcfz.FIXEDASSET"><span>{{e}}</span></td>
         </tr>
         <tr>
-            <td class="tips-fieldname-Left"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在建工程</span></td>
+            <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在建工程</span></td>
             <td class="tips-data-Right" v-for="e in zcfz.CONSTRUCTIONPROGRESS"><span>{{e}}</span></td>
         </tr>
         <tr>
-            <td class="tips-fieldname-Left"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;无形资产</span></td>
+            <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;无形资产</span></td>
             <td class="tips-data-Right" v-for="e in zcfz.INTANGIBLEASSET"><span>{{e}}</span></td>
         </tr>
         <tr>
-            <td class="tips-fieldname-Left"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商誉</span></td>
+            <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商誉</span></td>
             <td class="tips-data-Right" v-for="e in zcfz.GOODWILL"><span>{{e}}</span></td>
         </tr>
         <tr>
-            <td class="tips-fieldname-Left"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长期待摊费用</span></td>
+            <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长期待摊费用</span></td>
             <td class="tips-data-Right" v-for="e in zcfz.LTDEFERASSET"><span>{{e}}</span></td>
         </tr>
         <tr>
-            <td class="tips-fieldname-Left"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;递延所得税资产</span></td>
+            <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;递延所得税资产</span></td>
             <td class="tips-data-Right" v-for="e in zcfz.DEFERINCOMETAXASSET"><span>{{e}}</span></td>
         </tr>
         <tr>
-            <td class="tips-fieldname-Left"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其他非流动资产</span></td>
+            <td ><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其他非流动资产</span></td>
             <td class="tips-data-Right" v-for="e in zcfz.OTHERNONLASSET"><span>{{e}}</span></td>
         </tr>
         <tr>
@@ -106,31 +106,31 @@
             <td class="tips-colname-Left"><span>流动负债</span></td>
         </tr>
         <tr>
-            <td class="tips-fieldname-Left"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;应付账款</span></td>
+            <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;应付账款</span></td>
             <td class="tips-data-Right" v-for="e in zcfz.ACCOUNTPAY"><span>{{e}}</span></td>
         </tr>
         <tr>
-            <td class="tips-fieldname-Left"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;预收款项</span></td>
+            <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;预收款项</span></td>
             <td class="tips-data-Right" v-for="e in zcfz.ADVANCERECEIVE"><span>{{e}}</span></td>
         </tr>
         <tr>
-            <td class="tips-fieldname-Left"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;应付职工薪酬</span></td>
+            <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;应付职工薪酬</span></td>
             <td class="tips-data-Right" v-for="e in zcfz.SALARYPAY"><span>{{e}}</span></td>
         </tr>
         <tr>
-            <td class="tips-fieldname-Left"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;应交税费</span></td>
+            <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;应交税费</span></td>
             <td class="tips-data-Right" v-for="e in zcfz.TAXPAY"><span>{{e}}</span></td>
         </tr>
         <tr>
-            <td class="tips-fieldname-Left"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;应付利息</span></td>
+            <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;应付利息</span></td>
             <td class="tips-data-Right" v-for="e in zcfz.INTERESTPAY"><span>{{e}}</span></td>
         </tr>
         <tr>
-            <td class="tips-fieldname-Left"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其他应付款</span></td>
+            <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其他应付款</span></td>
             <td class="tips-data-Right" v-for="e in zcfz.OTHERPAY"><span>{{e}}</span></td>
         </tr>
         <tr>
-            <td class="tips-fieldname-Left"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其他流动负债</span></td>
+            <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其他流动负债</span></td>
             <td class="tips-data-Right" v-for="e in zcfz.OTHERLLIAB"><span>{{e}}</span></td>
         </tr>
         <tr>
@@ -141,23 +141,23 @@
             <td class="tips-colname-Left"><span>非流动负债</span></td>
         </tr>
         <tr>
-            <td class="tips-fieldname-Left"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长期借款</span></td>
+            <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长期借款</span></td>
             <td class="tips-data-Right" v-for="e in zcfz.LTBORROW"><span>{{e}}</span></td>
         </tr>
         <tr>
-            <td class="tips-fieldname-Left"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;专项应付款</span></td>
+            <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;专项应付款</span></td>
             <td class="tips-data-Right" v-for="e in zcfz.SPECIALPAY"><span>{{e}}</span></td>
         </tr>
         <tr>
-            <td class="tips-fieldname-Left"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;预计负债</span></td>
+            <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;预计负债</span></td>
             <td class="tips-data-Right" v-for="e in zcfz.ANTICIPATELIAB"><span>{{e}}</span></td>
         </tr>
         <tr>
-            <td class="tips-fieldname-Left"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;递延收益</span></td>
+            <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;递延收益</span></td>
             <td class="tips-data-Right" v-for="e in zcfz.DEFERINCOME"><span>{{e}}</span></td>
         </tr>
         <tr>
-            <td class="tips-fieldname-Left"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;递延所得税负债</span></td>
+            <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;递延所得税负债</span></td>
             <td class="tips-data-Right" v-for="e in zcfz.DEFERINCOMETAXLIAB"><span>{{e}}</span></td>
         </tr>
         <tr>
@@ -176,31 +176,31 @@
             <td class="tips-data-Right" v-for="e in zcfz.SHARECAPITAL"><span>{{e}}</span></td>
         </tr>
         <tr>
-            <td class="tips-fieldname-Left"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;资本公积</span></td>
+            <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;资本公积</span></td>
             <td class="tips-data-Right" v-for="e in zcfz.CAPITALRESERVE"><span>{{e}}</span></td>
         </tr>
         <tr>
-            <td class="tips-fieldname-Left"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;盈余公积</span></td>
+            <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;盈余公积</span></td>
             <td class="tips-data-Right" v-for="e in zcfz.SURPLUSRESERVE"><span>{{e}}</span></td>
         </tr>
         <tr>
-            <td class="tips-fieldname-Left"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;未分配利润</span></td>
+            <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;未分配利润</span></td>
             <td class="tips-data-Right" v-for="e in zcfz.RETAINEDEARNING"><span>{{e}}</span></td>
         </tr>
         <tr>
-            <td class="tips-colname-Left"><span>归属于母公司股东权益合计</span></td>
+            <td><span>归属于母公司股东权益合计</span></td>
             <td class="tips-data-Right" v-for="e in zcfz.SUMPARENTEQUITY"><span>{{e}}</span></td>
         </tr>
         <tr>
-            <td class="tips-fieldname-Left"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;少数股东权益</span></td>
+            <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;少数股东权益</span></td>
             <td class="tips-data-Right" v-for="e in zcfz.MINORITYEQUITY"><span>{{e}}</span></td>
         </tr>
         <tr>
-            <td class="tips-colname-Left"><span>股东权益合计</span></td>
+            <td><span>股东权益合计</span></td>
             <td class="tips-data-Right" v-for="e in zcfz.SUMSHEQUITY"><span>{{e}}</span></td>
         </tr>
         <tr>
-            <td class="tips-colname-Left"><span>负债和股东权益合计</span></td>
+            <td><span>负债和股东权益合计</span></td>
             <td class="tips-data-Right" v-for="e in zcfz.SUMLIABSHEQUITY"><span>{{e}}</span></td>
         </tr>
         </tbody>
