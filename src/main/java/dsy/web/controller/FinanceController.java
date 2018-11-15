@@ -1,6 +1,7 @@
 package dsy.web.controller;
 
 import dsy.core.entity.Lrb;
+import dsy.core.entity.Zcfzb;
 import dsy.web.service.FinanceAnalysisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,5 +47,12 @@ public class FinanceController {
                               @RequestParam String reportType) {
 
         return financeAnalysisService.queryLrb(code, reportType);
+    }
+
+    @RequestMapping("/query_zcfzb")
+    public List<Zcfzb> queryZcfzb(@RequestParam String code,
+                                  @RequestParam String reportType) {
+
+        return financeAnalysisService.queryZcfzb(code, reportType);
     }
 }

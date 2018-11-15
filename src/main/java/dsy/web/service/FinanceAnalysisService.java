@@ -170,6 +170,10 @@ public class FinanceAnalysisService {
     }
 
     public List<Lrb> queryLrb(String code, String reportType) {
-        return financeDao.query(code, reportType);
+        return financeDao.queryLrb(code, reportType);
+    }
+
+    public List<Zcfzb> queryZcfzb(String code, String reportType) {
+        return financeDao.queryZcfzb(code, reportType);
     }
 }

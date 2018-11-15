@@ -463,6 +463,9 @@ public class Zcfzb extends BaseEntity {
     private double SUMLIAB;
     //---------------------所有者权益(或股东权益)-----------------------
 
+    /**
+     * 实收资本（或股本）
+     */
     private double SHARECAPITAL;
 
     private double OTHEREQUITY;
@@ -473,30 +476,51 @@ public class Zcfzb extends BaseEntity {
 
     private double OTHEREQUITYOTHER;
 
+    /**
+     * 资本公积
+     */
     private double CAPITALRESERVE;
 
     private double INVENTORYSHARE;
 
     private double SPECIALRESERVE;
 
+    /**
+     * 盈余公积
+     */
     private double SURPLUSRESERVE;
 
     private double GENERALRISKPREPARE;
 
     private double UNCONFIRMINVLOSS;
 
+    /**
+     * 未分配利润
+     */
     private double RETAINEDEARNING;
 
     private double PLANCASHDIVI;
 
     private double DIFFCONVERSIONFC;
 
+    /**
+     * 归属于母公司股东权益合计
+     */
     private double SUMPARENTEQUITY;
 
+    /**
+     * 少数股东权益
+     */
     private double MINORITYEQUITY;
 
+    /**
+     * 股东权益合计
+     */
     private double SUMSHEQUITY;
 
+    /**
+     * 负债和股东权益合计
+     */
     private double SUMLIABSHEQUITY;
 
     //------------------------百分比------------------------------------

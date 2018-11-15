@@ -277,7 +277,7 @@
                 let that = this;
 
                 let lrb = {
-                    REPORTDATE: [],
+                        REPORTDATE: [],
                         TOTALOPERATEREVE: [],
                         OPERATEREVE: [],
                         INTREVE: [],
