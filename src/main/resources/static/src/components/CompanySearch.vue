@@ -8,6 +8,9 @@
             v-on:select="selectItem"
             :trigger-on-focus="true">
 
+        <template slot-scope="{ item }">
+            <div>{{ item.name }}({{item.code}})</div>
+        </template>
     </el-autocomplete>
 </template>
 
