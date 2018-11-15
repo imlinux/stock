@@ -16,11 +16,11 @@ public class CompanyDao extends GeneralDao {
 
     public List<QueryCompany> queryCompany(String codeOrName) {
 
-        Query query = em.createQuery("select distinct e.prodName, e.prodCode from WallStreetcnCompanyHQ e where e.prodName like :name or e.prodCode like :code");
+        Query query = em.createQuery("select distinct e.prodName, e.prodCode from WallStreetcnCompanyHQ e where e.prodName like :name or e.prodCode like :code order by e.turnoverValue desc");
 
         query.setParameter("name", "%" + codeOrName + "%");
         query.setParameter("code", "%" + codeOrName + "%");
-        query.setMaxResults(5);
+        query.setMaxResults(20);
 
         List<Object[]> l = query.getResultList();
         List<QueryCompany> ret = new ArrayList<>();

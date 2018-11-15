@@ -176,4 +176,8 @@ public class FinanceAnalysisService {
     public List<Zcfzb> queryZcfzb(String code, String reportType) {
         return financeDao.queryZcfzb(code, reportType);
     }
+
+    public List<Xjllb> queryXjllb(String code, String reportType) {
+        return financeDao.queryXjllb(code, reportType);
+    }
 }
