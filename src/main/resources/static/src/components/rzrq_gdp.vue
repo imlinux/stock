@@ -36,8 +36,7 @@
                 xAxis: {
                     type:'category'
                 },
-                yAxis: {
-                },
+                yAxis: {},
                 series: [{
                     name: '融资占gdp百分比',
                     type: 'line',
@@ -68,7 +67,7 @@
 
                 for(let i = 0; i < data.length; i++) {
                     tradeDate.push(data[i].tradeDate);
-                    tradeValGdp.push(data[i].tradeValGdp)
+                    tradeValGdp.push(data[i].tradeValGdp);
                 }
 
                 myChart.setOption({

@@ -7,7 +7,6 @@ package dsy.web.dto;
  */
 public class RzrqDto {
     private String tradeDate;
-    private Long finVal;
 
     //融资融券占gdp百分比
     private double tradeValGdp;
@@ -18,14 +17,6 @@ public class RzrqDto {
 
     public void setTradeDate(String tradeDate) {
         this.tradeDate = tradeDate;
-    }
-
-    public Long getFinVal() {
-        return finVal;
-    }
-
-    public void setFinVal(Long finVal) {
-        this.finVal = finVal;
     }
 
     public double getTradeValGdp() {
