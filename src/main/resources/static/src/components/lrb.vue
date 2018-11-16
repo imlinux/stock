@@ -358,7 +358,7 @@
 </script>
 
 
-<style>
+<style scoped>
     .finance-table {
         width: 100%;
         line-height: 21px;
@@ -386,4 +386,9 @@
         font-weight: normal;
         text-align: right;
     }
+
+    tr:hover {
+        background-color: #ffff99;
+    }
+
 </style>
