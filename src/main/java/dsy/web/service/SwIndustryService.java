@@ -82,4 +82,8 @@ public class SwIndustryService {
     public List<SwIndustryHQ> getAllSwIndustryHq(java.sql.Date date) {
         return industryDao.getAllIndustryCode(date);
     }
+
+    public List<SwIndustryHQ> getAllSwIndustryHq() {
+        return getAllSwIndustryHq(industryDao.getLatestTradeDate());
+    }
 }

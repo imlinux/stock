@@ -11,10 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.Date;
 import java.util.List;
 
-import static dsy.core.tools.DateTool.getDayStr;
 import static dsy.core.tools.DateTool.parse;
 import static dsy.core.tools.StringTool.isEmpty;
-import static dsy.core.tools.TradeTool.getLatestTrade;
 
 /**
  * @author dong
@@ -38,13 +36,12 @@ public class IndustryController {
     @RequestMapping("/get_sw_industry_hq")
     List<SwIndustryHQ> getSwIndustryHQ(@RequestParam(required = false) String date) throws Exception {
 
-        Date d = null;
         if(isEmpty(date)) {
-            d = getLatestTrade();
-            d = parse(getDayStr(d));
+            return swIndustryService.getAllSwIndustryHq();
         } else {
+            Date d = null;
             d = parse(date);
+            return swIndustryService.getAllSwIndustryHq(new java.sql.Date(d.getTime()));
         }
-        return swIndustryService.getAllSwIndustryHq(new java.sql.Date(d.getTime()));
     }
 }
