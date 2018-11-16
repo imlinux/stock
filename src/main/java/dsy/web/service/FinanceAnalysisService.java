@@ -54,10 +54,15 @@ public class FinanceAnalysisService {
 
         SimpleDateFormat sm = new SimpleDateFormat("yyyy/MM/dd H:mm:ss");
         String[] urls = {
-                "http://emweb.securities.eastmoney.com/NewFinanceAnalysis/lrbAjax?companyType=" + ctype + "&reportDateType=0&reportType=1&endDate=" + endDate + "&code=" + code, //按报告期和报告期同比
-                "http://emweb.securities.eastmoney.com/NewFinanceAnalysis/lrbAjax?companyType=" + ctype + "&reportDateType=0&reportType=2&endDate=" + endDate + "&code=" + code//按单季度和按季度环比
+                "http://emweb.securities.eastmoney.com/NewFinanceAnalysis/lrbAjax?companyType=" + ctype + "&reportDateType=0&reportType=1&code=" + code + "&endDate=",  //按报告期和报告期同比
+                "http://emweb.securities.eastmoney.com/NewFinanceAnalysis/lrbAjax?companyType=" + ctype + "&reportDateType=0&reportType=2&code=" + code + "&endDate=" //按单季度和按季度环比
         };
 
+        if(! isEmpty(endDate)) {
+            for(int i = 0; i < urls.length; i++) {
+                urls[i] += endDate;
+            }
+        }
         for(String url: urls) {
             String json = get(url, "UTF-8");
 
@@ -85,6 +90,10 @@ public class FinanceAnalysisService {
         }
     }
 
+    public void syncLrbFromEastMoney(String code) throws Exception {
+        syncLrbFromEastMoney(code, null);
+    }
+
     /**
      * 同步资产负载表
      * @throws Exception
@@ -95,9 +104,15 @@ public class FinanceAnalysisService {
 
 
         String[] urls = {
-                "http://emweb.securities.eastmoney.com/NewFinanceAnalysis/zcfzbAjax?companyType=" + ctype +"&reportDateType=0&reportType=1&endDate=" + endDate + "&code=" + code,
-                "http://emweb.securities.eastmoney.com/NewFinanceAnalysis/zcfzbAjax?companyType=" + ctype +"&reportDateType=0&reportType=2&endDate=" + endDate + "&code=" + code
+                "http://emweb.securities.eastmoney.com/NewFinanceAnalysis/zcfzbAjax?companyType=" + ctype +"&reportDateType=0&reportType=1&code=" + code + "&endDate=",
+                "http://emweb.securities.eastmoney.com/NewFinanceAnalysis/zcfzbAjax?companyType=" + ctype +"&reportDateType=0&reportType=2&code=" + code + "&endDate="
         };
+
+        if(!isEmpty(endDate)) {
+            for(int i = 0; i < urls.length; i++) {
+                urls[i] += endDate;
+            }
+        }
 
         for (String url: urls) {
 
@@ -129,14 +144,22 @@ public class FinanceAnalysisService {
         }
     }
 
+    public void syncZcfzbFromEastMoney(String code) throws Exception {
+        syncZcfzbFromEastMoney(code, null);
+    }
+
     public void syncXjllbFromEastMoney(String code, String endDate) throws Exception {
 
         String ctype = getCompanytype(code);
 
         String[] urls = {
-                "http://emweb.securities.eastmoney.com/NewFinanceAnalysis/xjllbAjax?companyType=" + ctype +"&reportDateType=0&reportType=1&endDate=" + endDate + "&code=" + code,
-                "http://emweb.securities.eastmoney.com/NewFinanceAnalysis/xjllbAjax?companyType=" + ctype +"&reportDateType=0&reportType=2&endDate=" + endDate + "&code=" + code
+                "http://emweb.securities.eastmoney.com/NewFinanceAnalysis/xjllbAjax?companyType=" + ctype +"&reportDateType=0&reportType=1&code=" + code + "&endDate=",
+                "http://emweb.securities.eastmoney.com/NewFinanceAnalysis/xjllbAjax?companyType=" + ctype +"&reportDateType=0&reportType=2&code=" + code + "&endDate="
         };
+
+        for(int i = 0; i < urls.length; i++) {
+            urls[i] += endDate;
+        }
 
         for(String url: urls) {
             String json = get(url, "UTF-8");
@@ -169,15 +192,67 @@ public class FinanceAnalysisService {
         }
     }
 
+    public void syncXjllbFromEastMoney(String code) throws Exception {
+        syncXjllbFromEastMoney(code, null);
+    }
+
     public List<Lrb> queryLrb(String code, String reportType) {
-        return financeDao.queryLrb(code, reportType);
+        List ret =  financeDao.queryLrb(code, reportType);
+
+        if(ret.isEmpty()) {
+            try {
+                syncLrbFromEastMoney(converCode(code));
+                ret = financeDao.queryLrb(code, reportType);
+            } catch (Exception e) {
+                LOG.error("", e);
+            }
+        }
+
+        return ret;
     }
 
     public List<Zcfzb> queryZcfzb(String code, String reportType) {
-        return financeDao.queryZcfzb(code, reportType);
+        List<Zcfzb> ret =  financeDao.queryZcfzb(code, reportType);
+
+        if(ret.isEmpty()) {
+            try {
+                syncZcfzbFromEastMoney(converCode(code));
+                ret = financeDao.queryZcfzb(code, reportType);
+            } catch (Exception e) {
+                LOG.error("", e);
+            }
+        }
+
+        return ret;
     }
 
     public List<Xjllb> queryXjllb(String code, String reportType) {
-        return financeDao.queryXjllb(code, reportType);
+        List<Xjllb> ret =  financeDao.queryXjllb(code, reportType);
+
+        if(ret.isEmpty()) {
+            try {
+                syncXjllbFromEastMoney(converCode(code));
+            } catch (Exception e) {
+                LOG.error("", e);
+            }
+
+            ret = financeDao.queryXjllb(code, reportType);
+        }
+
+        return ret;
+    }
+
+    private String converCode(String code) {
+
+        int dotIndex = code.indexOf(".");
+
+        if(dotIndex != -1) {
+            String codePrefix = code.substring(0, dotIndex);
+            String codeSuffix = code.substring(dotIndex + 1);
+
+            return codeSuffix+codePrefix;
+        }
+
+        return code;
     }
 }
