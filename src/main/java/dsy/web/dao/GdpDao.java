@@ -22,7 +22,7 @@ public class GdpDao extends GeneralDao {
     }
 
     public Gdp getLatestGdp() {
-        TypedQuery<Gdp> query = em.createQuery("select t from Gdp t where t.year='2017'", Gdp.class);
+        TypedQuery<Gdp> query = em.createQuery("select t from Gdp t where t.quarter='2017.4'", Gdp.class);
 
         return query.getSingleResult();
     }

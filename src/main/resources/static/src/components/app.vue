@@ -10,6 +10,7 @@
 					<el-menu-item index="4" v-on:click="menuClick" route="/sw_industry_hq">申万行业行情</el-menu-item>
 					<el-menu-item index="5" v-on:click="menuClick" route="/gdp">中国GDP</el-menu-item>
 					<el-menu-item index="6"><cc v-on:select="changeStock"></cc></el-menu-item>
+					<el-menu-item index="7" v-on:click="menuClick" route="/rzrq_gdp">融资融券余额</el-menu-item>
 				</el-menu>
 			</el-header>
 			<el-main>
@@ -31,6 +32,7 @@
 	import gdp from './gdp'
 	import sw_industry_hq from './swIndustryHq'
 	import company_hq from './company_hq'
+	import rzrq_gdp from './rzrq_gdp'
 
     Vue.use(VueRouter);
     Vue.use(ElementUI);
@@ -52,6 +54,9 @@
 		}, {
             path: '/company_hq',
 			component: company_hq
+		}, {
+            path: '/rzrq_gdp',
+			component: rzrq_gdp
 		}]
     });
 
@@ -62,7 +67,8 @@
 			cb,
 			wh,
             sw_industry_hq,
-            company_hq
+            company_hq,
+            rzrq_gdp
 		},
 		methods: {
             menuClick:function (event) {

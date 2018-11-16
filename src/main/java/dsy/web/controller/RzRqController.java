@@ -1,6 +1,6 @@
 package dsy.web.controller;
 
-import dsy.web.dto.HSMargin;
+import dsy.web.dto.RzrqDto;
 import dsy.web.service.RzRqService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,9 +25,13 @@ public class RzRqController {
     @Autowired
     private RzRqService rzRqService;
 
-    @RequestMapping("/get_all")
-    public List<HSMargin> getAll() {
-        return rzRqService.getRzRq();
+    /**
+     * 获取融资融券余额占gdp百分比
+     * @return
+     */
+    @RequestMapping("/get_rzrq_gdp")
+    public List<RzrqDto> getRzrqYezbGdp() {
+        return rzRqService.getRzRqyeZbGdp();
     }
 
 

@@ -5,11 +5,10 @@ package dsy.web.dto;
  * @since 18-10-23
  * 沪深融资融券总额
  */
-public class HSMargin {
+public class RzrqDto {
     private String tradeDate;
     private Long finVal;
 
-    private long tradeVal;
     //融资融券占gdp百分比
     private double tradeValGdp;
 
@@ -27,14 +26,6 @@ public class HSMargin {
 
     public void setFinVal(Long finVal) {
         this.finVal = finVal;
-    }
-
-    public long getTradeVal() {
-        return tradeVal;
-    }
-
-    public void setTradeVal(long tradeVal) {
-        this.tradeVal = tradeVal;
     }
 
     public double getTradeValGdp() {

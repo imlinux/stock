@@ -3,8 +3,9 @@ package dsy.web.service;
 import com.alibaba.fastjson.JSON;
 import dsy.core.entity.EastMoneyRzRqDetial;
 import dsy.core.entity.EastMoneyRzrq;
+import dsy.core.entity.Gdp;
 import dsy.web.dao.RzRqDao;
-import dsy.web.dto.HSMargin;
+import dsy.web.dto.RzrqDto;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.MutablePropertyValues;
@@ -13,10 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static dsy.core.tools.DateTool.getDayStr;
 import static dsy.core.tools.HttpClientTool.get;
@@ -33,6 +31,9 @@ public class RzRqService {
 
     @Autowired
     private RzRqDao rzRqDao;
+
+    @Autowired
+    private GdpService gdpService;
 
     public void syncFromEastMoneyDetialByDay(Date date) throws Exception {
 
@@ -172,10 +173,28 @@ public class RzRqService {
     }
 
 
-    public List<HSMargin> getRzRq() {
-        List<HSMargin> l = rzRqDao.findAll();
+    /**
+     * 获取融资融券余额占gdp百分比
+     * @return
+     */
+    public List<RzrqDto> getRzRqyeZbGdp() {
+        List<EastMoneyRzrq> l = rzRqDao.getAll();
+        Gdp gdp = gdpService.getLatest();
 
-        return l;
+        List<RzrqDto> ret = new ArrayList<>();
+
+
+        for(EastMoneyRzrq e: l) {
+            RzrqDto rzrqDto = new RzrqDto();
+
+            rzrqDto.setTradeDate(e.getTdate());
+            rzrqDto.setTradeValGdp(e.getRzrqye() / 1.0 / gdp.getGdp() / 1000000); //百分比
+
+
+            ret.add(rzrqDto);
+        }
+
+        return ret;
     }
 
 
