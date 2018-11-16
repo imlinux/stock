@@ -172,7 +172,7 @@
             <td class="tips-colname-Left"><span>所有者权益(或股东权益)</span></td>
         </tr>
         <tr>
-            <td class="tips-fieldname-Left"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实收资本（或股本）</span></td>
+            <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实收资本（或股本）</span></td>
             <td class="tips-data-Right" v-for="e in zcfz.SHARECAPITAL"><span>{{e}}</span></td>
         </tr>
         <tr>
