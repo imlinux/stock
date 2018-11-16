@@ -1,17 +1,6 @@
 package dsy.tmp;
 
 import com.alibaba.fastjson.JSON;
-import dsy.core.entity.CompanyHQ;
-import dsy.core.entity.Lrb;
-import org.springframework.beans.BeanWrapper;
-import org.springframework.beans.BeanWrapperImpl;
-
-import java.net.URLDecoder;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static dsy.core.tools.HttpClientTool.get;
 
@@ -20,17 +9,6 @@ import static dsy.core.tools.HttpClientTool.get;
  * @since 18-10-30
  */
 public class HttpClientTmp {
-
-    public static void get_today_all() throws Exception {
-
-        String url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?page=1&num=40&sort=amount&asc=0&node=hs_a&symbol=&_s_r_a=page";
-
-        String s = get(url, "GBK");
-
-        List<CompanyHQ> ret = JSON.parseArray(s, CompanyHQ.class);
-
-        System.out.println(ret.get(0));
-    }
 
 
     //新浪板块汇总

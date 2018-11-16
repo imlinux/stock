@@ -1,7 +1,6 @@
 package dsy.web.service;
 
 import com.alibaba.fastjson.JSON;
-import dsy.core.entity.CompanyHQ;
 import dsy.core.entity.WallStreetcnCompanyHQ;
 import dsy.web.dao.CompanyDao;
 import dsy.web.dao.IndustryDao;
@@ -22,7 +21,6 @@ import java.util.Map;
 
 import static dsy.core.tools.DateTool.getDay;
 import static dsy.core.tools.DateTool.getDayStr;
-import static dsy.core.tools.TradeTool.getLatestTrade;
 
 /**
  * @author dong
