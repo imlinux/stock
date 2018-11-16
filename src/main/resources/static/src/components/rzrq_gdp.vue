@@ -18,7 +18,14 @@
                     text: '融资占gdp百分比'
                 },
                 tooltip: {
-                    trigger: 'axis'
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross',
+                        animation: false,
+                        label: {
+                            backgroundColor: '#505765'
+                        }
+                    }
                 },
                 dataZoom: [
                     {

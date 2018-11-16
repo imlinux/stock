@@ -3,14 +3,14 @@
 	<el-container style="height:100%">
 		<el-container>
 			<el-header>
-				<el-menu mode="horizontal">
+				<el-menu mode="horizontal" default-active="4">
 					<el-menu-item index="1" v-on:click="menuClick" route="/company_hq">行情</el-menu-item>
 					<el-menu-item index="2" v-on:click="menuClick" route="/wh">外汇</el-menu-item>
 					<el-menu-item index="3" v-on:click="menuClick">自选</el-menu-item>
 					<el-menu-item index="4" v-on:click="menuClick" route="/sw_industry_hq">申万行业行情</el-menu-item>
 					<el-menu-item index="5" v-on:click="menuClick" route="/gdp">中国GDP</el-menu-item>
-					<el-menu-item index="6"><cc v-on:select="changeStock"></cc></el-menu-item>
-					<el-menu-item index="7" v-on:click="menuClick" route="/rzrq_gdp">融资融券余额</el-menu-item>
+					<el-menu-item index="6" v-on:click="menuClick" route="/rzrq_gdp">融资融券余额</el-menu-item>
+					<el-menu-item index="7"><cc v-on:select="changeStock"></cc></el-menu-item>
 				</el-menu>
 			</el-header>
 			<el-main>
@@ -62,6 +62,7 @@
 
 	export default {
 
+        activeName:'',
         components:{
 	        cc,
 			cb,
