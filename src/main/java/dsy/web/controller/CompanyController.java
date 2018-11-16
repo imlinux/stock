@@ -23,12 +23,6 @@ public class CompanyController {
     @Autowired
     private CompanyService companyService;
 
-    @RequestMapping("/sync_company_from_sina")
-    public void syncCompanyFromSina() throws Exception {
-
-        companyService.syncCompanyFromSina();
-    }
-
     @RequestMapping("/sync_company_from_wall_street")
     public void syncCompanyFromWallStreetcn() throws Exception {
         companyService.syncCompayFromWallStreetCn();

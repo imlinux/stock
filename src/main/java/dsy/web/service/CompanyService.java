@@ -38,41 +38,6 @@ public class CompanyService {
     @Autowired
     IndustryDao industryDao;
 
-    public void syncCompanyFromSina() throws Exception {
-
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-        java.sql.Date latestTradeDate = new java.sql.Date(getLatestTrade().getTime());
-
-        for (int i = 1;true; i++) {
-            HttpGet httpGet = new HttpGet("http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?num=80&sort=symbol&asc=1&node=hs_a&symbol=&_s_r_a=page&page=" + i);
-
-            CloseableHttpResponse response = httpClient.execute(httpGet);
-
-            try {
-                HttpEntity entity1 = response.getEntity();
-
-                String s = IOUtils.toString(entity1.getContent(), "GBK");
-
-                try {
-                    List<CompanyHQ> companyHQList = JSON.parseArray(s, CompanyHQ.class);
-
-                    Thread.sleep(1000);
-                    for (CompanyHQ e : companyHQList) {
-                        e.setId(e.getCode() + "_" + getDayStr(latestTradeDate));
-                        e.setDate(latestTradeDate);
-                        companyDao.merge(e);
-                    }
-                } catch (Exception e) {
-                    break;
-                }
-
-
-            } finally {
-                response.close();
-            }
-        }
-    }
-
     public void syncCompayFromWallStreetCn() throws Exception {
         CloseableHttpClient httpClient = HttpClients.createDefault();
 
