@@ -74,19 +74,8 @@
             },
             changeStock: function (item) {
 
-                var dotIndex = item.code.indexOf(".");
-                var codePrefix = item.code.substring(0, dotIndex);
-                var codeSuffix = item.code.substring(dotIndex);
-
-                var code = codePrefix;
-                if(codeSuffix == '.SS') {
-                    code = code + '.SH'
-                } else {
-                    code = code + '.SZ'
-                }
-
-                this.stock_code=code;
-                this.$router.push('/cb/code/' + code + '/type/1');
+                this.stock_code=item.code;
+                this.$router.push('/cb/code/' + item.code + '/type/1');
             }
 		},
 		router:router

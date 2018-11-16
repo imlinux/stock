@@ -124,6 +124,9 @@ public class CompanyService {
                 //update_time
                 long time = (int) e.get(i++) * 1000L;
 
+                //与东方财富保持一致
+                entity.setProdCode(entity.getProdCode().replace(".SS", ".SH"));
+
                 entity.setDate(new java.sql.Date(time));
                 entity.setId(getDayStr(getDay(new Date(time))) + "_" + entity.getProdCode());
                 companyDao.merge(entity);
