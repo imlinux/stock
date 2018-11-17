@@ -10,7 +10,8 @@
 					<el-menu-item index="4" v-on:click="menuClick" route="/sw_industry_hq">申万行业行情</el-menu-item>
 					<el-menu-item index="5" v-on:click="menuClick" route="/gdp">中国GDP</el-menu-item>
 					<el-menu-item index="6" v-on:click="menuClick" route="/rzrq_gdp">融资融券余额</el-menu-item>
-					<el-menu-item index="7"><cc v-on:select="changeStock"></cc></el-menu-item>
+					<el-menu-item index="7" v-on:click="menuClick" route="/buffett_ratio">巴菲特指标</el-menu-item>
+					<el-menu-item index="8"><cc v-on:select="changeStock"></cc></el-menu-item>
 				</el-menu>
 			</el-header>
 			<el-main>
@@ -33,6 +34,7 @@
 	import sw_industry_hq from './swIndustryHq'
 	import company_hq from './company_hq'
 	import rzrq_gdp from './rzrq_gdp'
+	import buffett_ratio from './buffett_ratio'
 
     Vue.use(VueRouter);
     Vue.use(ElementUI);
@@ -57,6 +59,10 @@
 		}, {
             path: '/rzrq_gdp',
 			component: rzrq_gdp
+		}, {
+            path: '/buffett_ratio',
+			component: buffett_ratio
+
 		}]
     });
 
@@ -69,7 +75,8 @@
 			wh,
             sw_industry_hq,
             company_hq,
-            rzrq_gdp
+            rzrq_gdp,
+            buffett_ratio
 		},
 		methods: {
             menuClick:function (event) {

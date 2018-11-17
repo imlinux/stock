@@ -16,7 +16,16 @@
                 title: {
                     text: 'GDP'
                 },
-                tooltip: {},
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross',
+                        animation: false,
+                        label: {
+                            backgroundColor: '#505765'
+                        }
+                    }
+                },
                 legend: {
                     data:['GDP', '第一产业', '第二产业', '第三产业']
                 },

@@ -21,6 +21,7 @@ public class GdpDao extends GeneralDao {
         return query.getResultList();
     }
 
+    //TODO 自动获取最新的时间
     public Gdp getLatestGdp() {
         TypedQuery<Gdp> query = em.createQuery("select t from Gdp t where t.quarter='2017.4'", Gdp.class);
 
