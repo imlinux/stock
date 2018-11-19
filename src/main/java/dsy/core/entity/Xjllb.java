@@ -42,6 +42,10 @@ public class Xjllb extends BaseEntity {
     private double NIBUYBACKFUND;
     private double TAXRETURNREC;
     private double OTHEROPERATEREC;
+
+    /**
+     * 经营活动现金流入小计
+     */
     private double SUMOPERATEFLOWIN;
     private double BUYGOODSSERVICEPAY;
     private double NILOANADVANCES;
@@ -53,6 +57,9 @@ public class Xjllb extends BaseEntity {
     private double TAXPAY;
     private double OTHEROPERATEPAY;
     private double SUMOPERATEFLOWOUT;
+    /**
+     * 经营活动产生的现金流量净额
+     */
     private double NETOPERATECASHFLOW;
     private double DISPOSALINVREC;
     private double INVINCOMEREC;
@@ -68,6 +75,10 @@ public class Xjllb extends BaseEntity {
     private double ADDPLEDGETDEPOSIT;
     private double OTHERINVPAY;
     private double SUMINVFLOWOUT;
+
+    /**
+     * 投资活动产生的现金流量净额
+     */
     private double NETINVCASHFLOW;
     private double ACCEPTINVREC;
     private double SUBSIDIARYACCEPT;
@@ -82,6 +93,10 @@ public class Xjllb extends BaseEntity {
     private double OTHERFINAPAY;
     private double SUBSIDIARYREDUCTCAPITAL;
     private double SUMFINAFLOWOUT;
+
+    /**
+     * 筹资活动产生的现金流量净额
+     */
     private double NETFINACASHFLOW;
     private double EFFECTEXCHANGERATE;
     private double NICASHEQUI;
