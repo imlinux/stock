@@ -1,5 +1,6 @@
 package dsy.web.dao;
 
+import dsy.core.entity.Cwzb;
 import dsy.core.entity.Lrb;
 import dsy.core.entity.Xjllb;
 import dsy.core.entity.Zcfzb;
@@ -35,6 +36,13 @@ public class FinanceDao extends GeneralDao {
         TypedQuery<Xjllb> query  = em.createQuery("select l from Xjllb l where l.SECURITYCODE=:code and l.REPORTTYPE=:reportType order by l.date desc", Xjllb.class);
         query.setParameter("code", code);
         query.setParameter("reportType", reportType);
+        query.setMaxResults(10);
+        return query.getResultList();
+    }
+
+    public List<Cwzb> queryCwzb(String code) {
+        TypedQuery<Cwzb> query  = em.createQuery("select l from Cwzb l where l.code=:code order by l.date desc", Cwzb.class);
+        query.setParameter("code", code);
         query.setMaxResults(10);
         return query.getResultList();
     }

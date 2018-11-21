@@ -1,5 +1,6 @@
 package dsy.web.controller;
 
+import dsy.core.entity.Cwzb;
 import dsy.core.entity.Lrb;
 import dsy.core.entity.Xjllb;
 import dsy.core.entity.Zcfzb;
@@ -62,5 +63,10 @@ public class FinanceController {
                                   @RequestParam String reportType) {
 
         return financeAnalysisService.queryXjllb(code, reportType);
+    }
+
+    @RequestMapping("/query_cwzb")
+    public List<Cwzb> queryCwzb(@RequestParam String code) {
+        return financeAnalysisService.queryCwzb(code);
     }
 }

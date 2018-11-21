@@ -1,6 +1,7 @@
 package dsy.web.service;
 
 import com.alibaba.fastjson.JSON;
+import dsy.core.entity.Cwzb;
 import dsy.core.entity.Lrb;
 import dsy.core.entity.Xjllb;
 import dsy.core.entity.Zcfzb;
@@ -196,6 +197,48 @@ public class FinanceAnalysisService {
         syncXjllbFromEastMoney(code, null);
     }
 
+    public void syncCwzbFromEastMoney(String code) throws Exception {
+
+        String ctype = getCompanytype(code);
+
+
+        String[] urls = new String[] {
+                "http://emweb.securities.eastmoney.com/NewFinanceAnalysis/MainTargetAjax?ctype=" + ctype + "&type=1&code=" + converCode(code),
+                "http://emweb.securities.eastmoney.com/NewFinanceAnalysis/MainTargetAjax?ctype=" + ctype + "&type=2&code=" + converCode(code)
+        };
+
+        for(String url: urls) {
+            String json = get(url, "UTF-8");
+
+            json = JSON.parse(json).toString();
+
+            List ret = JSON.parseArray(json);
+
+            SimpleDateFormat sm = new SimpleDateFormat("yyyy/MM/dd H:mm:ss");
+
+            for (Object o : ret) {
+                Map<String, Object> e = (Map) o;
+
+                for (Map.Entry<String, Object> ee : e.entrySet()) {
+                    if (isEmpty(ee.getValue()) || "--".equals(ee.getValue())) {
+                        ee.setValue("0");
+                    }
+                }
+
+                Cwzb cwzb = new Cwzb();
+
+                BeanWrapper beanWrapper = new BeanWrapperImpl(cwzb);
+                beanWrapper.setPropertyValues(new MutablePropertyValues(e));
+
+                cwzb.setCode(code);
+                cwzb.setId(cwzb.getDate() + code);
+
+                financeDao.merge(cwzb);
+            }
+        }
+
+    }
+
     public List<Lrb> queryLrb(String code, String reportType) {
         List ret =  financeDao.queryLrb(code, reportType);
 
@@ -242,6 +285,21 @@ public class FinanceAnalysisService {
         return ret;
     }
 
+    public List<Cwzb> queryCwzb(String code) {
+
+        List<Cwzb> ret = financeDao.queryCwzb(code);
+
+        if(ret.isEmpty()) {
+            try {
+                syncCwzbFromEastMoney(code);
+            } catch (Exception e) {
+                LOG.error("", e);
+            }
+            ret = financeDao.queryCwzb(code);
+        }
+
+        return ret;
+    }
     private String converCode(String code) {
 
         int dotIndex = code.indexOf(".");
