@@ -66,7 +66,7 @@ public class GdpService {
                 gdp.setSi(parse(e.get(index ++)));
                 gdp.setSiYoy(parse(e.get(index ++)));
                 gdp.setTi(parse(e.get(index ++)));
-                gdp.setTiYou(parse(e.get(index ++)));
+                gdp.setTiYoy(parse(e.get(index ++)));
 
                 gdpDao.merge(gdp);
             }

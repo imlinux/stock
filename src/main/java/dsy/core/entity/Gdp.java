@@ -39,7 +39,7 @@ public class Gdp extends BaseEntity {
     private double ti;
 
     @Column(name = "ti_yoy")
-    private double tiYou;
+    private double tiYoy;
 
 
     public String getQuarter() {
@@ -106,11 +106,11 @@ public class Gdp extends BaseEntity {
         this.ti = ti;
     }
 
-    public double getTiYou() {
-        return tiYou;
+    public double getTiYoy() {
+        return tiYoy;
     }
 
-    public void setTiYou(double tiYou) {
-        this.tiYou = tiYou;
+    public void setTiYoy(double tiYoy) {
+        this.tiYoy = tiYoy;
     }
 }

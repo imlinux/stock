@@ -26,14 +26,25 @@
                         }
                     }
                 },
+                dataZoom: [
+                    {
+                        show: true,
+                        realtime: true
+                    }
+                ],
                 legend: {
                     data:['GDP', '第一产业', '第二产业', '第三产业']
                 },
                 xAxis: {
                     type:'category'
                 },
-                yAxis: {
-                }
+                yAxis: [{
+                    name:'同比',
+                    type:'value'
+                }, {
+                    name:'量',
+                    type:'value'
+                }]
             };
 
             myChart.setOption(option);
@@ -44,17 +55,25 @@
 
                 let year = [];
                 let gdp = [];
+                let gdpYoy = [];
                 let pi = [];
+                let piYoy = [];
                 let si = [];
+                let siYoy = [];
                 let ti = [];
+                let tiYoy = [];
 
 
                 for(let i = 0; i < data.length; i++) {
                     year.push(data[i].quarter);
                     gdp.push(data[i].gdp);
+                    gdpYoy.push(data[i].gdpYoy);
                     pi.push(data[i].pi);
+                    piYoy.push(data[i].piYoy);
                     si.push(data[i].si);
+                    siYoy.push(data[i].siYoy);
                     ti.push(data[i].ti);
+                    tiYoy.push(data[i].tiYoy)
                 }
 
                 myChart.setOption({
@@ -64,18 +83,38 @@
                     series: [{
                         name:'GDP',
                         data: gdp,
-                        type: 'line'
+                        type: 'bar',
+                        yAxisIndex:1
                     },{
                         name:'第一产业',
                         data: pi,
-                        type: 'line'
+                        type: 'bar',
+                        yAxisIndex:1
                     }, {
                         name:'第二产业',
                         data: si,
-                        type: 'line'
+                        type: 'bar',
+                        yAxisIndex:1
                     }, {
                         name:'第三产业',
                         data: ti,
+                        type: 'bar',
+                        yAxisIndex:1
+                    }, {
+                        name: 'gdp同比',
+                        data: gdpYoy,
+                        type: 'line'
+                    }, {
+                        name: '第一产业同比',
+                        data: piYoy,
+                        type: 'line'
+                    }, {
+                        name:'第二产业同比',
+                        data: siYoy,
+                        type: 'line'
+                    }, {
+                        name: '第三产业同比',
+                        data: tiYoy,
                         type: 'line'
                     }
                     ]
