@@ -33,20 +33,7 @@
                     type:'category'
                 },
                 yAxis: {
-                },
-                series: [{
-                    name: 'GDP',
-                    type: 'line'
-                }, {
-                    name: '第一产业',
-                    type: 'line'
-                }, {
-                    name: '第二产业',
-                    type: 'line'
-                }, {
-                    name: '第三产业',
-                    type: 'line'
-                }]
+                }
             };
 
             myChart.setOption(option);
@@ -76,16 +63,20 @@
                     },
                     series: [{
                         name:'GDP',
-                        data: gdp
+                        data: gdp,
+                        type: 'line'
                     },{
                         name:'第一产业',
-                        data: pi
+                        data: pi,
+                        type: 'line'
                     }, {
                         name:'第二产业',
-                        data: si
+                        data: si,
+                        type: 'line'
                     }, {
                         name:'第三产业',
-                        data: ti
+                        data: ti,
+                        type: 'line'
                     }
                     ]
                 });

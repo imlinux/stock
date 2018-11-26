@@ -33,11 +33,7 @@
                     type:'category'
                 },
                 yAxis: {
-                },
-                series: [{
-                    name: '巴菲特指标',
-                    type: 'line'
-                }]
+                }
             };
             myChart.setOption(option);
 
@@ -61,7 +57,8 @@
                     },
                     series: [{
                         name:'巴菲特指标',
-                        data: mktValGdp
+                        data: mktValGdp,
+                        type: 'line'
                     }
                     ]
                 });
