@@ -8,9 +8,17 @@
 					<el-menu-item index="2" v-on:click="menuClick" route="/wh">外汇</el-menu-item>
 					<el-menu-item index="3" v-on:click="menuClick">自选</el-menu-item>
 					<el-menu-item index="4" v-on:click="menuClick" route="/sw_industry_hq">申万行业行情</el-menu-item>
-					<el-menu-item index="5" v-on:click="menuClick" route="/gdp">中国GDP</el-menu-item>
-					<el-menu-item index="6" v-on:click="menuClick" route="/rzrq_gdp">融资融券余额</el-menu-item>
-					<el-menu-item index="7" v-on:click="menuClick" route="/buffett_ratio">巴菲特指标</el-menu-item>
+					<el-submenu index="5">
+						<template slot="title">宏观经济</template>
+						<el-menu-item index="5-1" v-on:click="menuClick" route="/gdp">中国GDP</el-menu-item>
+                        <el-menu-item index="5-2" v-on:click="menuClick" route="/money_supply">货币供应量</el-menu-item>
+					</el-submenu>
+
+					<el-submenu index="6">
+						<template slot="title">市场情绪</template>
+						<el-menu-item index="6-1" v-on:click="menuClick" route="/rzrq_gdp">融资融券余额</el-menu-item>
+						<el-menu-item index="6-2" v-on:click="menuClick" route="/buffett_ratio">巴菲特指标</el-menu-item>
+					</el-submenu>
 					<el-menu-item index="8"><cc v-on:select="changeStock"></cc></el-menu-item>
 				</el-menu>
 			</el-header>
@@ -31,6 +39,7 @@
 	import cb from './cb'
 	import wh from './wh'
 	import gdp from './gdp'
+    import money_supply from './money_supply'
 	import sw_industry_hq from './swIndustryHq'
 	import company_hq from './company_hq'
 	import rzrq_gdp from './rzrq_gdp'
@@ -63,7 +72,10 @@
             path: '/buffett_ratio',
 			component: buffett_ratio
 
-		}]
+		}, {
+            path:'/money_supply',
+            component: money_supply
+        }]
     });
 
 	export default {
@@ -76,7 +88,8 @@
             sw_industry_hq,
             company_hq,
             rzrq_gdp,
-            buffett_ratio
+            buffett_ratio,
+            money_supply
 		},
 		methods: {
             menuClick:function (event) {
