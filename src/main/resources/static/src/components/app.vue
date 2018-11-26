@@ -12,6 +12,7 @@
 						<template slot="title">宏观经济</template>
 						<el-menu-item index="5-1" v-on:click="menuClick" route="/gdp">中国GDP</el-menu-item>
                         <el-menu-item index="5-2" v-on:click="menuClick" route="/money_supply">货币供应量</el-menu-item>
+						<el-menu-item index="5-3" v-on:click="menuClick" route="/fdl">发电量</el-menu-item>
 					</el-submenu>
 
 					<el-submenu index="6">
@@ -44,6 +45,7 @@
 	import company_hq from './company_hq'
 	import rzrq_gdp from './rzrq_gdp'
 	import buffett_ratio from './buffett_ratio'
+	import fdl from './fdl'
 
     Vue.use(VueRouter);
     Vue.use(ElementUI);
@@ -75,7 +77,10 @@
 		}, {
             path:'/money_supply',
             component: money_supply
-        }]
+        }, {
+            path:'/fdl',
+			component: fdl
+		}]
     });
 
 	export default {
@@ -89,7 +94,8 @@
             company_hq,
             rzrq_gdp,
             buffett_ratio,
-            money_supply
+            money_supply,
+			fdl
 		},
 		methods: {
             menuClick:function (event) {
