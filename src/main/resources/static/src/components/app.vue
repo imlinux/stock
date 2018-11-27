@@ -13,6 +13,7 @@
 						<el-menu-item index="5-1" v-on:click="menuClick" route="/gdp">中国GDP</el-menu-item>
                         <el-menu-item index="5-2" v-on:click="menuClick" route="/money_supply">货币供应量</el-menu-item>
 						<el-menu-item index="5-3" v-on:click="menuClick" route="/fdl">发电量</el-menu-item>
+						<el-menu-item index="5-4" v-on:click="menuClick" route="/pmi">采购经理指数</el-menu-item>
 					</el-submenu>
 
 					<el-submenu index="6">
@@ -46,6 +47,7 @@
 	import rzrq_gdp from './rzrq_gdp'
 	import buffett_ratio from './buffett_ratio'
 	import fdl from './fdl'
+	import pmi from './pmi'
 
     Vue.use(VueRouter);
     Vue.use(ElementUI);
@@ -80,6 +82,9 @@
         }, {
             path:'/fdl',
 			component: fdl
+		}, {
+            path:'/pmi',
+			component: pmi
 		}]
     });
 
@@ -95,7 +100,8 @@
             rzrq_gdp,
             buffett_ratio,
             money_supply,
-			fdl
+			fdl,
+			pmi
 		},
 		methods: {
             menuClick:function (event) {
