@@ -21,6 +21,7 @@
 						<el-menu-item index="6-1" route="/rzrq_gdp">融资融券余额</el-menu-item>
 						<el-menu-item index="6-2" route="/buffett_ratio">巴菲特指标</el-menu-item>
 					</el-submenu>
+					<el-menu-item index="7" route="/tmp">测试</el-menu-item>
 					<el-menu-item index="8"><cc v-on:select="changeStock"></cc></el-menu-item>
 				</el-menu>
 			</el-header>
@@ -48,6 +49,7 @@
 	import buffett_ratio from './buffett_ratio'
 	import fdl from './fdl'
 	import pmi from './pmi'
+	import tmp from './tmp'
 
     Vue.use(VueRouter);
     Vue.use(ElementUI);
@@ -85,6 +87,9 @@
 		}, {
             path:'/pmi',
 			component: pmi
+		}, {
+            path:'/tmp',
+			component: tmp
 		}]
     });
 
@@ -100,7 +105,8 @@
             buffett_ratio,
             money_supply,
 			fdl,
-			pmi
+			pmi,
+			tmp
 		},
 		methods: {
             changeStock: function (item) {
