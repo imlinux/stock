@@ -53,7 +53,7 @@ public class CapitalFlow {
     private double ddje;
 
     @Column
-    private double zdlr;
+    private double zdlr; //中单流入
 
     @Column
     private double zdlc;

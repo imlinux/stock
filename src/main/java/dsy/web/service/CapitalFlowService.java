@@ -83,6 +83,10 @@ public class CapitalFlowService {
     }
 
 
+    /**
+     * http://data.eastmoney.com/bkzj/
+     * @throws Exception
+     */
     public void syncIndustryCapitalFlowFromEastMoney() throws Exception {
 
         String url = "http://nufm.dfcfw.com/EM_Finance2014NumericApplication/JS.aspx?cmd=C._BKHY&type=ct&st=(BalFlowMain)&sr=-1&p=1&ps=100&token=894050c76af8597a853f5b408b759f5d&sty=DCFFITABK&rt=51414321";
