@@ -3,23 +3,23 @@
 	<el-container style="height:100%">
 		<el-container>
 			<el-header>
-				<el-menu mode="horizontal">
-					<el-menu-item index="1" v-on:click="menuClick" route="/company_hq">行情</el-menu-item>
-					<el-menu-item index="2" v-on:click="menuClick" route="/wh">外汇</el-menu-item>
-					<el-menu-item index="3" v-on:click="menuClick">自选</el-menu-item>
-					<el-menu-item index="4" v-on:click="menuClick" route="/sw_industry_hq">申万行业行情</el-menu-item>
+				<el-menu router mode="horizontal">
+					<el-menu-item index="1" route="/company_hq">行情</el-menu-item>
+					<el-menu-item index="2" route="/wh">外汇</el-menu-item>
+					<el-menu-item index="3" >自选</el-menu-item>
+					<el-menu-item index="4" route="/sw_industry_hq">申万行业行情</el-menu-item>
 					<el-submenu index="5">
 						<template slot="title">宏观经济</template>
-						<el-menu-item index="5-1" v-on:click="menuClick" route="/gdp">中国GDP</el-menu-item>
-                        <el-menu-item index="5-2" v-on:click="menuClick" route="/money_supply">货币供应量</el-menu-item>
-						<el-menu-item index="5-3" v-on:click="menuClick" route="/fdl">发电量</el-menu-item>
-						<el-menu-item index="5-4" v-on:click="menuClick" route="/pmi">采购经理指数</el-menu-item>
+						<el-menu-item index="5-1" route="/gdp">中国GDP</el-menu-item>
+                        <el-menu-item index="5-2" route="/money_supply">货币供应量</el-menu-item>
+						<el-menu-item index="5-3" route="/fdl">发电量</el-menu-item>
+						<el-menu-item index="5-4" route="/pmi">采购经理指数</el-menu-item>
 					</el-submenu>
 
 					<el-submenu index="6">
 						<template slot="title">市场情绪</template>
-						<el-menu-item index="6-1" v-on:click="menuClick" route="/rzrq_gdp">融资融券余额</el-menu-item>
-						<el-menu-item index="6-2" v-on:click="menuClick" route="/buffett_ratio">巴菲特指标</el-menu-item>
+						<el-menu-item index="6-1" route="/rzrq_gdp">融资融券余额</el-menu-item>
+						<el-menu-item index="6-2" route="/buffett_ratio">巴菲特指标</el-menu-item>
 					</el-submenu>
 					<el-menu-item index="8"><cc v-on:select="changeStock"></cc></el-menu-item>
 				</el-menu>
@@ -90,7 +90,6 @@
 
 	export default {
 
-        activeName:'',
         components:{
 	        cc,
 			cb,
@@ -104,13 +103,6 @@
 			pmi
 		},
 		methods: {
-            menuClick:function (event) {
-                if(event.route) {
-                    this.$router.push(event.route);
-                } else {
-                    this.$message.warning('未设置路由');
-				}
-            },
             changeStock: function (item) {
 
                 this.stock_code=item.code;
