@@ -11,8 +11,8 @@ import java.util.List;
 @Repository
 public class AllDataSqlDao extends GeneralDao {
 
-    public <T> List<T> executeQuery(String hql, Class<T> clazz) {
+    public <T> List<T> executeQuery(String hql) {
 
-        return em.createQuery(hql, clazz).getResultList();
+        return em.createQuery(hql).getResultList();
     }
 }

@@ -17,9 +17,9 @@ public class AnalyzeService {
     private AllDataSqlDao allDataSqlDao;
 
 
-    public List getData(String hql, String entity) throws Exception {
+    public List getData(String hql) {
 
 
-        return allDataSqlDao.executeQuery(hql, Class.forName(entity));
+        return allDataSqlDao.executeQuery(hql);
     }
 }

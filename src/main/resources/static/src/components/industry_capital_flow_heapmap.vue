@@ -18,9 +18,6 @@
                     }
                 },
                 animation: false,
-                visualMap: {
-
-                },
                 xAxis: {
                     type: 'category',
                     splitArea: {
@@ -45,7 +42,6 @@
             });
             axios.get("/analyze/get_data", {
                 params: {
-                    clazz: 'dsy.core.entity.CapitalFlow',
                     hql: 'select e from CapitalFlow e where e.code like \'BK%\' order by e.date, e.code'
                 }
             }).then(function (response) {

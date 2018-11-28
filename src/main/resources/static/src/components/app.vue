@@ -7,7 +7,11 @@
 					<el-menu-item index="1" route="/company_hq">行情</el-menu-item>
 					<el-menu-item index="2" route="/wh">外汇</el-menu-item>
 					<el-menu-item index="3" >自选</el-menu-item>
-					<el-menu-item index="4" route="/sw_industry_hq">申万行业行情</el-menu-item>
+					<el-submenu index="4">
+						<template slot="title">行业</template>
+						<el-menu-item index="4-1" route="/sw_industry_hq">申万行业行情</el-menu-item>
+						<el-menu-item index="4-2" route="/indystry/captial_flow_heapmap">行业资金流热度</el-menu-item>
+					</el-submenu>
 					<el-submenu index="5">
 						<template slot="title">宏观经济</template>
 						<el-menu-item index="5-1" route="/gdp">中国GDP</el-menu-item>
@@ -23,7 +27,6 @@
 					</el-submenu>
 					<el-menu-item index="7" route="/tmp">测试</el-menu-item>
 					<el-menu-item index="8"><cc v-on:select="changeStock"></cc></el-menu-item>
-					<el-menu-item index="9" route="/indystry/captial_flow_heapmap">行业资金流热度</el-menu-item>
 				</el-menu>
 			</el-header>
 			<el-main>

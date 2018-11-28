@@ -22,9 +22,8 @@ public class AnalyzeController {
     private AnalyzeService analyzeService;
 
     @RequestMapping("/get_data")
-    public List getData(@RequestParam String hql,
-                        @RequestParam String clazz) throws Exception {
+    public List getData(@RequestParam String hql) throws Exception {
 
-        return analyzeService.getData(hql, clazz);
+        return analyzeService.getData(hql);
     }
 }
