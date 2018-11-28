@@ -23,6 +23,7 @@
 					</el-submenu>
 					<el-menu-item index="7" route="/tmp">测试</el-menu-item>
 					<el-menu-item index="8"><cc v-on:select="changeStock"></cc></el-menu-item>
+					<el-menu-item index="9" route="/indystry/captial_flow_heapmap">行业资金流热度</el-menu-item>
 				</el-menu>
 			</el-header>
 			<el-main>
@@ -50,6 +51,7 @@
 	import fdl from './fdl'
 	import pmi from './pmi'
 	import tmp from './tmp'
+	import industry_capital_flow_heapmap from './industry_capital_flow_heapmap'
 
     Vue.use(VueRouter);
     Vue.use(ElementUI);
@@ -90,6 +92,9 @@
 		}, {
             path:'/tmp',
 			component: tmp
+		}, {
+            path:'/indystry/captial_flow_heapmap',
+			component: industry_capital_flow_heapmap
 		}]
     });
 

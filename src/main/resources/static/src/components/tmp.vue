@@ -5,23 +5,35 @@
 </template>
 
 <script>
+
+    import axios from 'axios';
     import VeLine from 'v-charts/lib/line.common'
+
     export default {
         components: { VeLine },
-        data () {
-            return {
+        data: function(){
+
+            let ret = {
                 chartData: {
-                    columns: ['date', 'PV', 'PV'],
-                    rows: [
-                        { 'date': '01-01', 'PV': 1231 },
-                        { 'date': '01-02', 'PV': 1223 },
-                        { 'date': '01-03', 'PV': 2123 },
-                        { 'date': '01-04', 'PV': 4123 },
-                        { 'date': '01-05', 'PV': 3123 },
-                        { 'date': '01-06', 'PV': 7123 }
-                    ]
+                    columns: ['date', 'zlje'],
+                    row:[]
                 }
-            }
+            };
+
+            axios.get("/analyze/get_data", {
+                params: {
+                    clazz: 'dsy.core.entity.CapitalFlow',
+                    hql: 'select e from CapitalFlow e where e.code like \'BK%\''
+                }
+            }).then(function (response) {
+                let data = response.data;
+
+                for(let i = 0; i< data.length; i++) {
+                    ret.chartData.row.push(data[i]);
+                }
+            });
+
+            return ret
         }
     }
 </script>

@@ -26,6 +26,9 @@ public class CapitalFlow {
     private String date;
 
     @Column
+    private double zdf; //涨跌幅
+
+    @Column
     private double zllr;
 
     @Column
@@ -220,5 +223,13 @@ public class CapitalFlow {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public double getZdf() {
+        return zdf;
+    }
+
+    public void setZdf(double zdf) {
+        this.zdf = zdf;
     }
 }

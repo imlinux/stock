@@ -109,7 +109,8 @@ public class CapitalFlowService {
             capitalFlow.setCode(e[index ++]);
             capitalFlow.setName(e[index ++]);
 
-            index++;
+
+            capitalFlow.setZdf(parseDouble(e[index ++]));
 
             capitalFlow.setZlje(parseDouble(e[index ++]));
 
