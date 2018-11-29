@@ -6,27 +6,28 @@
 				<el-menu router mode="horizontal">
 					<el-menu-item index="1" route="/company_hq">行情</el-menu-item>
 					<el-menu-item index="2" route="/wh">外汇</el-menu-item>
-					<el-menu-item index="3" >自选</el-menu-item>
-					<el-submenu index="4">
-						<template slot="title">行业</template>
-						<el-menu-item index="4-1" route="/sw_industry_hq">申万行业行情</el-menu-item>
-						<el-menu-item index="4-2" route="/indystry/captial_flow_heapmap">行业资金流热度</el-menu-item>
-					</el-submenu>
+					<el-menu-item index="3" route="/shang_pin">商品</el-menu-item>
+					<el-menu-item index="4" >自选</el-menu-item>
 					<el-submenu index="5">
+						<template slot="title">行业</template>
+						<el-menu-item index="5-1" route="/sw_industry_hq">申万行业行情</el-menu-item>
+						<el-menu-item index="5-2" route="/indystry/captial_flow_heapmap">行业资金流热度</el-menu-item>
+					</el-submenu>
+					<el-submenu index="6">
 						<template slot="title">宏观经济</template>
-						<el-menu-item index="5-1" route="/gdp">中国GDP</el-menu-item>
-                        <el-menu-item index="5-2" route="/money_supply">货币供应量</el-menu-item>
-						<el-menu-item index="5-3" route="/fdl">发电量</el-menu-item>
-						<el-menu-item index="5-4" route="/pmi">采购经理指数</el-menu-item>
+						<el-menu-item index="6-1" route="/gdp">中国GDP</el-menu-item>
+                        <el-menu-item index="6-2" route="/money_supply">货币供应量</el-menu-item>
+						<el-menu-item index="6-3" route="/fdl">发电量</el-menu-item>
+						<el-menu-item index="6-4" route="/pmi">采购经理指数</el-menu-item>
 					</el-submenu>
 
-					<el-submenu index="6">
+					<el-submenu index="7">
 						<template slot="title">市场情绪</template>
-						<el-menu-item index="6-1" route="/rzrq_gdp">融资融券余额</el-menu-item>
-						<el-menu-item index="6-2" route="/buffett_ratio">巴菲特指标</el-menu-item>
+						<el-menu-item index="7-1" route="/rzrq_gdp">融资融券余额</el-menu-item>
+						<el-menu-item index="7-2" route="/buffett_ratio">巴菲特指标</el-menu-item>
 					</el-submenu>
-					<el-menu-item index="7" route="/tmp">测试</el-menu-item>
-					<el-menu-item index="8"><cc v-on:select="changeStock"></cc></el-menu-item>
+					<el-menu-item index="8" route="/tmp">测试</el-menu-item>
+					<el-menu-item index="9"><cc v-on:select="changeStock"></cc></el-menu-item>
 				</el-menu>
 			</el-header>
 			<el-main>
@@ -55,6 +56,7 @@
 	import pmi from './pmi'
 	import tmp from './tmp'
 	import industry_capital_flow_heapmap from './industry_capital_flow_heapmap'
+	import shang_pin from './ShangPin'
 
     Vue.use(VueRouter);
     Vue.use(ElementUI);
@@ -98,6 +100,9 @@
 		}, {
             path:'/indystry/captial_flow_heapmap',
 			component: industry_capital_flow_heapmap
+		}, {
+            path: '/shang_pin',
+			component: shang_pin
 		}]
     });
 
@@ -114,7 +119,8 @@
             money_supply,
 			fdl,
 			pmi,
-			tmp
+			tmp,
+            shang_pin
 		},
 		methods: {
             changeStock: function (item) {
