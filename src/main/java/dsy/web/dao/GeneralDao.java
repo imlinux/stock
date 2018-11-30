@@ -20,4 +20,9 @@ public class GeneralDao {
     public <T> T find(Class<T> clazz, Object primaryKey) {
         return em.find(clazz, primaryKey);
     }
+
+
+    public void persist(Object entity) {
+        em.persist(entity);
+    }
 }

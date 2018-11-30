@@ -1,8 +1,12 @@
 package dsy.tmp;
 
-import com.alibaba.fastjson.JSON;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
-import java.util.Map;
+import java.net.ServerSocket;
+import java.net.URL;
 
 import static dsy.core.tools.HttpClientTool.get;
 
@@ -15,11 +19,15 @@ public class HttpClientTmp {
 
     public static void rzrq() throws Exception {
 
-        String json = get("http://data.stats.gov.cn/easyquery.htm?m=QueryData&dbcode=hgyd&rowcode=zb&colcode=sj&wds=%5B%5D&dfwds=%5B%7B%22wdcode%22%3A%22zb%22%2C%22valuecode%22%3A%22A03010H%22%7D%5D&k1=1543245642288", "UTF-8");
+        String html = get("http://data.eastmoney.com/shibor/shibor.aspx?m=sh&t=99&d=99221&cu=cny&type=009016&p=1", "GBK");
 
-        Map<String, Object> m = JSON.parseObject(json);
+        Document document = Jsoup.parse(html);
 
-        System.out.println(((Map)m.get("returndata")).get("datanodes"));
+        Element element = document.getElementById("PageCont");
+
+        Elements e = element.getElementsContainingOwnText("尾页");
+        System.out.println(e.attr("href"));
+        ///shibor/shibor.aspx?m=sh&t=99&d=99221&cu=cny&type=009016&p=152
     }
 
 
