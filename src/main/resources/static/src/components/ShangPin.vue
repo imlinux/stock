@@ -59,7 +59,7 @@
             const tableData = that.tableData;
             axios.get('/analyze/get_data', {
                 params: {
-                    hql: 'select e from ShangPin e order by e.prodCode'
+                    hql: 'select e from ShangPin e where e.date = (select max(t.date) from ShangPin t) order by e.prodCode'
                 }
             }).then(function (response) {
                 const data = response.data;
