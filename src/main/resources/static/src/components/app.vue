@@ -28,6 +28,7 @@
 					</el-submenu>
 					<el-menu-item index="8" route="/tmp">测试</el-menu-item>
 					<el-menu-item index="9"><cc v-on:select="changeStock"></cc></el-menu-item>
+					<el-menu-item index="10" route="/tycjlv">同业拆借利率</el-menu-item>
 				</el-menu>
 			</el-header>
 			<el-main>
@@ -57,6 +58,7 @@
 	import tmp from './tmp'
 	import industry_capital_flow_heapmap from './industry_capital_flow_heapmap'
 	import shang_pin from './ShangPin'
+	import tong_ye_chai_jie from './tong_ye_chai_jie';
 
     Vue.use(VueRouter);
     Vue.use(ElementUI);
@@ -103,6 +105,9 @@
 		}, {
             path: '/shang_pin',
 			component: shang_pin
+		}, {
+            path:'/tycjlv',
+			component: tong_ye_chai_jie
 		}]
     });
 
@@ -120,7 +125,8 @@
 			fdl,
 			pmi,
 			tmp,
-            shang_pin
+            shang_pin,
+            tong_ye_chai_jie
 		},
 		methods: {
             changeStock: function (item) {
