@@ -2,6 +2,9 @@ package dsy.web.service;
 
 import dsy.core.entity.TongYeChaiJie;
 import dsy.web.dao.TongYeChaiJieDao;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.http.TruncatedChunkException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -23,6 +26,8 @@ import static dsy.core.tools.HttpClientTool.get;
 @Service
 @Transactional
 public class TongYeChaiJieService {
+
+    private Log LOG = LogFactory.getLog(getClass());
 
     @Autowired
     private TongYeChaiJieDao tongYeChaiJieDao;
@@ -80,11 +85,21 @@ public class TongYeChaiJieService {
     }
 
     Elements getTrs(String url) throws Exception {
-        String html = get(url, "GBK");
+        int count = 3;
 
-        Document document = Jsoup.parse(html);
+        while (true) {
+            try {
+                String html = get(url, "GBK");
+                Document document = Jsoup.parse(html);
 
-        return document.select("tr");
+                return document.select("tr");
+            } catch (TruncatedChunkException e) {
+                LOG.error("还剩 " + count + "次", e);
+                if(count <= 0) throw e;
+
+                count --;
+            }
+        }
     }
 
 
