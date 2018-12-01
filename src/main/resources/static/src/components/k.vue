@@ -1,7 +1,5 @@
 <template>
-    <iframe
-            width="100%"
-            height="800px" v-bind:src=url></iframe>
+    <iframe style="width: 100%; height: 800px; border: 0px" v-bind:src=url></iframe>
 </template>
 
 <script>

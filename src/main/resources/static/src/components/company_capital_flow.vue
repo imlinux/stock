@@ -1,5 +1,5 @@
 <template>
-    <div style="width: 1865px;height:800px;"></div>
+    <div style="width: 1865px;height:800px;" v-loading="loading"></div>
 </template>
 
 <script>
@@ -8,6 +8,11 @@
     import axios from 'axios';
 
     export default {
+        data: function() {
+            return {
+                loading:true
+            }
+        },
         props:{
             code: {
                 type: String,
@@ -50,11 +55,13 @@
         },
         watch:{
             code:function () {
+                this.loading = true;
                 this.setData();
+                this.loading = false;
             }
         },
         mounted: function () {
-
+            this.loading = true;
             const myChart = echarts.init(this.$el);
 
             let option = {
@@ -91,6 +98,7 @@
             myChart.setOption(option);
 
             this.setData();
+            this.loading = false;
         }
     }
 </script>
