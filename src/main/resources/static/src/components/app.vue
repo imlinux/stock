@@ -19,6 +19,7 @@
                         <el-menu-item index="6-2" route="/money_supply">货币供应量</el-menu-item>
 						<el-menu-item index="6-3" route="/fdl">发电量</el-menu-item>
 						<el-menu-item index="6-4" route="/pmi">采购经理指数</el-menu-item>
+						<el-menu-item index="6-5" route="/tycjlv">同业拆借利率</el-menu-item>
 					</el-submenu>
 
 					<el-submenu index="7">
@@ -28,7 +29,6 @@
 					</el-submenu>
 					<el-menu-item index="8" route="/tmp">测试</el-menu-item>
 					<el-menu-item index="9"><cc v-on:select="changeStock"></cc></el-menu-item>
-					<el-menu-item index="10" route="/tycjlv">同业拆借利率</el-menu-item>
 				</el-menu>
 			</el-header>
 			<el-main>
