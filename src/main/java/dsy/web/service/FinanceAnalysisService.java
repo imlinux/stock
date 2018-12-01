@@ -158,8 +158,10 @@ public class FinanceAnalysisService {
                 "http://emweb.securities.eastmoney.com/NewFinanceAnalysis/xjllbAjax?companyType=" + ctype +"&reportDateType=0&reportType=2&code=" + code + "&endDate="
         };
 
-        for(int i = 0; i < urls.length; i++) {
-            urls[i] += endDate;
+        if(!isEmpty(endDate)) {
+            for (int i = 0; i < urls.length; i++) {
+                urls[i] += endDate;
+            }
         }
 
         for(String url: urls) {
