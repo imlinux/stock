@@ -1,5 +1,6 @@
 <template>
     <el-tabs style="width: 100%;">
+        <el-tab-pane label="K线"><k v-bind:symbol="stock_code"></k></el-tab-pane>
         <el-tab-pane label="资产负债表"><zcfzb v-bind:code="stock_code" v-bind:report_type="rtype"></zcfzb></el-tab-pane>
         <el-tab-pane label="利润表"><lrb v-bind:code="stock_code" v-bind:report_type="rtype"></lrb></el-tab-pane>
         <el-tab-pane label="现金流量表"><xjllb v-bind:code="stock_code" v-bind:report_type="rtype"></xjllb></el-tab-pane>
@@ -15,6 +16,7 @@
     import xjllb from './xjllb'
     import company_capital_flow from './company_capital_flow'
     import cwzb from './cwzb'
+    import k from './k'
 
     export default {
 
@@ -23,7 +25,8 @@
             zcfzb,
             xjllb,
             company_capital_flow,
-            cwzb
+            cwzb,
+            k
         },
         props: {
             code: {
