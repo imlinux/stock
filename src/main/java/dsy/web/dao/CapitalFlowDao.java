@@ -15,7 +15,7 @@ public class CapitalFlowDao extends GeneralDao {
 
     public List<CapitalFlow> getCompanyAllCapitalFlow(String code) {
 
-        TypedQuery<CapitalFlow> query = em.createQuery("select e from CapitalFlow e where e.code=:code", CapitalFlow.class);
+        TypedQuery<CapitalFlow> query = em.createQuery("select e from CapitalFlow e where e.code=:code order by e.date", CapitalFlow.class);
         query.setParameter("code", code);
 
         return query.getResultList();

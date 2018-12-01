@@ -8,6 +8,51 @@
     import axios from 'axios';
 
     export default {
+        props:{
+            code: {
+                type: String,
+                required: true
+            }
+        },
+        methods:{
+            setData: function () {
+                let myChart = echarts.getInstanceByDom(this.$el);
+
+                axios.get("company/all_capital_flow?code=" + this.code).then(function (response) {
+
+                    let data = response.data;
+
+                    let tradeDate = [];
+                    let zlje = [];
+                    let xdje = [];
+
+                    for(let i = 0; i < data.length; i++) {
+                        tradeDate.push(data[i].date);
+                        zlje.push(data[i].zlje);
+                        xdje.push(data[i].xdje);
+                    }
+
+                    myChart.setOption({
+                        xAxis: {
+                            data: tradeDate
+                        },
+                        series: [{
+                            name:'主力净额',
+                            data: zlje
+                        }, {
+                            name:'小单净额',
+                            data: xdje
+                        }]
+
+                    });
+                })
+            }
+        },
+        watch:{
+            code:function () {
+                this.setData();
+            }
+        },
         mounted: function () {
 
             const myChart = echarts.init(this.$el);
@@ -45,35 +90,7 @@
 
             myChart.setOption(option);
 
-
-            axios.get("company/all_capital_flow?code=300059.SZ").then(function (response) {
-
-                let data = response.data;
-
-                let tradeDate = [];
-                let zlje = [];
-                let xdje = [];
-
-                for(let i = 0; i < data.length; i++) {
-                    tradeDate.push(data[i].date);
-                    zlje.push(data[i].zlje);
-                    xdje.push(data[i].xdje);
-                }
-
-                myChart.setOption({
-                    xAxis: {
-                        data: tradeDate
-                    },
-                    series: [{
-                        name:'主力净额',
-                        data: zlje
-                    }, {
-                        name:'小单净额',
-                        data: xdje
-                    }]
-
-                });
-            })
+            this.setData();
         }
     }
 </script>

@@ -8,6 +8,7 @@ import javax.persistence.Table;
 /**
  * @author dong
  * @since 18-11-17
+ * 单位：万元
  */
 @Entity
 @Table(name = "capital_flow")

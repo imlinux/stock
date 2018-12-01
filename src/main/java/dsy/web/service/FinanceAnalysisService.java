@@ -199,6 +199,11 @@ public class FinanceAnalysisService {
         syncXjllbFromEastMoney(code, null);
     }
 
+    /**
+     * 财务指标
+     * @param code
+     * @throws Exception
+     */
     public void syncCwzbFromEastMoney(String code) throws Exception {
 
         String ctype = getCompanytype(code);

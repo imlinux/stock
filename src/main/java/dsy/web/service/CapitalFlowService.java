@@ -31,7 +31,14 @@ public class CapitalFlowService {
      */
     public void syncCompanyCapitalFlowFromEastMoney(String code) throws Exception {
 
-        String formatCode = "300059" + "2";
+        int dotIndex = code.indexOf(".");
+
+        String prefix = code.substring(0, dotIndex);
+        String suffix = code.substring(dotIndex);
+
+
+
+        String formatCode = prefix  + (suffix.equals(".SH")? "1": "2");
         String url = "http://ff.eastmoney.com//EM_CapitalFlowInterface/api/js?type=hff&rtntype=2&acces_token=1942f5da9b46b069953c873404aad4b5&id=" + formatCode;
         String json = get(url, "UTF-8");
 
@@ -66,9 +73,9 @@ public class CapitalFlowService {
 
             index++;
 
-            capitalFlow.setDdlr(parseDouble(e[index ++]));
-            capitalFlow.setDdlc(parseDouble(e[index ++]));
-            capitalFlow.setDdje(parseDouble(e[index ++]));
+            capitalFlow.setZdlr(parseDouble(e[index ++]));
+            capitalFlow.setZdlc(parseDouble(e[index ++]));
+            capitalFlow.setZdje(parseDouble(e[index ++]));
 
             index++;
 
