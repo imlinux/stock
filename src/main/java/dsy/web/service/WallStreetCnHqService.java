@@ -1,10 +1,10 @@
 package dsy.web.service;
 
 import com.alibaba.fastjson.JSON;
-import dsy.core.entity.WallStreetcnCompanyHQ;
-import dsy.web.dao.CompanyDao;
-import dsy.web.dao.IndustryDao;
-import dsy.web.dto.QueryCompany;
+import dsy.core.entity.MarketType;
+import dsy.core.entity.WallStreetCnHq;
+import dsy.web.dao.WallStreetCnHqDao;
+import dsy.web.dto.SearchCompany;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -21,6 +21,9 @@ import java.util.Map;
 
 import static dsy.core.tools.DateTool.getDay;
 import static dsy.core.tools.DateTool.getDayStr;
+import static dsy.core.tools.HttpClientTool.get;
+import static dsy.core.tools.ParseTool.parseDouble;
+import static dsy.core.tools.TradeTool.getLatestTrade;
 
 /**
  * @author dong
@@ -28,15 +31,16 @@ import static dsy.core.tools.DateTool.getDayStr;
  */
 @Service
 @Transactional
-public class CompanyService {
+public class WallStreetCnHqService {
 
     @Autowired
-    private CompanyDao companyDao;
+    private WallStreetCnHqDao wallStreetCnHqDao;
 
-    @Autowired
-    IndustryDao industryDao;
-
-    public void syncCompayFromWallStreetCn() throws Exception {
+    /**
+     * 同步个股行情和基本信息
+     * @throws Exception
+     */
+    public void syncStockHqFromWallStreetCn() throws Exception {
         CloseableHttpClient httpClient = HttpClients.createDefault();
 
         HttpGet httpGet = new HttpGet("https://api-ddc.wallstreetcn.com/market/rank?market_type=mdc&stk_type=stock&order_by=none&limit=6000&fields=prod_name,prod_en_name,prod_code,symbol,last_px,px_change,px_change_rate,open_px,high_px,low_px,week_52_high,week_52_low,price_precision,circulation_value,dyn_pe,dyn_pb_rate,turnover_value,turnover_ratio,turnover_volume,market_value,preclose_px,amplitude,trade_status,update_time&cursor=1");
@@ -56,7 +60,7 @@ public class CompanyService {
 
             for(List e: candleNode) {
 
-                WallStreetcnCompanyHQ entity = new WallStreetcnCompanyHQ();
+                WallStreetCnHq entity = new WallStreetCnHq();
 
                 int i = 0;
 
@@ -84,6 +88,7 @@ public class CompanyService {
                 entity.setAmplitude(Double.parseDouble(e.get(i++).toString()));
                 entity.setTradeStatus((String) e.get(i++));
 
+                entity.setMarketType(MarketType.Stock);
                 //update_time
                 long time = (int) e.get(i++) * 1000L;
 
@@ -92,7 +97,7 @@ public class CompanyService {
 
                 entity.setDate(new java.sql.Date(time));
                 entity.setId(getDayStr(getDay(new Date(time))) + "_" + entity.getProdCode());
-                companyDao.merge(entity);
+                wallStreetCnHqDao.merge(entity);
             }
 
         } finally {
@@ -100,14 +105,84 @@ public class CompanyService {
         }
     }
 
-    public List<QueryCompany> queryCompany(String codeOrName) {
-        return companyDao.queryCompany(codeOrName);
+    /**
+     * 主要国家货币汇率行情
+     * @throws Exception
+     */
+    public void syncWhHqFromWallStreetCn() throws Exception {
+
+        String url = "https://api-ddc.wallstreetcn.com/market/real?fields=symbol,prod_code,prod_name,prod_en_name,preclose_px,price_precision,open_px,high_px,low_px,week_52_high,week_52_low,update_time,last_px,px_change,px_change_rate,market_type,trade_status&prod_code=DXY.OTC,EURUSD.OTC,GBPUSD.OTC,USDJPY.OTC,USDCHF.OTC,USDCAD.OTC,AUDUSD.OTC,NZDUSD.OTC,USDCNY.OTC,USDCNH.OTC";
+
+        String json = get(url, "UTF-8");
+
+        Map<String, Object> jsonObj = (Map) JSON.parse(json);
+
+        Map<String, Object> data = (Map) jsonObj.get("data");
+
+        Map<String, Object> snapshot = (Map) data.get("snapshot");
+
+        Date latestTrade = getLatestTrade();
+        snapshot.forEach((k, v) -> {
+
+            List l = (List) v;
+
+            WallStreetCnHq wh = new WallStreetCnHq();
+
+            int index = 0;
+
+            wh.setSymbol((String) l.get(index ++));
+            wh.setProdCode((String) l.get(index ++));
+            wh.setProdName((String) l.get(index ++));
+            wh.setProdEnName((String) l.get(index ++));
+            wh.setPreClosePx(parseDouble(l.get(index ++)));
+            wh.setPricePrecision((String) l.get(index ++));
+            wh.setOpenPx(parseDouble(l.get(index ++)));
+            wh.setHighPx(parseDouble(l.get(index ++)));
+            wh.setLowPx(parseDouble(l.get(index ++)));
+            wh.setWeek52High(parseDouble(l.get(index ++)));
+            wh.setWeek52Low(parseDouble(l.get(index ++)));
+            wh.setUpdateTime(Long.parseLong(l.get(index ++).toString()));
+            wh.setLastPx(parseDouble(l.get(index ++)));
+            wh.setPxChange(parseDouble(l.get(index ++)));
+            wh.setPxChangeRate(parseDouble(l.get(index ++)));
+
+            wh.setMarketType(MarketType.ForeignData);
+            wh.setTradeStatus((String) l.get(index ++));
+
+            wh.setDate(new java.sql.Date(latestTrade.getTime()));
+            wh.setId(wh.getSymbol() + getDayStr(latestTrade));
+            wallStreetCnHqDao.merge(wh);
+        });
     }
 
+    /**
+     * 根据关键字和代码搜索股票，
+     * @param codeOrName
+     * @return 结果按时间和成交额逆序排序
+     */
+    public List<SearchCompany> searchCompany(String codeOrName) {
+        return wallStreetCnHqDao.searchCompany(codeOrName);
+    }
 
-    public List<WallStreetcnCompanyHQ> companyHQ() throws Exception {
+    /**
+     * 获取最新个股行情列表
+     * @return
+     * @throws Exception
+     */
+    public List<WallStreetCnHq> getLatestCompanyHq() throws Exception {
 
-        return companyDao.companyHq();
+        return wallStreetCnHqDao.getLatestCompanyHq();
+    }
+
+    /**
+     * 获取外汇行情列表
+     * @return
+     * @throws Exception
+     */
+    public List<WallStreetCnHq> getLatestWhHq() throws Exception {
+        Date date = getLatestTrade();
+
+        return wallStreetCnHqDao.getLatestWhHq(new java.sql.Date(date.getTime()));
     }
 
 }

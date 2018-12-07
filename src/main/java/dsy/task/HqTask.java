@@ -1,6 +1,9 @@
 package dsy.task;
 
-import dsy.web.service.*;
+import dsy.web.service.ShangPinService;
+import dsy.web.service.SwIndustryService;
+import dsy.web.service.TongYeChaiJieService;
+import dsy.web.service.WallStreetCnHqService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +20,10 @@ public class HqTask {
     private Log LOG = LogFactory.getLog(getClass());
 
     @Autowired
-    private CompanyService companyService;
+    private WallStreetCnHqService wallStreetCnHqService;
 
     @Autowired
     private SwIndustryService swIndustryService;
-
-    @Autowired
-    private WhService whService;
 
     @Autowired
     private ShangPinService shangPinService;
@@ -48,7 +48,7 @@ public class HqTask {
 
         try {
             LOG.info("开始同步华尔街见闻个股行情");
-            companyService.syncCompayFromWallStreetCn();
+            wallStreetCnHqService.syncStockHqFromWallStreetCn();
             LOG.info("华尔街见闻个股行情同步完成");
         } catch (Exception e) {
             LOG.error("", e);
@@ -60,7 +60,7 @@ public class HqTask {
 
         try {
             LOG.info("开始同步华尔街见闻外汇行情");
-            whService.syncWhHqFromWallStreetCn();
+            wallStreetCnHqService.syncWhHqFromWallStreetCn();
             LOG.info("华尔街见闻外汇行情同步完成");
         } catch (Exception e) {
             LOG.error("", e);

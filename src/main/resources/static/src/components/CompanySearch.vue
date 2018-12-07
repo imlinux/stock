@@ -24,7 +24,7 @@
         },
         methods:{
             querySearch:function(queryString, cb) {
-                axios.get("/company/query_company?codeOrName=" + queryString).then(function (response) {
+                axios.get("/company/search_company?codeOrName=" + queryString).then(function (response) {
                     cb(response.data);
                 })
             },

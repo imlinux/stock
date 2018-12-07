@@ -23,7 +23,7 @@
             setData: function () {
                 let myChart = echarts.getInstanceByDom(this.$el);
 
-                axios.get("company/all_capital_flow?code=" + this.code).then(function (response) {
+                axios.get("capital_flow/company_capital_flow?code=" + this.code).then(function (response) {
 
                     let data = response.data;
 

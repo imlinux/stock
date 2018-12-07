@@ -1,7 +1,7 @@
 package dsy.web.controller;
 
-import dsy.core.entity.Wh;
-import dsy.web.service.WhService;
+import dsy.core.entity.WallStreetCnHq;
+import dsy.web.service.WallStreetCnHqService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,11 +19,11 @@ import java.util.List;
 public class WhController {
 
     @Autowired
-    private WhService whService;
+    private WallStreetCnHqService wallStreetCnHqService;
 
     @RequestMapping("/get_latest")
-    public List<Wh> getLatest() throws Exception {
+    public List<WallStreetCnHq> getLatest() throws Exception {
 
-        return whService.getLatest();
+        return wallStreetCnHqService.getLatestWhHq();
     }
 }

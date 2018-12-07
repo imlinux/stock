@@ -154,13 +154,19 @@ public class CapitalFlowService {
     }
 
 
-    public List<CapitalFlow> getAllCompanyCapitalFlow(String code) throws Exception {
+    /**
+     * 获取个股每天资金流
+     * @param code
+     * @return
+     * @throws Exception
+     */
+    public List<CapitalFlow> getCompanyCapitalFlow(String code) throws Exception {
 
-        List<CapitalFlow> ret = capitalFlowDao.getCompanyAllCapitalFlow(code);
+        List<CapitalFlow> ret = capitalFlowDao.getCompanyCapitalFlow(code);
 
         if(ret.isEmpty()) {
             syncCompanyCapitalFlowFromEastMoney(code);
-            ret = capitalFlowDao.getCompanyAllCapitalFlow(code);
+            ret = capitalFlowDao.getCompanyCapitalFlow(code);
         }
         return ret;
     }

@@ -13,10 +13,13 @@ import java.sql.Date;
  */
 @Entity
 @Table(name = "wall_street_cn_hq")
-public class WallStreetcnCompanyHQ extends BaseEntity {
+public class WallStreetCnHq extends BaseEntity {
 
     @Id
     private String id;
+
+    @Column(name = "market_Type")
+    public MarketType marketType;
 
     @Column(name = "prod_name")
     private String prodName;
@@ -147,6 +150,14 @@ public class WallStreetcnCompanyHQ extends BaseEntity {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public MarketType getMarketType() {
+        return marketType;
+    }
+
+    public void setMarketType(MarketType marketType) {
+        this.marketType = marketType;
     }
 
     public String getProdName() {

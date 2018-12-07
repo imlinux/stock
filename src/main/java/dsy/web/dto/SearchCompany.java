@@ -4,7 +4,7 @@ package dsy.web.dto;
  * @author dong
  * @since 18-11-10
  */
-public class QueryCompany {
+public class SearchCompany {
 
     private String code;
     private String name;

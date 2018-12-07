@@ -13,7 +13,12 @@ import java.util.List;
 @Repository
 public class CapitalFlowDao extends GeneralDao {
 
-    public List<CapitalFlow> getCompanyAllCapitalFlow(String code) {
+    /**
+     * 获取个股每天资金流
+     * @param code
+     * @return
+     */
+    public List<CapitalFlow> getCompanyCapitalFlow(String code) {
 
         TypedQuery<CapitalFlow> query = em.createQuery("select e from CapitalFlow e where e.code=:code order by e.date", CapitalFlow.class);
         query.setParameter("code", code);
