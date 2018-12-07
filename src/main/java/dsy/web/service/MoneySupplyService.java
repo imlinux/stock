@@ -27,7 +27,7 @@ public class MoneySupplyService {
 
 
     public void syncFromStatsOfgov() throws Exception {
-        String json = get("http://data.stats.gov.cn/easyquery.htm?m=QueryData&dbcode=hgyd&rowcode=zb&colcode=sj&wds=%5B%5D&dfwds=%5B%7B%22wdcode%22%3A%22zb%22%2C%22valuecode%22%3A%22A1B01%22%7D%5D&k1=1543224899419", "UTF-8");
+        String json = get("http://data.stats.gov.cn/easyquery.htm?m=QueryData&dbcode=hgyd&rowcode=zb&colcode=sj&wds=%5B%5D&dfwds=%5B%5D&dfwds=%5B%7B%22wdcode%22%3A%22zb%22%2C%22valuecode%22%3A%22A0D01%22%7D%5D&k1=1543224899419", "UTF-8");
 
         Map<String, Object> m = JSON.parseObject(json);
 
