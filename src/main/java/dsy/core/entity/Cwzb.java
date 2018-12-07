@@ -7,6 +7,7 @@ import javax.persistence.Table;
 /**
  * @author dong
  * @since 18-11-21
+ * 财务指标
  */
 @Entity
 @Table(name = "cwzb")
@@ -17,38 +18,152 @@ public class Cwzb {
     private String code;
 
     private String date;
+
+    //-----------------每股指标------------------
+    /**
+     * 基本每股收益（元）
+     */
     private double jbmgsy;
+    /**
+     * 扣费每股指标
+     */
     private double kfmgsy;
+    /**
+     * 稀释每股指标
+     */
     private double xsmgsy;
+    /**
+     * 每股净资产
+     */
     private double mgjzc;
+    /**
+     * 每股公积金
+     */
     private double mggjj;
+    /**
+     * 每股未分配利润
+     */
     private double mgwfply;
+
+    /**
+     * 每股经营现金流
+     */
     private double mgjyxjl;
+
+    //------------------成长能力指标--------------
+    /**
+     * 营业总收入
+     */
     private String yyzsr;
+    /**
+     * 毛利润
+     */
     private String mlr;
+    /**
+     * 归属净利润
+     */
     private String gsjlr;
+    /**
+     * 扣非净利润
+     */
     private String kfjlr;
+    /**
+     * 营业总收入同比增长
+     */
     private double yyzsrtbzz;
+    /**
+     * 归属净利润同比增长
+     */
     private double gsjlrtbzz;
+    /**
+     * 扣非净利润同比增长
+     */
     private double kfjlrtbzz;
+    /**
+     * 营业总输入滚动环比增长
+     */
     private double yyzsrgdhbzz;
+    /**
+     * 应收净利润滚动环比增长
+     */
     private double gsjlrgdhbzz;
+
+    //------------------盈利能力指标----------------
+    /**
+     * 扣非净利润滚动环比增长
+     */
     private double kfjlrgdhbzz;
+
+    /**
+     * 加权净资产收益率
+     */
     private double jqjzcsyl;
+    /**
+     * 摊薄净资产收益率
+     */
     private double tbjzcsyl;
+    /**
+     * 摊薄总资产收益率
+     */
     private double tbzzcsyl;
+    /**
+     * 毛利率
+     */
     private double mll;
+    /**
+     * 净利率
+     */
     private double jll;
+
+    //---------------盈利质量指标----------------------
+    /**
+     * 实际税率
+     */
     private double sjsl;
+    /**
+     * 预收款/营业收入
+     */
     private double yskyysr;
+    /**
+     * 销售现金流/营业收入
+     */
     private double xsxjlyysr;
+
+    //------------运营能力指标------------------
+    /**
+     * 经营现金流/营业收入
+     */
     private double jyxjlyysr;
+    /**
+     * 总资产周转率
+     */
     private double zzczzy;
+    /**
+     * 应收账款周转天数
+     */
     private double yszkzzts;
+
+    //------------财务风险指标---------------
+    /**
+     * 存货周转天数
+     */
     private double chzzts;
+
+    /**
+     * 资产负债率
+     */
     private double zcfzl;
+    /**
+     * 流动负债/总负债
+     */
     private double ldzczfz;
+    /**
+     * 流动比率
+     */
     private double ldbl;
+    /**
+     * 速冻比率
+     */
     private double sdbl;
 
 
