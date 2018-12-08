@@ -66,7 +66,14 @@ public class HqTask {
             LOG.error("", e);
         }
     }
-
+    @Scheduled(fixedDelay = 10 * 60 * 1000)
+    public void syncStockBondFromWallStreetCn() {
+        try {
+            wallStreetCnHqService.syncStockBondFromWallStreetCn();
+        } catch (Exception e) {
+            LOG.error("", e);
+        }
+    }
     @Scheduled(fixedDelay = 10 * 60 * 1000)
     public void syncShangPinHqFromWallStreetCn() {
         try {

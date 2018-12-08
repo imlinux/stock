@@ -156,6 +156,72 @@ public class WallStreetCnHqService {
     }
 
     /**
+     * 同步最新债券行情
+     * @throws Exception
+     */
+    public void syncStockBondFromWallStreetCn() throws Exception {
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+
+        HttpGet httpGet = new HttpGet("https://api-ddc.wallstreetcn.com/market/rank?market_type=forexdata&stk_type=bond&order_by=none&sort_field=px_change_rate&limit=1000&fields=prod_name,prod_en_name,prod_code,symbol,last_px,px_change,px_change_rate,high_px,low_px,week_52_high,week_52_low,price_precision,update_time&cursor=0");
+
+        CloseableHttpResponse response = httpClient.execute(httpGet);
+
+        try {
+            HttpEntity entity1 = response.getEntity();
+
+            String s = IOUtils.toString(entity1.getContent(), "UTF-8");
+
+            Map<String, Object> jsonObject = JSON.parseObject(s);
+
+            Map<String, Object> dataNode = (Map) jsonObject.get("data");
+
+            List<List> candleNode = (List) dataNode.get("candle");
+
+            for(List e: candleNode) {
+
+                WallStreetCnHq entity = new WallStreetCnHq();
+
+                int i = 0;
+
+                entity.setProdName((String) e.get(i ++));
+                entity.setProdEnName((String) e.get(i ++));
+                entity.setProdCode((String) e.get(i++));
+                entity.setSymbol((String) e.get(i++));
+                entity.setLastPx(Double.parseDouble(e.get(i++).toString()));
+                entity.setPxChange(Double.parseDouble(e.get(i++).toString()));
+                entity.setPxChangeRate(Double.parseDouble(e.get(i++).toString()));
+                //entity.setOpenPx(Double.parseDouble(e.get(i++).toString()));
+                entity.setHighPx(Double.parseDouble(e.get(i++).toString()));
+                entity.setLowPx(Double.parseDouble(e.get(i++).toString()));
+                entity.setWeek52High(Double.parseDouble(e.get(i++).toString()));
+                entity.setWeek52Low(Double.parseDouble(e.get(i++).toString()));
+                entity.setPricePrecision((String) e.get(i++));
+                //entity.setCirculationValue(Double.parseDouble(e.get(i++).toString()));
+//                entity.setDynPe(Double.parseDouble(e.get(i++).toString()));
+//                entity.setDynPbRate(Double.parseDouble(e.get(i++).toString()));
+//                entity.setTurnoverValue(Double.parseDouble(e.get(i++).toString()));
+//                entity.setTurnoverRatio(Double.parseDouble(e.get(i++).toString()));
+//                entity.setTurnoverVolume(Double.parseDouble(e.get(i++).toString()));
+//                entity.setMarketValue(Double.parseDouble(e.get(i++).toString()));
+//                entity.setPreClosePx(Double.parseDouble(e.get(i++).toString()));
+//                entity.setAmplitude(Double.parseDouble(e.get(i++).toString()));
+//                entity.setTradeStatus((String) e.get(i++));
+
+                entity.setMarketType(MarketType.Bond);
+                //update_time
+                long time = (int) e.get(i++) * 1000L;
+
+                entity.setDate(new java.sql.Date(time));
+                entity.setId(getDayStr(getDay(new Date(time))) + "_" + entity.getProdCode());
+                wallStreetCnHqDao.merge(entity);
+            }
+
+        } finally {
+            response.close();
+        }
+    }
+
+    /**
      * 根据关键字和代码搜索股票，
      * @param codeOrName
      * @return 结果按时间和成交额逆序排序
@@ -183,6 +249,11 @@ public class WallStreetCnHqService {
         Date date = getLatestTrade();
 
         return wallStreetCnHqDao.getLatestWhHq(new java.sql.Date(date.getTime()));
+    }
+
+    public List<WallStreetCnHq> getAllBondHq() throws Exception {
+
+        return wallStreetCnHqDao.getAllBond();
     }
 
 }

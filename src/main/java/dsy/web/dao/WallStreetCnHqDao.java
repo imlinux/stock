@@ -80,4 +80,16 @@ public class WallStreetCnHqDao extends GeneralDao {
 
         return query.getResultList();
     }
+
+    /**
+     * 获取所有债券行情
+     * @return
+     * @throws Exception
+     */
+    public List<WallStreetCnHq> getAllBond() throws Exception {
+        TypedQuery<WallStreetCnHq> query = em.createQuery("select e from WallStreetCnHq e where e.marketType = :type order by e.date", WallStreetCnHq.class);
+        query.setParameter("type", MarketType.Bond);
+
+        return query.getResultList();
+    }
 }

@@ -20,6 +20,7 @@
 						<el-menu-item index="6-3" route="/fdl">发电量</el-menu-item>
 						<el-menu-item index="6-4" route="/pmi">采购经理指数</el-menu-item>
 						<el-menu-item index="6-5" route="/tycjlv">同业拆借利率</el-menu-item>
+						<el-menu-item index="6-6" route="/bond">债券</el-menu-item>
 					</el-submenu>
 
 					<el-submenu index="7">
@@ -59,6 +60,7 @@
 	import industry_capital_flow_heapmap from './industry_capital_flow_heapmap'
 	import shang_pin from './ShangPin'
 	import tong_ye_chai_jie from './tong_ye_chai_jie';
+	import bond from './bond';
 
     Vue.use(VueRouter);
     Vue.use(ElementUI);
@@ -108,6 +110,9 @@
 		}, {
             path:'/tycjlv',
 			component: tong_ye_chai_jie
+		}, {
+            path:'/bond',
+			component: bond
 		}]
     });
 
@@ -126,7 +131,8 @@
 			pmi,
 			tmp,
             shang_pin,
-            tong_ye_chai_jie
+            tong_ye_chai_jie,
+			bond
 		},
 		methods: {
             changeStock: function (item) {
