@@ -13,10 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -171,8 +168,8 @@ public class HouseHqService {
             String pageUrl = pageQueue.poll();
             if(pageUrl == null) break;
 
-            LOG.info("开始同步页面:" + pageUrl);
             int currentPageNum = getPageNum(pageUrl);
+            LOG.info("开始同步页面:" + currentPageNum + "-->" + pageUrl);
             String html = get(pageUrl, "UTF-8");
 
             Document doc = Jsoup.parse(html);
@@ -180,6 +177,7 @@ public class HouseHqService {
             doInTransaction(doc);
 
             Set<String> pages = new TreeSet<>();
+            Set<String> pagesSet = new HashSet<>(pageQueue);
             Elements multiPage = doc.getElementsByClass("multi-page");
             if (multiPage.size() >= 0) {
                 Element e = multiPage.first();
@@ -189,10 +187,12 @@ public class HouseHqService {
                     String url = e1.attr("href");
                     int pageNumber = getPageNum(url);
 
-                    if(pageNumber > currentPageNum) pages.add(url);
+                    if(pageNumber > currentPageNum && !pagesSet.contains(url)) pages.add(url);
                 }
             }
+            LOG.info("添加页面:" + pages);
             pageQueue.addAll(pages);
+            LOG.info("页面队列" + pageQueue);
         }
 
     }
@@ -216,8 +216,10 @@ public class HouseHqService {
 
         if(m.find()) {
             return m.group(1);
+        } else {
+            LOG.warn("未获取详情页面id");
+            return "";
         }
-        return "";
     }
 
     int getPageNum(String pageUrl) {
@@ -230,6 +232,7 @@ public class HouseHqService {
 
             return Integer.parseInt(text);
         } else {
+            LOG.warn("未获取页面号");
             return 0;
         }
     }
