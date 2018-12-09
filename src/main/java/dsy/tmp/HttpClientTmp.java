@@ -7,9 +7,7 @@ import org.jsoup.select.Elements;
 
 import java.net.ServerSocket;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,6 +22,14 @@ public class HttpClientTmp {
 
     public static void rzrq() throws Exception {
 
+        String s = "https://hangzhou.anjuke.com/sale/p111111/";
+
+        Pattern p = Pattern.compile("/p(\\d+)/");
+
+        Matcher m = p.matcher(s);
+
+        if(m.find())
+        System.out.println(m.group(1));
     }
 
 
