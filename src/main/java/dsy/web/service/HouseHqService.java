@@ -10,7 +10,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import java.util.*;
@@ -25,7 +24,7 @@ public class HouseHqService {
     private Log LOG = LogFactory.getLog(getClass());
 
     @Autowired
-    private PlatformTransactionManager transactionManager;
+    private TransactionTemplate transactionTemplate;
     @Autowired
     private HouseHqDao houseHqDao;
 
@@ -198,7 +197,6 @@ public class HouseHqService {
     }
 
     public void doInTransaction(Document doc) {
-        TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
 
         transactionTemplate.execute(status -> {
             try {

@@ -14,7 +14,7 @@ public class HoustTask {
     @Autowired
     private HouseHqService houseHqService;
 
-    @Scheduled(fixedDelay = 10 * 60 * 1000)
+    @Scheduled(cron = "0 0 11 * * ?")
     public void syncFromAnjuke() {
 
         try {
