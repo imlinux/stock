@@ -384,15 +384,18 @@ public class HouseHqService {
                 Elements elements = e.getElementsByTag("a");
 
                 Set<String> pageSet = new TreeSet<>(pageQueue);
+                Set<String> pages = new TreeSet<>();
 
                 elements.forEach(ele -> {
                     String url = ele.attr("href");
 
                     int pageNum = getPageNum(url);
 
-                    if(pageNum > currentPageNum && !pageSet.contains(url)) pageQueue.add(url);
+                    if(pageNum > currentPageNum && !pageSet.contains(url)) pages.add(url);
                 });
 
+                LOG.info("添加页面:" + pages);
+                pageQueue.addAll(pages);
                 LOG.info("页面队列" + pageQueue);
             }
         }
