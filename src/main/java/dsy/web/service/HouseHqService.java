@@ -29,6 +29,8 @@ public class HouseHqService {
     @Autowired
     private HouseHqDao houseHqDao;
 
+    private String city = "杭州市";
+
     /**
      * 同步一页的二手房信息
      * @param pageDoc
@@ -111,7 +113,7 @@ public class HouseHqService {
                             case "所在位置：":
                                 houseHq.setLocation(content);
 
-                                houseHq.setCity("杭州市");
+                                houseHq.setCity(city);
                                 houseHq.setQu(contentElement.child(0).child(0).ownText());
                                 houseHq.setJiedao(contentElement.child(0).child(1).ownText());
                                 break;
@@ -241,7 +243,7 @@ public class HouseHqService {
 
             return Integer.parseInt(text);
         } else {
-            LOG.warn("未获取页面号");
+            LOG.warn("未获取页面号-->" + pageUrl);
             return 0;
         }
     }
@@ -293,6 +295,9 @@ public class HouseHqService {
 
                         case "小区：":
                             houseHq.setCommunity(value);
+                            houseHq.setCity(city);
+                            if(infoItem.childNodeSize() > 2) houseHq.setQu(infoItem.child(2).ownText());
+                            if(infoItem.childNodeSize() > 3) houseHq.setJiedao(infoItem.child(3).ownText());
                             break;
                     }
 
