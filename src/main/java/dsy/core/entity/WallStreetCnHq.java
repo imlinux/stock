@@ -64,6 +64,12 @@ public class WallStreetCnHq extends BaseEntity {
     private double openPx;
 
     /**
+     *  收盘价
+     */
+    @Column(name = "close_px")
+    private double closePx;
+
+    /**
      * 最高价
      */
     @Column(name = "high_px")
@@ -350,5 +356,13 @@ public class WallStreetCnHq extends BaseEntity {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public double getClosePx() {
+        return closePx;
+    }
+
+    public void setClosePx(double closePx) {
+        this.closePx = closePx;
     }
 }
