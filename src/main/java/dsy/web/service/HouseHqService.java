@@ -390,11 +390,9 @@ public class HouseHqService {
 
                     int pageNum = getPageNum(url);
 
-                    if(pageNum > currentPageNum && !pageSet.contains(url)) pageSet.add(url);
+                    if(pageNum > currentPageNum && !pageSet.contains(url)) pageQueue.add(url);
                 });
 
-                LOG.info("添加页面:" + pageSet);
-                pageQueue.addAll(pageSet);
                 LOG.info("页面队列" + pageQueue);
             }
         }
