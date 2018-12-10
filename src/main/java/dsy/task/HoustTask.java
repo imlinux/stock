@@ -15,12 +15,23 @@ public class HoustTask {
     private HouseHqService houseHqService;
 
     @Scheduled(cron = "0 0 11 * * ?")
-    public void syncFromAnjuke() {
+    public void syncErShouFangFromAnjuke() {
 
         try {
             LOG.info("开始同步安居客二手房行情");
-            houseHqService.syncFromAnjuke();
+            houseHqService.syncErShouHouseFromAnjuke();
             LOG.info("安居客二手房同步完成");
+        } catch (Exception e) {
+            LOG.error(e);
+        }
+    }
+
+    @Scheduled(fixedDelay = 10 * 60 * 1000)
+    public void syncZuFromAnJeKe() {
+        try {
+            LOG.info("开始同步安居客租房行情");
+            houseHqService.syncZuFromAnJeKe();
+            LOG.info("安居客租房行情同步完成");
         } catch (Exception e) {
             LOG.error(e);
         }

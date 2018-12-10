@@ -21,6 +21,8 @@ public class HouseHq {
 
     private String type; //房屋户型
 
+    private HouseType houseType;
+
     private String price; //房屋价格
 
     private String location; //所在位置
@@ -226,5 +228,13 @@ public class HouseHq {
 
     public void setJiedao(String jiedao) {
         this.jiedao = jiedao;
+    }
+
+    public HouseType getHouseType() {
+        return houseType;
+    }
+
+    public void setHouseType(HouseType houseType) {
+        this.houseType = houseType;
     }
 }

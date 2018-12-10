@@ -1,6 +1,7 @@
 package dsy.web.service;
 
 import dsy.core.entity.HouseHq;
+import dsy.core.entity.HouseType;
 import dsy.web.dao.HouseHqDao;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -28,7 +29,12 @@ public class HouseHqService {
     @Autowired
     private HouseHqDao houseHqDao;
 
-    public void syncOnePageFromAnjuke(Document pageDoc) throws Exception {
+    /**
+     * 同步一页的二手房信息
+     * @param pageDoc
+     * @throws Exception
+     */
+    public void syncOnePageErShouHouseFromAnjuke(Document pageDoc) throws Exception {
 
         Element houseList = pageDoc.getElementById("houselist-mod-new");
         Elements elements = houseList.getElementsByClass("house-title");
@@ -150,14 +156,19 @@ public class HouseHqService {
                         }
                     }
                 }
+
+                houseHq.setHouseType(HouseType.ErShou);
                 houseHq.setId(houseHq.getPageId());
                 houseHqDao.merge(houseHq);
             }
         }
     }
 
-
-    public void syncFromAnjuke() throws Exception {
+    /**
+     * 同步二手房信息
+     * @throws Exception
+     */
+    public void syncErShouHouseFromAnjuke() throws Exception {
 
         Queue<String> pageQueue = new LinkedList<>();
         pageQueue.add("https://hangzhou.anjuke.com/sale/p1/");
@@ -200,7 +211,7 @@ public class HouseHqService {
 
         transactionTemplate.execute(status -> {
             try {
-                syncOnePageFromAnjuke(doc);
+                syncOnePageErShouHouseFromAnjuke(doc);
             } catch (Exception e) {
                 LOG.error(e);
             }
@@ -233,5 +244,148 @@ public class HouseHqService {
             LOG.warn("未获取页面号");
             return 0;
         }
+    }
+
+
+    public void syncOnePageZuFromAnJuKe(Document pageDoc) throws Exception {
+
+        Elements zuItems = pageDoc.getElementsByClass("zu-itemmod");
+
+
+        zuItems.forEach(item -> {
+
+            String itemUrl = item.attr("link");
+
+            try {
+                Document detailInfoDoc = Jsoup.parse(get(itemUrl, "UTF-8"));
+
+                Elements houseInfoItems = detailInfoDoc.getElementsByClass("house-info-item");
+
+                HouseHq houseHq = new HouseHq();
+                houseInfoItems.forEach(infoItem -> {
+                    String name = infoItem.child(0).ownText().trim();
+                    String value = infoItem.child(1).ownText().trim();
+
+                    switch (name) {
+                        case "户型：":
+                            houseHq.setType(value);
+                            break;
+
+                        case "面积：":
+                            houseHq.setArea(value);
+                            break;
+
+                        case "朝向：":
+                            houseHq.setOrientations(value);
+                            break;
+
+                        case "楼层：":
+                            houseHq.setStorey(value);
+                            break;
+
+                        case "装修：":
+                            houseHq.setDecorate(value);
+                            break;
+
+                        case "类型：":
+                            houseHq.setProperty(value);
+                            break;
+
+                        case "小区：":
+                            houseHq.setCommunity(value);
+                            break;
+                    }
+
+                    Elements rightInfo = detailInfoDoc.getElementsByClass("right-info");
+                    Element houseCode = detailInfoDoc.getElementById("houseCode");
+
+                    String houseCodeText = houseCode.ownText();
+                    houseCodeText = houseCodeText.replace("房屋编码", "");
+                    houseCodeText = houseCodeText.replace(":", "");
+                    houseCodeText = houseCodeText.replace("：", "");
+
+
+                    String publishDate = "";
+
+                    if(rightInfo.size() > 0) {
+                        publishDate = rightInfo.first().ownText();
+
+                        publishDate.replace("发布时间", "");
+                        publishDate.replace(":", "");
+                        publishDate.replace("：", "");
+                    }
+
+
+                    houseHq.setHouseCode(houseCodeText);
+                    houseHq.setPublishDate(publishDate);
+                    houseHq.setUrl(itemUrl);
+                    houseHq.setHouseType(HouseType.ZuFang);
+
+                    houseHq.setId(itemUrl);
+                    houseHqDao.merge(houseHq);
+                });
+
+                long t = pauseTime();
+                LOG.info("暂停" + t / 1000 + "秒钟 [" + itemUrl + "]");
+
+                Thread.sleep(t);
+            } catch (Exception e) {
+                LOG.error(e);
+            }
+
+        });
+    }
+
+    public void syncZuFromAnJeKe() throws Exception {
+
+        Queue<String> pageQueue = new LinkedList<>();
+        pageQueue.add("https://hz.zu.anjuke.com/fangyuan/p1/");
+
+        while (true) {
+            String pageUrl = pageQueue.poll();
+
+            if(pageUrl == null) break;
+
+            String pageHtml = get(pageUrl, "UTF-8");
+            int currentPageNum = getPageNum(pageUrl);
+
+            LOG.info("开始同步页面:" + currentPageNum + "-->" + pageUrl);
+
+            Document pageDoc = Jsoup.parse(pageHtml);
+
+            transactionTemplate.execute(transactionStatus -> {
+                try {
+                    syncOnePageZuFromAnJuKe(pageDoc);
+                } catch (Exception e) {
+                    LOG.error("", e);
+                }
+                return null;
+            });
+
+
+
+            Elements multiPage = pageDoc.getElementsByClass("multi-page");
+
+            if(multiPage.size() > 0) {
+                Element e = multiPage.first();
+
+                Elements elements = e.getElementsByTag("a");
+
+                Set<String> pageSet = new TreeSet<>(pageQueue);
+
+                elements.forEach(ele -> {
+                    String url = ele.attr("href");
+
+                    int pageNum = getPageNum(url);
+
+                    if(pageNum > currentPageNum && !pageSet.contains(url)) pageSet.add(url);
+                });
+
+                LOG.info("添加页面:" + pageSet);
+                pageQueue.addAll(pageSet);
+                LOG.info("页面队列" + pageQueue);
+            }
+        }
+
     }
 }
