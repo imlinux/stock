@@ -1,5 +1,6 @@
 package dsy.web.controller;
 
+import dsy.core.entity.MarketType;
 import dsy.core.entity.WallStreetCnHq;
 import dsy.web.dto.SearchCompany;
 import dsy.web.service.WallStreetCnHqService;
@@ -23,9 +24,9 @@ public class WallStreetCnHqController {
     @Autowired
     private WallStreetCnHqService wallStreetCnHqService;
 
-    @RequestMapping("/sync_company_from_wall_street")
-    public void syncCompanyFromWallStreetcn() throws Exception {
-        wallStreetCnHqService.syncStockHqFromWallStreetCn();
+    @RequestMapping("/sync_hq_from_wall_street")
+    public void syncCompanyFromWallStreetcn(@RequestParam String code, @RequestParam MarketType marketType) throws Exception {
+        wallStreetCnHqService.syncHqByCodeFromWallStreetCn(code, marketType);
     }
 
     /**

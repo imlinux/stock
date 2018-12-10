@@ -33,7 +33,7 @@
                     }
                 ],
                 legend: {
-                    data:['美国1年期国债', '1周(1W)', '2周(2W)', '1月(1M)', '3月(3M)', '6月(6M)', '9月(9M)', '1年(1Y)']
+                    data:['美国1年期国债', '美国2年期国债', '美国3年期国债', '美国5年期国债', '美国7年期国债', '美国10年期国债', '美国30年期国债']
                 },
                 xAxis: {
                     type:'category'
@@ -58,28 +58,28 @@
                 let US30YR = [];
 
                 for(let i = 0; i < data.length; i++) {
-                    date.push(data[i].date);
+                    date.add(data[i].date);
 
                     if(data[i].prodCode == 'US1YR.OTC') {
-                        US1YR.push(data[i].lastPx);
+                        US1YR.push(data[i].closePx);
                     } else if (data[i].prodCode == 'US2YR.OTC') {
-                        US2YR.push(data[i].lastPx);
+                        US2YR.push(data[i].closePx);
                     } else if (data[i].prodCode == 'US3YR.OTC') {
-                        US3YR.push(data[i].lastPx);
+                        US3YR.push(data[i].closePx);
                     } else if (data[i].prodCode == 'US5YR.OTC') {
-                        US5YR.push(data[i].lastPx);
+                        US5YR.push(data[i].closePx);
                     } else if (data[i].prodCode == 'US7YR.OTC') {
-                        US7YR.push(data[i].lastPx);
+                        US7YR.push(data[i].closePx);
                     } else if (data[i].prodCode == 'US10YR.OTC') {
-                        US10YR.push(data[i].lastPx);
+                        US10YR.push(data[i].closePx);
                     } else if (data[i].prodCode == 'US30YR.OTC') {
-                        US30YR.push(data[i].lastPx);
+                        US30YR.push(data[i].closePx);
                     }
                 }
 
                 myChart.setOption({
                     xAxis: {
-                        data: date
+                        data: Array.from(date)
                     },
                     series: [{
                         name:'美国1年期国债',

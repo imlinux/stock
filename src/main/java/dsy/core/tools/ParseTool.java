@@ -13,4 +13,22 @@ public class ParseTool {
             return 0;
         }
     }
+
+
+    public static int parseInteger(Object o) {
+        try {
+            return Integer.parseInt(o.toString());
+        }catch (Exception e) {
+            return 0;
+        }
+    }
+
+
+    public static long parseLong(Object o) {
+        try {
+            return Long.parseLong(o.toString());
+        }catch (Exception e) {
+            return 0;
+        }
+    }
 }
