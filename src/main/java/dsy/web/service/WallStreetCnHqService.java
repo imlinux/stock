@@ -23,6 +23,7 @@ import static dsy.core.tools.DateTool.getDay;
 import static dsy.core.tools.DateTool.getDayStr;
 import static dsy.core.tools.HttpClientTool.get;
 import static dsy.core.tools.ParseTool.parseDouble;
+import static dsy.core.tools.ParseTool.parseLong;
 import static dsy.core.tools.TradeTool.getLatestTrade;
 
 /**
@@ -68,7 +69,10 @@ public class WallStreetCnHqService {
                 entity.setProdEnName((String) e.get(i ++));
                 entity.setProdCode((String) e.get(i++));
                 entity.setSymbol((String) e.get(i++));
+
                 entity.setLastPx(Double.parseDouble(e.get(i++).toString()));
+                entity.setClosePx(entity.getLastPx());
+
                 entity.setPxChange(Double.parseDouble(e.get(i++).toString()));
                 entity.setPxChangeRate(Double.parseDouble(e.get(i++).toString()));
                 entity.setOpenPx(Double.parseDouble(e.get(i++).toString()));
@@ -142,7 +146,10 @@ public class WallStreetCnHqService {
             wh.setWeek52High(parseDouble(l.get(index ++)));
             wh.setWeek52Low(parseDouble(l.get(index ++)));
             wh.setUpdateTime(Long.parseLong(l.get(index ++).toString()));
+
             wh.setLastPx(parseDouble(l.get(index ++)));
+            wh.setClosePx(wh.getLastPx());
+
             wh.setPxChange(parseDouble(l.get(index ++)));
             wh.setPxChangeRate(parseDouble(l.get(index ++)));
 
@@ -187,7 +194,10 @@ public class WallStreetCnHqService {
                 entity.setProdEnName((String) e.get(i ++));
                 entity.setProdCode((String) e.get(i++));
                 entity.setSymbol((String) e.get(i++));
+
                 entity.setLastPx(Double.parseDouble(e.get(i++).toString()));
+                entity.setClosePx(entity.getLastPx());
+
                 entity.setPxChange(Double.parseDouble(e.get(i++).toString()));
                 entity.setPxChangeRate(Double.parseDouble(e.get(i++).toString()));
                 //entity.setOpenPx(Double.parseDouble(e.get(i++).toString()));
@@ -219,6 +229,51 @@ public class WallStreetCnHqService {
         } finally {
             response.close();
         }
+    }
+
+    public void syncHqByCodeFromWallStreetCn(String code, MarketType marketType) throws Exception {
+
+        String url = "https://api-ddc.wallstreetcn.com/market/kline?fields=prod_code,tick_at,open_px,close_px,high_px,low_px,turnover_volume,turnover_value,average_px,px_change,px_change_rate,avg_px,ma2&prod_code=" + code + "&period_type=86400&tick_count=256";
+        String jsonText = get(url, "UTF-8");
+        Map<String, Object> jsonObj = JSON.parseObject(jsonText);
+        Map<String, Object> candleData = (Map) ((Map) jsonObj.get("data")).get("candle");
+        List<String> fields = (List) ((Map) jsonObj.get("data")).get("fields");
+
+        candleData.forEach((k, v) -> {
+            Map<String, Object> lines = (Map) v;
+            List l = (List) lines.get("lines");
+            l.forEach( e -> {
+
+                List items = (List) e;
+
+                WallStreetCnHq hq = new WallStreetCnHq();
+
+                hq.setProdCode((String) items.get(fields.indexOf("prod_code")));
+                hq.setOpenPx(parseDouble(items.get(fields.indexOf("open_px"))));
+
+                hq.setClosePx(parseDouble(items.get(fields.indexOf("close_px"))));
+                hq.setLastPx(hq.getClosePx());
+
+                hq.setHighPx(parseDouble(items.get(fields.indexOf("high_px"))));
+                hq.setLowPx(parseDouble(items.get(fields.indexOf("low_px"))));
+
+                hq.setPxChange(parseDouble(items.get(fields.indexOf("px_change"))));
+                hq.setPxChangeRate(parseDouble(items.get(fields.indexOf("px_change_rate"))));
+
+                hq.setTurnoverVolume(parseDouble(items.get(fields.indexOf("turnover_volume"))));
+                hq.setTurnoverValue(parseDouble(items.get(fields.indexOf("turnover_value"))));
+
+                hq.setDate(new java.sql.Date(parseLong(items.get(fields.indexOf("tick_at"))) * 1000));
+
+
+                hq.setId(getDayStr(hq.getDate()) + "_" + hq.getProdCode());
+
+                hq.setMarketType(marketType);
+                wallStreetCnHqDao.merge(hq);
+            });
+        });
+
+
     }
 
     /**
