@@ -308,6 +308,7 @@ public class HouseHqService {
                     houseCodeText = houseCodeText.replace("房屋编码", "");
                     houseCodeText = houseCodeText.replace(":", "");
                     houseCodeText = houseCodeText.replace("：", "");
+                    houseCodeText = houseCodeText.replace("，", "");
 
 
                     String publishDate = "";
@@ -325,6 +326,12 @@ public class HouseHqService {
                     houseHq.setPublishDate(publishDate);
                     houseHq.setUrl(itemUrl);
                     houseHq.setHouseType(HouseType.ZuFang);
+
+                    Elements priceElement = detailInfoDoc.getElementsByClass("price");
+
+                    if(priceElement.size() > 0) {
+                        houseHq.setPrice(priceElement.first().text());
+                    }
 
                     houseHq.setId(itemUrl);
                     houseHqDao.merge(houseHq);
