@@ -26,7 +26,7 @@ public class HoustTask {
         }
     }
 
-    @Scheduled(fixedDelay = 10 * 60 * 1000)
+    @Scheduled(cron = "0 0 12 * * ?")
     public void syncZuFromAnJeKe() {
         try {
             LOG.info("开始同步安居客租房行情");
