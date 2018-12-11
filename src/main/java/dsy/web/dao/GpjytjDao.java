@@ -41,7 +41,7 @@ public class GpjytjDao extends GeneralDao {
                 "        WHERE\n" +
                 "            quarter LIKE '%.4') t2\n" +
                 "ON\n" +
-                "    t1.year=t2.year";
+                "    t1.year=t2.year order by date";
 
         Query query = em.createNativeQuery(sql);
 
