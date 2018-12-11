@@ -5,6 +5,10 @@
             v-loading="loading"
             border>
         <el-table-column
+                prop="date"
+                label="日期">
+        </el-table-column>
+        <el-table-column
                 prop="prodName"
                 label="资产"
                 width="180">
