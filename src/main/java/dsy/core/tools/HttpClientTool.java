@@ -7,10 +7,10 @@ import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.DefaultHttpRequestRetryHandler;
 import org.apache.http.impl.client.HttpClients;
 
 import static dsy.core.tools.Tool.close;
-import static dsy.core.tools.Tool.pauseTime;
 
 /**
  * @author dong
@@ -24,34 +24,22 @@ public class HttpClientTool {
         CloseableHttpClient httpClient = HttpClients
                 .custom()
                 .setUserAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36")
+                .setRetryHandler(new DefaultHttpRequestRetryHandler(3,true))
                 .build();
 
         HttpGet httpGet = new HttpGet(url);
 
         CloseableHttpResponse response = null;
 
-        int retryCount = 3;
-        while (true) {
-            try {
-                response = httpClient.execute(httpGet);
-                HttpEntity entity1 = response.getEntity();
+        try {
+            response = httpClient.execute(httpGet);
+            HttpEntity entity1 = response.getEntity();
 
-                return IOUtils.toString(entity1.getContent(), encoding);
-            } catch (Exception e) {
-                if(retryCount <= 0) {
-                    throw e;
-                }
-                long t = pauseTime();
-                LOG.info("等待" + (t/1000) + "秒重试" , e);
-                try {
-                    Thread.sleep(t);
-                } catch (Exception ex) {
-                    LOG.error("", ex);
-                }
-                retryCount --;
-            } finally {
-                close(response);
-            }
+            return IOUtils.toString(entity1.getContent(), encoding);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            close(response);
         }
     }
 }
