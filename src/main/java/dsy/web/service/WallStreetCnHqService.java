@@ -5,12 +5,6 @@ import dsy.core.entity.MarketType;
 import dsy.core.entity.WallStreetCnHq;
 import dsy.web.dao.WallStreetCnHqDao;
 import dsy.web.dto.SearchCompany;
-import org.apache.commons.io.IOUtils;
-import org.apache.http.HttpEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +19,7 @@ import static dsy.core.tools.HttpClientTool.get;
 import static dsy.core.tools.ParseTool.parseDouble;
 import static dsy.core.tools.ParseTool.parseLong;
 import static dsy.core.tools.TradeTool.getLatestTrade;
+import static dsy.core.tools.TradeTool.getLatestTradeStr;
 
 /**
  * @author dong
@@ -42,70 +37,63 @@ public class WallStreetCnHqService {
      * @throws Exception
      */
     public void syncStockHqFromWallStreetCn() throws Exception {
-        CloseableHttpClient httpClient = HttpClients.createDefault();
 
-        HttpGet httpGet = new HttpGet("https://api-ddc.wallstreetcn.com/market/rank?market_type=mdc&stk_type=stock&order_by=none&limit=6000&fields=prod_name,prod_en_name,prod_code,symbol,last_px,px_change,px_change_rate,open_px,high_px,low_px,week_52_high,week_52_low,price_precision,circulation_value,dyn_pe,dyn_pb_rate,turnover_value,turnover_ratio,turnover_volume,market_value,preclose_px,amplitude,trade_status,update_time&cursor=1");
+        String url = "https://api-ddc.wallstreetcn.com/market/rank?market_type=mdc&stk_type=stock&order_by=none&limit=6000&fields=prod_name,prod_en_name,prod_code,symbol,last_px,px_change,px_change_rate,open_px,high_px,low_px,week_52_high,week_52_low,price_precision,circulation_value,dyn_pe,dyn_pb_rate,turnover_value,turnover_ratio,turnover_volume,market_value,preclose_px,amplitude,trade_status,update_time&cursor=1";
 
-        CloseableHttpResponse response = httpClient.execute(httpGet);
 
-        try {
-            HttpEntity entity1 = response.getEntity();
 
-            String s = IOUtils.toString(entity1.getContent(), "UTF-8");
+        String s = get(url, "UTF-8");
 
-            Map<String, Object> jsonObject = JSON.parseObject(s);
+        Map<String, Object> jsonObject = JSON.parseObject(s);
 
-            Map<String, Object> dataNode = (Map) jsonObject.get("data");
+        Map<String, Object> dataNode = (Map) jsonObject.get("data");
 
-            List<List> candleNode = (List) dataNode.get("candle");
+        List<List> candleNode = (List) dataNode.get("candle");
 
-            for(List e: candleNode) {
+        for(List e: candleNode) {
 
-                WallStreetCnHq entity = new WallStreetCnHq();
+            WallStreetCnHq hq = new WallStreetCnHq();
 
-                int i = 0;
+            int i = 0;
 
-                entity.setProdName((String) e.get(i ++));
-                entity.setProdEnName((String) e.get(i ++));
-                entity.setProdCode((String) e.get(i++));
-                entity.setSymbol((String) e.get(i++));
+            hq.setProdName((String) e.get(i ++));
+            hq.setProdEnName((String) e.get(i ++));
+            hq.setProdCode((String) e.get(i++));
+            hq.setSymbol((String) e.get(i++));
 
-                entity.setLastPx(Double.parseDouble(e.get(i++).toString()));
-                entity.setClosePx(entity.getLastPx());
+            hq.setLastPx(Double.parseDouble(e.get(i++).toString()));
+            hq.setClosePx(hq.getLastPx());
 
-                entity.setPxChange(Double.parseDouble(e.get(i++).toString()));
-                entity.setPxChangeRate(Double.parseDouble(e.get(i++).toString()));
-                entity.setOpenPx(Double.parseDouble(e.get(i++).toString()));
-                entity.setHighPx(Double.parseDouble(e.get(i++).toString()));
-                entity.setLowPx(Double.parseDouble(e.get(i++).toString()));
-                entity.setWeek52High(Double.parseDouble(e.get(i++).toString()));
-                entity.setWeek52Low(Double.parseDouble(e.get(i++).toString()));
-                entity.setPricePrecision((String) e.get(i++));
-                entity.setCirculationValue(Double.parseDouble(e.get(i++).toString()));
-                entity.setDynPe(Double.parseDouble(e.get(i++).toString()));
-                entity.setDynPbRate(Double.parseDouble(e.get(i++).toString()));
-                entity.setTurnoverValue(Double.parseDouble(e.get(i++).toString()));
-                entity.setTurnoverRatio(Double.parseDouble(e.get(i++).toString()));
-                entity.setTurnoverVolume(Double.parseDouble(e.get(i++).toString()));
-                entity.setMarketValue(Double.parseDouble(e.get(i++).toString()));
-                entity.setPreClosePx(Double.parseDouble(e.get(i++).toString()));
-                entity.setAmplitude(Double.parseDouble(e.get(i++).toString()));
-                entity.setTradeStatus((String) e.get(i++));
+            hq.setPxChange(Double.parseDouble(e.get(i++).toString()));
+            hq.setPxChangeRate(Double.parseDouble(e.get(i++).toString()));
+            hq.setOpenPx(Double.parseDouble(e.get(i++).toString()));
+            hq.setHighPx(Double.parseDouble(e.get(i++).toString()));
+            hq.setLowPx(Double.parseDouble(e.get(i++).toString()));
+            hq.setWeek52High(Double.parseDouble(e.get(i++).toString()));
+            hq.setWeek52Low(Double.parseDouble(e.get(i++).toString()));
+            hq.setPricePrecision((String) e.get(i++));
+            hq.setCirculationValue(Double.parseDouble(e.get(i++).toString()));
+            hq.setDynPe(Double.parseDouble(e.get(i++).toString()));
+            hq.setDynPbRate(Double.parseDouble(e.get(i++).toString()));
+            hq.setTurnoverValue(Double.parseDouble(e.get(i++).toString()));
+            hq.setTurnoverRatio(Double.parseDouble(e.get(i++).toString()));
+            hq.setTurnoverVolume(Double.parseDouble(e.get(i++).toString()));
+            hq.setMarketValue(Double.parseDouble(e.get(i++).toString()));
+            hq.setPreClosePx(Double.parseDouble(e.get(i++).toString()));
+            hq.setAmplitude(Double.parseDouble(e.get(i++).toString()));
+            hq.setTradeStatus((String) e.get(i++));
 
-                entity.setMarketType(MarketType.Stock);
-                //update_time
-                long time = (int) e.get(i++) * 1000L;
+            hq.setMarketType(MarketType.Stock);
+            //update_time
+            long time = (int) e.get(i++) * 1000L;
 
-                //与东方财富保持一致
-                entity.setProdCode(entity.getProdCode().replace(".SS", ".SH"));
+            //与东方财富保持一致
+            hq.setProdCode(hq.getProdCode().replace(".SS", ".SH"));
 
-                entity.setDate(new java.sql.Date(time));
-                entity.setId(getDayStr(getDay(new Date(time))) + "_" + entity.getProdCode());
-                wallStreetCnHqDao.merge(entity);
-            }
+            hq.setDate(getDayStr(new Date(time)));
+            hq.setId(getDayStr(getDay(new Date(time))) + "_" + hq.getProdCode());
+            wallStreetCnHqDao.merge(hq);
 
-        } finally {
-            response.close();
         }
     }
 
@@ -156,7 +144,7 @@ public class WallStreetCnHqService {
             wh.setMarketType(MarketType.ForeignData);
             wh.setTradeStatus((String) l.get(index ++));
 
-            wh.setDate(new java.sql.Date(latestTrade.getTime()));
+            wh.setDate(getDayStr(new Date(latestTrade.getTime())));
             wh.setId(wh.getSymbol() + getDayStr(latestTrade));
             wallStreetCnHqDao.merge(wh);
         });
@@ -167,68 +155,58 @@ public class WallStreetCnHqService {
      * @throws Exception
      */
     public void syncStockBondFromWallStreetCn() throws Exception {
-        CloseableHttpClient httpClient = HttpClients.createDefault();
 
-        HttpGet httpGet = new HttpGet("https://api-ddc.wallstreetcn.com/market/rank?market_type=forexdata&stk_type=bond&order_by=none&sort_field=px_change_rate&limit=1000&fields=prod_name,prod_en_name,prod_code,symbol,last_px,px_change,px_change_rate,high_px,low_px,week_52_high,week_52_low,price_precision,update_time&cursor=0");
+        String url = "https://api-ddc.wallstreetcn.com/market/rank?market_type=forexdata&stk_type=bond&order_by=none&sort_field=px_change_rate&limit=1000&fields=prod_name,prod_en_name,prod_code,symbol,last_px,px_change,px_change_rate,high_px,low_px,week_52_high,week_52_low,price_precision,update_time&cursor=0";
 
-        CloseableHttpResponse response = httpClient.execute(httpGet);
+        String s = get(url, "UTF-8");
 
-        try {
-            HttpEntity entity1 = response.getEntity();
+        Map<String, Object> jsonObject = JSON.parseObject(s);
 
-            String s = IOUtils.toString(entity1.getContent(), "UTF-8");
+        Map<String, Object> dataNode = (Map) jsonObject.get("data");
 
-            Map<String, Object> jsonObject = JSON.parseObject(s);
+        List<List> candleNode = (List) dataNode.get("candle");
 
-            Map<String, Object> dataNode = (Map) jsonObject.get("data");
+        for(List e: candleNode) {
 
-            List<List> candleNode = (List) dataNode.get("candle");
+            WallStreetCnHq entity = new WallStreetCnHq();
 
-            for(List e: candleNode) {
+            int i = 0;
 
-                WallStreetCnHq entity = new WallStreetCnHq();
+            entity.setProdName((String) e.get(i ++));
+            entity.setProdEnName((String) e.get(i ++));
+            entity.setProdCode((String) e.get(i++));
+            entity.setSymbol((String) e.get(i++));
 
-                int i = 0;
+            entity.setLastPx(Double.parseDouble(e.get(i++).toString()));
+            entity.setClosePx(entity.getLastPx());
 
-                entity.setProdName((String) e.get(i ++));
-                entity.setProdEnName((String) e.get(i ++));
-                entity.setProdCode((String) e.get(i++));
-                entity.setSymbol((String) e.get(i++));
+            entity.setPxChange(Double.parseDouble(e.get(i++).toString()));
+            entity.setPxChangeRate(Double.parseDouble(e.get(i++).toString()));
+            //entity.setOpenPx(Double.parseDouble(e.get(i++).toString()));
+            entity.setHighPx(Double.parseDouble(e.get(i++).toString()));
+            entity.setLowPx(Double.parseDouble(e.get(i++).toString()));
+            entity.setWeek52High(Double.parseDouble(e.get(i++).toString()));
+            entity.setWeek52Low(Double.parseDouble(e.get(i++).toString()));
+            entity.setPricePrecision((String) e.get(i++));
+            //entity.setCirculationValue(Double.parseDouble(e.get(i++).toString()));
+            //                entity.setDynPe(Double.parseDouble(e.get(i++).toString()));
+            //                entity.setDynPbRate(Double.parseDouble(e.get(i++).toString()));
+            //                entity.setTurnoverValue(Double.parseDouble(e.get(i++).toString()));
+            //                entity.setTurnoverRatio(Double.parseDouble(e.get(i++).toString()));
+            //                entity.setTurnoverVolume(Double.parseDouble(e.get(i++).toString()));
+            //                entity.setMarketValue(Double.parseDouble(e.get(i++).toString()));
+            //                entity.setPreClosePx(Double.parseDouble(e.get(i++).toString()));
+            //                entity.setAmplitude(Double.parseDouble(e.get(i++).toString()));
+            //                entity.setTradeStatus((String) e.get(i++));
 
-                entity.setLastPx(Double.parseDouble(e.get(i++).toString()));
-                entity.setClosePx(entity.getLastPx());
+            entity.setMarketType(MarketType.Bond);
+            //update_time
+            long time = (int) e.get(i++) * 1000L;
 
-                entity.setPxChange(Double.parseDouble(e.get(i++).toString()));
-                entity.setPxChangeRate(Double.parseDouble(e.get(i++).toString()));
-                //entity.setOpenPx(Double.parseDouble(e.get(i++).toString()));
-                entity.setHighPx(Double.parseDouble(e.get(i++).toString()));
-                entity.setLowPx(Double.parseDouble(e.get(i++).toString()));
-                entity.setWeek52High(Double.parseDouble(e.get(i++).toString()));
-                entity.setWeek52Low(Double.parseDouble(e.get(i++).toString()));
-                entity.setPricePrecision((String) e.get(i++));
-                //entity.setCirculationValue(Double.parseDouble(e.get(i++).toString()));
-//                entity.setDynPe(Double.parseDouble(e.get(i++).toString()));
-//                entity.setDynPbRate(Double.parseDouble(e.get(i++).toString()));
-//                entity.setTurnoverValue(Double.parseDouble(e.get(i++).toString()));
-//                entity.setTurnoverRatio(Double.parseDouble(e.get(i++).toString()));
-//                entity.setTurnoverVolume(Double.parseDouble(e.get(i++).toString()));
-//                entity.setMarketValue(Double.parseDouble(e.get(i++).toString()));
-//                entity.setPreClosePx(Double.parseDouble(e.get(i++).toString()));
-//                entity.setAmplitude(Double.parseDouble(e.get(i++).toString()));
-//                entity.setTradeStatus((String) e.get(i++));
-
-                entity.setMarketType(MarketType.Bond);
-                //update_time
-                long time = (int) e.get(i++) * 1000L;
-
-                entity.setDate(new java.sql.Date(time));
-                entity.setId(getDayStr(getDay(new Date(time))) + "_" + entity.getProdCode());
-                wallStreetCnHqDao.merge(entity);
+            entity.setDate(getDayStr(new Date(time)));
+            entity.setId(getDayStr(getDay(new Date(time))) + "_" + entity.getProdCode());
+            wallStreetCnHqDao.merge(entity);
             }
-
-        } finally {
-            response.close();
-        }
     }
 
     public void syncHqByCodeFromWallStreetCn(String code, MarketType marketType) throws Exception {
@@ -263,10 +241,10 @@ public class WallStreetCnHqService {
                 hq.setTurnoverVolume(parseDouble(items.get(fields.indexOf("turnover_volume"))));
                 hq.setTurnoverValue(parseDouble(items.get(fields.indexOf("turnover_value"))));
 
-                hq.setDate(new java.sql.Date(parseLong(items.get(fields.indexOf("tick_at"))) * 1000));
+                hq.setDate(getDayStr(new Date(parseLong(items.get(fields.indexOf("tick_at"))) * 1000)));
 
 
-                hq.setId(getDayStr(hq.getDate()) + "_" + hq.getProdCode());
+                hq.setId(hq.getDate() + "_" + hq.getProdCode());
 
                 hq.setMarketType(marketType);
                 wallStreetCnHqDao.merge(hq);
@@ -303,7 +281,7 @@ public class WallStreetCnHqService {
     public List<WallStreetCnHq> getLatestWhHq() throws Exception {
         Date date = getLatestTrade();
 
-        return wallStreetCnHqDao.getLatestWhHq(new java.sql.Date(date.getTime()));
+        return wallStreetCnHqDao.getLatestWhHq(getLatestTradeStr());
     }
 
     public List<WallStreetCnHq> getAllBondHq() throws Exception {
