@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import java.sql.Date;
 import java.util.List;
 
 /**
@@ -16,15 +15,15 @@ import java.util.List;
 public class IndustryDao extends GeneralDao {
 
 
-    public List<SwIndustryHQ> getAllIndustryCode(Date date) {
+    public List<SwIndustryHQ> getAllIndustryCode(String date) {
 
         TypedQuery<SwIndustryHQ> query = em.createQuery("select e from SwIndustryHQ e where e.date = :date", SwIndustryHQ.class);
         query.setParameter("date", date);
         return query.getResultList();
     }
 
-    public Date getLatestTradeDate() {
+    public String getLatestTradeDate() {
         Query query = em.createQuery("select max(e.date) from SwIndustryHQ e");
-        return (Date) query.getSingleResult();
+        return (String) query.getSingleResult();
     }
 }

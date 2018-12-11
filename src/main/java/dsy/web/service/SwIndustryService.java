@@ -79,7 +79,7 @@ public class SwIndustryService {
     }
 
 
-    public List<SwIndustryHQ> getAllSwIndustryHq(java.sql.Date date) {
+    public List<SwIndustryHQ> getAllSwIndustryHq(String date) {
         return industryDao.getAllIndustryCode(date);
     }
 

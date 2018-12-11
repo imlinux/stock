@@ -8,10 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Date;
 import java.util.List;
 
-import static dsy.core.tools.DateTool.parse;
 import static dsy.core.tools.StringTool.isEmpty;
 
 /**
@@ -39,9 +37,7 @@ public class IndustryController {
         if(isEmpty(date)) {
             return swIndustryService.getAllSwIndustryHq();
         } else {
-            Date d = null;
-            d = parse(date);
-            return swIndustryService.getAllSwIndustryHq(new java.sql.Date(d.getTime()));
+            return swIndustryService.getAllSwIndustryHq(date);
         }
     }
 }
