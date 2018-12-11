@@ -54,7 +54,7 @@ public class RzRqService {
             EastMoneyRzRqDetial rec = new EastMoneyRzRqDetial();
 
             rec.setId(tradeDateStr + e.get("scode"));
-            rec.setDate(new java.sql.Date(date.getTime()));
+            rec.setDate(tradeDateStr);
 
             rec.setScode((String) e.get("scode"));
             rec.setSname((String) e.get("sname"));
@@ -165,7 +165,7 @@ public class RzRqService {
             beanWrapper.setPropertyValues(new MutablePropertyValues(e));
 
 
-            eastMoneyRzrq.setDate(new java.sql.Date(sm.parse(eastMoneyRzrq.getTdate()).getTime()));
+            eastMoneyRzrq.setDate(eastMoneyRzrq.getTdate());
             eastMoneyRzrq.setId(eastMoneyRzrq.getTdate());
 
             rzRqDao.merge(eastMoneyRzrq);

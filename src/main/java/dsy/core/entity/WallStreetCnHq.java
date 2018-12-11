@@ -147,7 +147,7 @@ public class WallStreetCnHq extends BaseEntity {
     private String tradeStatus;
 
     @Column(name = "date")
-    private Date date;
+    private String date;
 
 
     public String getId() {
@@ -350,11 +350,12 @@ public class WallStreetCnHq extends BaseEntity {
         this.tradeStatus = tradeStatus;
     }
 
-    public Date getDate() {
+
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

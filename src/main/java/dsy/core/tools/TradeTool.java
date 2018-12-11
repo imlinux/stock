@@ -37,4 +37,8 @@ public class TradeTool {
             }
         }
     }
+
+    public static String getLatestTradeStr() throws Exception {
+        return getDayStr(getLatestTrade());
+    }
 }

@@ -27,7 +27,7 @@ public class EastMoneyRzRqDetial extends BaseEntity {
     private double hfqjg;
 
     @Column(name = "date")
-    private Date date;
+    private String date;
 
     @Column(name = "market")
     private String market;
@@ -141,11 +141,12 @@ public class EastMoneyRzRqDetial extends BaseEntity {
         this.hfqjg = hfqjg;
     }
 
-    public Date getDate() {
+
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

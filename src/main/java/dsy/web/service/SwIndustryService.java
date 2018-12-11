@@ -38,7 +38,7 @@ public class SwIndustryService {
 
         CloseableHttpResponse response = httpClient.execute(httpGet);
 
-        java.sql.Date latestTradeDate = new java.sql.Date(getLatestTrade().getTime());
+        String latestTradeDate = getDayStr(getLatestTrade());
         try {
             HttpEntity entity1 = response.getEntity();
 
@@ -57,7 +57,7 @@ public class SwIndustryService {
 
                 SwIndustryHQ swIndustryHQ = new SwIndustryHQ();
 
-                swIndustryHQ.setId(e.getKey() + "_" + getDayStr(latestTradeDate));
+                swIndustryHQ.setId(e.getKey() + "_" + latestTradeDate);
 
                 swIndustryHQ.setDate(latestTradeDate);
 

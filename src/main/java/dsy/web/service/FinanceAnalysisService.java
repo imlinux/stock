@@ -84,7 +84,6 @@ public class FinanceAnalysisService {
 
                 beanWrapper.setPropertyValues(new MutablePropertyValues(e));
 
-                lrb.setDate(new java.sql.Date(sm.parse(lrb.getREPORTDATE()).getTime()));
                 lrb.setId(lrb.getREPORTDATE() + lrb.getSECURITYCODE() + lrb.getREPORTTYPE());
                 financeDao.merge(lrb);
             }
@@ -138,7 +137,6 @@ public class FinanceAnalysisService {
 
                 beanWrapper.setPropertyValues(new MutablePropertyValues(e));
 
-                zcfzb.setDate(new java.sql.Date(sm.parse(zcfzb.getREPORTDATE()).getTime()));
                 zcfzb.setId(zcfzb.getREPORTDATE() + zcfzb.getSECURITYCODE() + zcfzb.getREPORTTYPE());
                 financeDao.merge(zcfzb);
             }
@@ -187,7 +185,6 @@ public class FinanceAnalysisService {
                 BeanWrapper beanWrapper = new BeanWrapperImpl(xjllb);
                 beanWrapper.setPropertyValues(new MutablePropertyValues(e));
 
-                xjllb.setDate(new java.sql.Date(sm.parse(xjllb.getREPORTDATE()).getTime()));
                 xjllb.setId(xjllb.getREPORTDATE() + xjllb.getSECURITYCODE() + xjllb.getREPORTTYPE());
 
                 financeDao.merge(xjllb);

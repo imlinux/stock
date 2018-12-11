@@ -36,11 +36,11 @@
         <el-table-column
                 label="52周区间">
             <el-table-column
-                    prop="week52high"
+                    prop="week52High"
                     label="最高">
             </el-table-column>
             <el-table-column
-                    prop="week52low"
+                    prop="week52Low"
                     label="最低">
             </el-table-column>
         </el-table-column>

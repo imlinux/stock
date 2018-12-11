@@ -24,7 +24,7 @@ public class SwIndustryHQ extends BaseEntity {
     private String code; //行业code
 
     @Column(name = "date")
-    private Date date;
+    private String date;
 
     @Column(name = "symbol")
     private String symbol;
@@ -64,11 +64,12 @@ public class SwIndustryHQ extends BaseEntity {
         this.code = code;
     }
 
-    public Date getDate() {
+
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

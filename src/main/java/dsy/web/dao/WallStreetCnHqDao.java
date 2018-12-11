@@ -7,11 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import static dsy.core.tools.TradeTool.getLatestTrade;
+import static dsy.core.tools.TradeTool.getLatestTradeStr;
 
 /**
  * @author dong
@@ -58,7 +57,7 @@ public class WallStreetCnHqDao extends GeneralDao {
     public List<WallStreetCnHq> getLatestCompanyHq() throws Exception {
         TypedQuery<WallStreetCnHq> query = em.createQuery("select e from WallStreetCnHq e where e.date = :date and e.marketType = :type order by e.turnoverVolume desc", WallStreetCnHq.class);
 
-        query.setParameter("date", new java.sql.Date(getLatestTrade().getTime()));
+        query.setParameter("date", getLatestTradeStr());
         query.setParameter("type", MarketType.Stock);
         query.setMaxResults(500);
 
@@ -71,7 +70,7 @@ public class WallStreetCnHqDao extends GeneralDao {
      * @return
      * @throws Exception
      */
-    public List<WallStreetCnHq> getLatestWhHq(Date date) throws Exception {
+    public List<WallStreetCnHq> getLatestWhHq(String date) throws Exception {
 
         TypedQuery<WallStreetCnHq> query = em.createQuery("select e from WallStreetCnHq e where e.date = :date and e.marketType = :type", WallStreetCnHq.class);
 

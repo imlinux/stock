@@ -16,7 +16,7 @@ public class Zcfzb extends BaseEntity {
     @Id
     private String id;
 
-    private Date date;
+    private String date;
 
     private String SECURITYCODE;
 
@@ -639,11 +639,12 @@ public class Zcfzb extends BaseEntity {
         this.id = id;
     }
 
-    public Date getDate() {
+
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
