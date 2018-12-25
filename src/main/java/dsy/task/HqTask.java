@@ -1,7 +1,7 @@
 package dsy.task;
 
 import dsy.web.service.ShangPinService;
-import dsy.web.service.SwIndustryService;
+import dsy.web.service.IndustryService;
 import dsy.web.service.TongYeChaiJieService;
 import dsy.web.service.WallStreetCnHqService;
 import org.apache.commons.logging.Log;
@@ -23,7 +23,7 @@ public class HqTask {
     private WallStreetCnHqService wallStreetCnHqService;
 
     @Autowired
-    private SwIndustryService swIndustryService;
+    private IndustryService industryService;
 
     @Autowired
     private ShangPinService shangPinService;
@@ -35,9 +35,9 @@ public class HqTask {
     public void syncFromSinaSwIndustry() {
 
         try {
-            LOG.info("开始同步新浪申万行业行情");
-            swIndustryService.syncFromSinaSwIndustry();
-            LOG.info("新浪申万行业行情同步完成");
+            LOG.info("开始同步东方财富行业行情");
+            industryService.syncFromEasyMoneyIndustry();
+            LOG.info("东方财富行业行情同步完成");
         } catch (Exception e) {
             LOG.error("", e);
         }

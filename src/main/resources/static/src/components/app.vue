@@ -50,7 +50,7 @@
 	import wh from './wh'
 	import gdp from './gdp'
     import money_supply from './money_supply'
-	import sw_industry_hq from './swIndustryHq'
+	import sw_industry_hq from './IndustryHq'
 	import company_hq from './company_hq'
 	import rzrq_gdp from './rzrq_gdp'
 	import buffett_ratio from './buffett_ratio'

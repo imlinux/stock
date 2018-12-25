@@ -1,10 +1,5 @@
 package dsy.tmp;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -19,21 +14,11 @@ public class HttpClientTmp {
 
     public static void pageCount() throws Exception {
 
-        String url = "https://hz.zu.anjuke.com/fangyuan/1246915268";
+        String url = "http://data.stats.gov.cn/easyquery.htm?m=QueryData&dbcode=hgyd&rowcode=zb&colcode=sj&wds=%5B%5D&dfwds=%5B%7B%22wdcode%22%3A%22zb%22%2C%22valuecode%22%3A%22A0B01%22%7D%5D&k1=1543298560493";
+
         String html = get(url, "UTF-8");
 
-        Document document = Jsoup.parse(html);
-        Elements zuItems = document.getElementsByClass("multi-page");
-
-        if(zuItems.size() > 0) {
-            Element e = zuItems.first();
-
-            Elements elements = e.getElementsByTag("a");
-
-            elements.forEach(ele -> {
-                System.out.println(ele.attr("href"));
-            });
-        }
+        System.out.println(html);
     }
 
 

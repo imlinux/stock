@@ -1,7 +1,7 @@
 package dsy.web.controller;
 
-import dsy.core.entity.SwIndustryHQ;
-import dsy.web.service.SwIndustryService;
+import dsy.core.entity.IndustryHQ;
+import dsy.web.service.IndustryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,22 +22,16 @@ import static dsy.core.tools.StringTool.isEmpty;
 public class IndustryController {
 
     @Autowired
-    private SwIndustryService swIndustryService;
-
-    @RequestMapping("/sync_from_sina")
-    void syncFromSinaSwIndustry() throws Exception {
-
-        swIndustryService.syncFromSinaSwIndustry();
-    }
+    private IndustryService industryService;
 
 
-    @RequestMapping("/get_sw_industry_hq")
-    List<SwIndustryHQ> getSwIndustryHQ(@RequestParam(required = false) String date) throws Exception {
+    @RequestMapping("/get_industry_hq")
+    List<IndustryHQ> getIndustryHQ(@RequestParam(required = false) String date) throws Exception {
 
         if(isEmpty(date)) {
-            return swIndustryService.getAllSwIndustryHq();
+            return industryService.getAllIndustryHq();
         } else {
-            return swIndustryService.getAllSwIndustryHq(date);
+            return industryService.getAllIndustryHq(date);
         }
     }
 }
