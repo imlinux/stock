@@ -208,7 +208,7 @@ public class FinanceAnalysisService {
 
         String[] urls = new String[] {
                 "http://emweb.securities.eastmoney.com/NewFinanceAnalysis/MainTargetAjax?ctype=" + ctype + "&type=1&code=" + converCode(code),
-                //"http://emweb.securities.eastmoney.com/NewFinanceAnalysis/MainTargetAjax?ctype=" + ctype + "&type=2&code=" + converCode(code)
+                "http://emweb.securities.eastmoney.com/NewFinanceAnalysis/MainTargetAjax?ctype=" + ctype + "&type=2&code=" + converCode(code)
         };
 
         for(String url: urls) {
