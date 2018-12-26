@@ -270,7 +270,7 @@ public class WallStreetCnHqService {
      */
     public List<WallStreetCnHq> getLatestCompanyHq() throws Exception {
 
-        return wallStreetCnHqDao.getLatestCompanyHq();
+        return wallStreetCnHqDao.getLatestCompanyHq(500);
     }
 
     /**

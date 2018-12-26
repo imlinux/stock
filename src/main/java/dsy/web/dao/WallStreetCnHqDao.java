@@ -54,12 +54,15 @@ public class WallStreetCnHqDao extends GeneralDao {
      * @return
      * @throws Exception
      */
-    public List<WallStreetCnHq> getLatestCompanyHq() throws Exception {
+    public List<WallStreetCnHq> getLatestCompanyHq(int limit) throws Exception {
         TypedQuery<WallStreetCnHq> query = em.createQuery("select e from WallStreetCnHq e where e.date = :date and e.marketType = :type order by e.turnoverVolume desc", WallStreetCnHq.class);
 
         query.setParameter("date", getLatestTradeStr());
         query.setParameter("type", MarketType.Stock);
-        query.setMaxResults(500);
+
+        if(limit > 0) {
+            query.setMaxResults(limit);
+        }
 
         return query.getResultList();
     }
