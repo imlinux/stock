@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import dsy.core.entity.MoneySupply;
 import dsy.web.dao.MoneySupplyDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -85,7 +86,7 @@ public class MoneySupplyService {
         }
 
         for(MoneySupply e: data.values()) {
-            moneySupplyDao.merge(e);
+            moneySupplyDao.save(e);
         }
     }
 
@@ -100,6 +101,6 @@ public class MoneySupplyService {
 
 
     public List<MoneySupply> getAll() {
-        return moneySupplyDao.getAll();
+        return moneySupplyDao.findAll(Sort.by("month").ascending());
     }
 }

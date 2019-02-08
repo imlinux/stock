@@ -55,14 +55,14 @@ public class IndustryService {
 
             industryHQ.setDate(latestTradeDate);
             industryHQ.setId(industryHQ.getCode() + "_" + latestTradeDate);
-            industryDao.merge(industryHQ);
+            industryDao.save(industryHQ);
         }
 
     }
 
 
     public List<IndustryHQ> getAllIndustryHq(String date) {
-        return industryDao.getAllIndustryCode(date);
+        return industryDao.findByDate(date);
     }
 
     public List<IndustryHQ> getAllIndustryHq() {

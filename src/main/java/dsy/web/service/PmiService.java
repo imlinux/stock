@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import dsy.core.entity.PMI;
 import dsy.web.dao.PmiDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -75,7 +76,7 @@ public class PmiService {
         }
 
         for(PMI pmi: data.values()) {
-            pmiDao.merge(pmi);
+            pmiDao.save(pmi);
         }
     }
 
@@ -92,6 +93,6 @@ public class PmiService {
 
     public List<PMI> getALl() {
 
-        return pmiDao.getAll();
+        return pmiDao.findAll(Sort.by("month").ascending());
     }
 }

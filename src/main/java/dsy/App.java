@@ -10,7 +10,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * @since 18-10-22
  */
 @SpringBootApplication
-@EnableJpaRepositories
 @EnableScheduling
 public class App {
 
