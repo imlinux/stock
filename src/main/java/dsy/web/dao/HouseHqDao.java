@@ -1,7 +1,7 @@
 package dsy.web.dao;
 
-import org.springframework.stereotype.Repository;
+import dsy.core.entity.HouseHq;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public class HouseHqDao extends GeneralDao {
+public interface HouseHqDao extends JpaRepository<HouseHq, String> {
 }

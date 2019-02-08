@@ -122,7 +122,7 @@ public class FdlService {
         }
 
         for(Fdl fdl: data.values()) {
-            fdlDao.merge(fdl);
+            fdlDao.save(fdl);
         }
 
     }

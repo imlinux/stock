@@ -1,11 +1,11 @@
 package dsy.web.dao;
 
-import org.springframework.stereotype.Repository;
+import dsy.core.entity.ShangPin;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * @author dong
  * @since 18-11-29
  */
-@Repository
-public class ShangPinDao extends GeneralDao {
+public interface ShangPinDao extends JpaRepository<ShangPin, String> {
 }

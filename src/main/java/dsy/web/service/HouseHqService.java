@@ -161,7 +161,7 @@ public class HouseHqService {
 
                 houseHq.setHouseType(HouseType.ErShou);
                 houseHq.setId(houseHq.getPageId());
-                houseHqDao.merge(houseHq);
+                houseHqDao.save(houseHq);
             }
         }
     }
@@ -334,7 +334,7 @@ public class HouseHqService {
                     }
 
                     houseHq.setId(itemUrl);
-                    houseHqDao.merge(houseHq);
+                    houseHqDao.save(houseHq);
                 });
 
                 long t = pauseTime();

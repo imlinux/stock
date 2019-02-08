@@ -1,28 +1,21 @@
 package dsy.web.dao;
 
 import dsy.core.entity.CapitalFlow;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
  * @author dong
  * @since 18-11-16
  */
-@Repository
-public class CapitalFlowDao extends GeneralDao {
+public interface CapitalFlowDao extends JpaRepository<CapitalFlow, String> {
 
     /**
      * 获取个股每天资金流
      * @param code
      * @return
      */
-    public List<CapitalFlow> getCompanyCapitalFlow(String code) {
-
-        TypedQuery<CapitalFlow> query = em.createQuery("select e from CapitalFlow e where e.code=:code order by e.date", CapitalFlow.class);
-        query.setParameter("code", code);
-
-        return query.getResultList();
-    }
+    List<CapitalFlow> findByCode(String code, Sort sort);
 }

@@ -66,7 +66,7 @@ public class ShangPinService {
 
             shangPin.setDate(getDayStr(new Date(shangPin.getUpdateTime() * 1000)));
             shangPin.setId(shangPin.getSymbol() + shangPin.getDate());
-            shangPinDao.merge(shangPin);
+            shangPinDao.save(shangPin);
         });
     }
 

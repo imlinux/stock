@@ -3,7 +3,8 @@ package dsy.web.service;
 import com.alibaba.fastjson.JSON;
 import dsy.core.entity.GdRs;
 import dsy.core.entity.SdGd;
-import dsy.web.dao.AnalyzeGdDao;
+import dsy.web.dao.GdRsDao;
+import dsy.web.dao.SdGdDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +21,10 @@ import static dsy.core.tools.StringTool.objectToString;
 public class AnalyzeGdService {
 
     @Autowired
-    private AnalyzeGdDao analyzeGdDao;
+    private GdRsDao gdRsDao;
+
+    @Autowired
+    private SdGdDao sdGdDao;
 
 
     public void syncGdFromEasyMoney(String code) throws Exception {
@@ -52,7 +56,7 @@ public class AnalyzeGdService {
             gdRs.setCode(code);
             gdRs.setId(gdRs.getDate() + gdRs.getCode());
 
-            analyzeGdDao.merge(gdRs);
+            gdRsDao.save(gdRs);
         });
 
         List sdgd = new ArrayList();
@@ -86,7 +90,7 @@ public class AnalyzeGdService {
                 sdGd.setBdbl(objectToString(rec.get("bdbl")));
 
                 sdGd.setId(sdGd.getDate() + sdGd.getCode() + sdGd.getGdmc() + sdGd.getType());
-                analyzeGdDao.merge(sdGd);
+                sdGdDao.save(sdGd);
             });
         });
     }

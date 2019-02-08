@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import dsy.core.entity.CapitalFlow;
 import dsy.web.dao.CapitalFlowDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -85,7 +86,7 @@ public class CapitalFlowService {
 
             capitalFlow.setCode(code);
             capitalFlow.setId(capitalFlow.getCode() + capitalFlow.getDate());
-            capitalFlowDao.merge(capitalFlow);
+            capitalFlowDao.save(capitalFlow);
         }
     }
 
@@ -139,7 +140,7 @@ public class CapitalFlowService {
 
 
             capitalFlow.setId(capitalFlow.getCode() + capitalFlow.getDate());
-            capitalFlowDao.merge(capitalFlow);
+            capitalFlowDao.save(capitalFlow);
         }
     }
 
@@ -162,11 +163,12 @@ public class CapitalFlowService {
      */
     public List<CapitalFlow> getCompanyCapitalFlow(String code) throws Exception {
 
-        List<CapitalFlow> ret = capitalFlowDao.getCompanyCapitalFlow(code);
+        Sort sort = Sort.by("date").ascending();
+        List<CapitalFlow> ret = capitalFlowDao.findByCode(code, sort);
 
         if(ret.isEmpty()) {
             syncCompanyCapitalFlowFromEastMoney(code);
-            ret = capitalFlowDao.getCompanyCapitalFlow(code);
+            ret = capitalFlowDao.findByCode(code, sort);
         }
         return ret;
     }

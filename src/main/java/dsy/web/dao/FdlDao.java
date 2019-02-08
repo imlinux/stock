@@ -1,7 +1,8 @@
 package dsy.web.dao;
 
 import dsy.core.entity.Fdl;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -9,10 +10,8 @@ import java.util.List;
  * @author dong
  * @since 18-11-26
  */
-@Repository
-public class FdlDao extends GeneralDao {
+public interface FdlDao extends JpaRepository<Fdl, String> {
 
-    public List<Fdl> getAll() {
-        return em.createQuery("select e from Fdl e order by e.month", Fdl.class).getResultList();
-    }
+    @Query("select e from Fdl e order by e.month")
+    List<Fdl> getAll();
 }

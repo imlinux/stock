@@ -1,11 +1,11 @@
 package dsy.web.dao;
 
-import org.springframework.stereotype.Repository;
+import dsy.core.entity.TongYeChaiJie;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * @author dong
  * @since 18-11-30
  */
-@Repository
-public class TongYeChaiJieDao extends GeneralDao {
+public interface TongYeChaiJieDao extends JpaRepository<TongYeChaiJie, String> {
 }

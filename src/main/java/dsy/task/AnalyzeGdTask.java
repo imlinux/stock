@@ -35,6 +35,9 @@ public class AnalyzeGdTask {
     public void syncGd() throws Exception {
 
         List<WallStreetCnHq> wallStreetCnHqList = wallStreetCnHqDao.getLatestCompanyHq(-1);
+
+        LOG.info("开始同步股东信息");
+
         wallStreetCnHqList.forEach( e -> {
 
             transactionTemplate.execute( transactionStatus -> {
@@ -48,5 +51,7 @@ public class AnalyzeGdTask {
             });
             pauseTime();
         });
+
+        LOG.info("股东信息同步完成");
     }
 }

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -116,15 +117,19 @@ public class TongYeChaiJieService {
 
             String id = type + date;
 
-            TongYeChaiJie tongYeChaiJie = tongYeChaiJieDao.find(TongYeChaiJie.class, id);
+            Optional<TongYeChaiJie> tongYeChaiJieOptional = tongYeChaiJieDao.findById(id);
+            TongYeChaiJie tongYeChaiJie = null;
 
-            if(tongYeChaiJie == null) {
+            if(tongYeChaiJieOptional.isPresent()) {
+                tongYeChaiJie = tongYeChaiJieOptional.get();
+
+            } else {
                 tongYeChaiJie = new TongYeChaiJie();
                 tongYeChaiJie.setId(id);
                 tongYeChaiJie.setType(type);
                 tongYeChaiJie.setDate(date);
 
-                tongYeChaiJieDao.persist(tongYeChaiJie);
+                tongYeChaiJieDao.save(tongYeChaiJie);
             }
 
             lvMethod.accept(tongYeChaiJie, lv);

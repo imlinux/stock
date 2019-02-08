@@ -5,11 +5,13 @@ import dsy.core.entity.EastMoneyRzRqDetial;
 import dsy.core.entity.EastMoneyRzrq;
 import dsy.core.entity.Gdp;
 import dsy.web.dao.RzRqDao;
+import dsy.web.dao.RzRqDetialDao;
 import dsy.web.dto.RzrqDto;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +33,9 @@ public class RzRqService {
 
     @Autowired
     private RzRqDao rzRqDao;
+
+    @Autowired
+    private RzRqDetialDao rzRqDetialDao;
 
     @Autowired
     private GdpService gdpService;
@@ -97,7 +102,7 @@ public class RzRqService {
             rec.setRzrqye(parse(e.get("rzrqye")));
             rec.setRzrqyecz(parse(e.get("rzrqyecz")));
 
-            rzRqDao.merge(rec);
+            rzRqDetialDao.save(rec);
         }
 
     }
@@ -168,7 +173,7 @@ public class RzRqService {
             eastMoneyRzrq.setDate(eastMoneyRzrq.getTdate());
             eastMoneyRzrq.setId(eastMoneyRzrq.getTdate());
 
-            rzRqDao.merge(eastMoneyRzrq);
+            rzRqDao.save(eastMoneyRzrq);
         }
     }
 
@@ -178,7 +183,7 @@ public class RzRqService {
      * @return
      */
     public List<RzrqDto> getRzRqyeZbGdp() {
-        List<EastMoneyRzrq> l = rzRqDao.getAll();
+        List<EastMoneyRzrq> l = rzRqDao.findAll(Sort.by("date"));
         Gdp gdp = gdpService.getLatest();
 
         List<RzrqDto> ret = new ArrayList<>();

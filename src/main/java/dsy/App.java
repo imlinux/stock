@@ -2,6 +2,7 @@ package dsy;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
@@ -9,6 +10,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * @since 18-10-22
  */
 @SpringBootApplication
+@EnableJpaRepositories
 @EnableScheduling
 public class App {
 
