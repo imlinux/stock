@@ -36,7 +36,7 @@ public class SdGd {
     //占流通股比例
     private String zltgbcgbl;
 
-    //增减
+    //增减(股数)
     private String zj;
 
     //变动比例

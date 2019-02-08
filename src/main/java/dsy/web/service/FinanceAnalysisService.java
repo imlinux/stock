@@ -169,8 +169,6 @@ public class FinanceAnalysisService {
 
             List ret = JSON.parseArray(json);
 
-            SimpleDateFormat sm = new SimpleDateFormat("yyyy/MM/dd H:mm:ss");
-
             for (Object o : ret) {
                 Map<String, Object> e = (Map) o;
 
@@ -208,7 +206,7 @@ public class FinanceAnalysisService {
 
         String[] urls = new String[] {
                 "http://emweb.securities.eastmoney.com/NewFinanceAnalysis/MainTargetAjax?ctype=" + ctype + "&type=1&code=" + converCode(code),
-                "http://emweb.securities.eastmoney.com/NewFinanceAnalysis/MainTargetAjax?ctype=" + ctype + "&type=2&code=" + converCode(code)
+                //"http://emweb.securities.eastmoney.com/NewFinanceAnalysis/MainTargetAjax?ctype=" + ctype + "&type=2&code=" + converCode(code)
         };
 
         for(String url: urls) {
@@ -217,8 +215,6 @@ public class FinanceAnalysisService {
             json = JSON.parse(json).toString();
 
             List ret = JSON.parseArray(json);
-
-            SimpleDateFormat sm = new SimpleDateFormat("yyyy/MM/dd H:mm:ss");
 
             for (Object o : ret) {
                 Map<String, Object> e = (Map) o;
@@ -232,7 +228,12 @@ public class FinanceAnalysisService {
                 Cwzb cwzb = new Cwzb();
 
                 BeanWrapper beanWrapper = new BeanWrapperImpl(cwzb);
-                beanWrapper.setPropertyValues(new MutablePropertyValues(e));
+
+                try {
+                    beanWrapper.setPropertyValues(new MutablePropertyValues(e));
+                } catch (Exception ex) {
+                    LOG.error(url, ex);
+                }
 
                 cwzb.setCode(code);
                 cwzb.setId(cwzb.getDate() + code);

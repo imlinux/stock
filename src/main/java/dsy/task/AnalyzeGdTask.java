@@ -1,8 +1,9 @@
 package dsy.task;
 
 import dsy.core.entity.WallStreetCnHq;
+import dsy.web.dao.WallStreetCnHqDao;
 import dsy.web.service.AnalyzeGdService;
-import dsy.web.service.WallStreetCnHqService;
+import dsy.web.service.FinanceAnalysisService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class AnalyzeGdTask {
     private Log LOG = LogFactory.getLog(getClass());
 
     @Autowired
-    private WallStreetCnHqService wallStreetCnHqService;
+    private WallStreetCnHqDao wallStreetCnHqDao;
 
     @Autowired
     private TransactionTemplate transactionTemplate;
@@ -27,15 +28,19 @@ public class AnalyzeGdTask {
     @Autowired
     private AnalyzeGdService analyzeGdService;
 
+    @Autowired
+    private FinanceAnalysisService financeAnalysisService;
+
     @Scheduled(fixedDelay = 10 * 60 * 1000)
     public void syncGd() throws Exception {
 
-        List<WallStreetCnHq> wallStreetCnHqList = wallStreetCnHqService.getLatestCompanyHq();
+        List<WallStreetCnHq> wallStreetCnHqList = wallStreetCnHqDao.getLatestCompanyHq(-1);
         wallStreetCnHqList.forEach( e -> {
 
             transactionTemplate.execute( transactionStatus -> {
                 try {
                     analyzeGdService.syncGdFromEasyMoney(e.getProdCode());
+                    financeAnalysisService.syncCwzbFromEastMoney(e.getProdCode());
                 } catch (Exception ex) {
                     LOG.error("", ex);
                 }
