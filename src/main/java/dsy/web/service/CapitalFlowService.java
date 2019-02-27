@@ -2,13 +2,17 @@ package dsy.web.service;
 
 import com.alibaba.fastjson.JSON;
 import dsy.core.entity.CapitalFlow;
+import dsy.core.entity.HSGTCapitalFlow;
 import dsy.web.dao.CapitalFlowDao;
+import dsy.web.dao.HSGTCapotalFlowDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 import static dsy.core.tools.DateTool.getDayStr;
 import static dsy.core.tools.HttpClientTool.get;
@@ -17,6 +21,8 @@ import static dsy.core.tools.TradeTool.getLatestTrade;
 /**
  * @author dong
  * @since 18-11-16
+ *
+ * 资金流
  */
 @Service
 @Transactional
@@ -24,6 +30,9 @@ public class CapitalFlowService {
 
     @Autowired
     private CapitalFlowDao capitalFlowDao;
+
+    @Autowired
+    private HSGTCapotalFlowDao hsgtCapotalFlowDao;
 
     /**
      * 同步公司的资金流
@@ -172,4 +181,35 @@ public class CapitalFlowService {
         }
         return ret;
     }
+
+
+    @Scheduled(fixedDelay = 10 * 60 * 1000)
+    public void syncHSGTCaptialFlow() throws Exception {
+
+        String url = "http://dcfm.eastmoney.com/EM_MutiSvcExpandInterface/api/js/get?type=HSGTZJZS&token=70f12f2f4f091e459a279469fe49eca5";
+
+        String jsonString = get(url, "UTF-8");
+
+        List l = JSON.parseArray(jsonString);
+
+        l.forEach( e -> {
+
+            Map<String, Object> rec = (Map) e;
+
+            HSGTCapitalFlow hsgtCapitalFlow = new HSGTCapitalFlow();
+
+            hsgtCapitalFlow.setDateTime(rec.get("DateTime").toString());
+            hsgtCapitalFlow.setHsMoney(parseDouble(rec.get("HSMoney").toString()));
+            hsgtCapitalFlow.setSsMoney(parseDouble(rec.get("SSMoney").toString()));
+            hsgtCapitalFlow.setNorthMoney(parseDouble(rec.get("NorthMoney").toString()));
+            hsgtCapitalFlow.setGghsMoney(parseDouble(rec.get("GGHSMoney").toString()));
+            hsgtCapitalFlow.setGgssMoney(parseDouble(rec.get("GGSSMoney").toString()));
+            hsgtCapitalFlow.setSsMoney(parseDouble(rec.get("SouthSumMoney").toString()));
+
+            hsgtCapitalFlow.setId(hsgtCapitalFlow.getDateTime());
+            hsgtCapotalFlowDao.save(hsgtCapitalFlow);
+        });
+
+    }
+
 }

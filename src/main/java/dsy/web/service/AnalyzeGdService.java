@@ -16,6 +16,10 @@ import java.util.Map;
 import static dsy.core.tools.HttpClientTool.get;
 import static dsy.core.tools.StringTool.objectToString;
 
+/**
+ * 股东分析
+ */
+
 @Service
 @Transactional
 public class AnalyzeGdService {
